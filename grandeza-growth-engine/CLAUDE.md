@@ -96,3 +96,5 @@ Outputs land in `outputs/`. Reference copies of the last good build are in
 - Nevada breach notice = "without unreasonable delay," **no 72-hour rule** (72h is GDPR).
 - Recording: NRS 200.620 all-party; Lane v. Allstate (1998, phone) + Sharpe v. State (2015, cell/text); Cat. D felony via NRS 193.130.
 - Citations live in `data/legal-spine.json`. Anything not verifiable to that standard doesn't ship.
+- New to this repo? Read `data/LEGAL_PRIMER.md` first — a plain-English walkthrough of the
+  four underlying laws behind the 16 controls, and why the scan uses 16 controls instead of 4.

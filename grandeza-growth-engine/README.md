@@ -24,6 +24,7 @@ TASKS.md                  # what to build next in Claude Code
 data/
   controls.json           # the 16-control scan (weights, bands, auto-fails)
   legal-spine.json        # verified laws + phantom-law guardrail
+  LEGAL_PRIMER.md          # plain-English: the 4 laws behind the 16 controls
   content-bank.js         # 30 days: hooks, scripts, overlays, LI/FB captions
   instagram-captions.js   # Instagram-adapted captions
   *Instagram*.md          # Instagram strategy + 30-day guide
