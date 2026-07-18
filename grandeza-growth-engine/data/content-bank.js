@@ -1,249 +1,269 @@
-// data/content-bank.js
-//
-// Reconstructed draft. The original shipped in a zip whose git history was
-// truncated and could not be recovered; this version was re-authored from
-// the maintainer's plain-language description (30 entries: control, format,
-// hook, script, onscreen, linkedin, facebook — days 1-16 walk the controls
-// heaviest-first, days 17-30 are composites/proofs/founder angles).
-//
-// Facts referenced below (TCPA per-text penalty range, NRS 200.620 felony
-// exposure, NRS 603A breach notice, FTC Section 5) are the same verified
-// figures already cited in src/build-scripts.js's "LEGAL FRAMING" block —
-// nothing new is asserted here. No phantom law, no real prospect names.
+// Grandeza 30-Day Daily Content Bank — built on the real 16-control scan weights
+// Legal framing corrected July 2026: NO "Nevada SB 149" and NO "October 1 deadline."
+// Spine = Federal TCPA + NRS 200.620 (recording) + NRS 603A (data/breach) + FTC Sec 5 + multi-state disclosure wave.
 
 const CONTROLS = {
-  "01": { name: "AI Identity Disclosure",         wt: 8, pillar: "Disclosure" },
-  "02": { name: "Consent Language & NRS 603A",    wt: 7, pillar: "Privacy" },
-  "03": { name: "TCPA Outbound Compliance",       wt: 9, pillar: "Outbound" },
-  "04": { name: "Data Minimization",              wt: 6, pillar: "Privacy" },
-  "05": { name: "Third-Party Data Sharing",       wt: 6, pillar: "Privacy" },
-  "06": { name: "Opt-Out Mechanism",              wt: 5, pillar: "Privacy" },
-  "07": { name: "Human Override & Escalation",    wt: 7, pillar: "Guardrails" },
-  "08": { name: "Employee AI Use Policy",         wt: 5, pillar: "Governance" },
+  "01": { name: "AI Identity Disclosure", wt: 8, pillar: "Disclosure" },
+  "02": { name: "Consent Language & NRS 603A", wt: 7, pillar: "Privacy" },
+  "03": { name: "TCPA Outbound Compliance", wt: 9, pillar: "Outbound" },
+  "04": { name: "Data Minimization", wt: 6, pillar: "Privacy" },
+  "05": { name: "Third-Party Data Sharing", wt: 6, pillar: "Privacy" },
+  "06": { name: "Opt-Out Mechanism", wt: 5, pillar: "Privacy" },
+  "07": { name: "Human Override & Escalation", wt: 7, pillar: "Guardrails" },
+  "08": { name: "Employee AI Use Policy", wt: 5, pillar: "Governance" },
   "09": { name: "Recording Consent & Disclosure", wt: 8, pillar: "Disclosure" },
-  "10": { name: "Accuracy & Scope Limits",        wt: 6, pillar: "Guardrails" },
-  "11": { name: "Vendor Contracts (DPA)",         wt: 5, pillar: "Governance" },
-  "12": { name: "Incident Response Plan",         wt: 7, pillar: "Governance" },
-  "13": { name: "Bias & Fairness Review",         wt: 5, pillar: "Guardrails" },
-  "14": { name: "Audit Trail & Logs",             wt: 8, pillar: "Governance" },
-  "15": { name: "Annual Compliance Review",       wt: 4, pillar: "Governance" },
-  "16": { name: "Insurance (E&O / GL for AI)",    wt: 4, pillar: "Governance" },
+  "10": { name: "Accuracy & Scope Limits", wt: 6, pillar: "Guardrails" },
+  "11": { name: "Vendor Contracts (DPA)", wt: 5, pillar: "Governance" },
+  "12": { name: "Incident Response Plan", wt: 7, pillar: "Governance" },
+  "13": { name: "Bias & Fairness Review", wt: 5, pillar: "Guardrails" },
+  "14": { name: "Audit Trail & Logs", wt: 8, pillar: "Governance" },
+  "15": { name: "Annual Compliance Review", wt: 4, pillar: "Governance" },
+  "16": { name: "Insurance (E&O / GL for AI)", wt: 4, pillar: "Governance" }
 };
 
-function day(n, format, control, hook, script, onscreen, linkedin, facebook) {
-  return { day: n, format, control, hook, script, onscreen, linkedin, facebook };
-}
-
+// Each day: control, format (AUDIT/EXPLAINER/SCORE/MATH/STORY), hook, script (VO/body),
+// onscreen (text overlays for a Reel/Short), linkedin (caption), facebook (caption).
 const DAYS = [
-  day(1, "MATH", "03",
-    "One bad AI text costs more than your monthly ad budget.",
-    "TCPA penalties run $500 to $1,500 per unsolicited text — no class-action cap. If your AI agent is texting leads without a compliant consent trail, that's not one fine, it's one per message sent. Run the free scan before your outbound volume finds the ceiling for you.",
-    ["$500–$1,500 / text", "NO class-action cap", "grandeza.io/scan"],
-    "Your AI agent doesn't know it's exposing you to TCPA penalties.\n\nMost outbound AI setups skip the one thing that matters: a documented, compliant consent trail before the first text goes out.\n\n$500–$1,500 per text. No cap on how many stack up.\n\nWe built a free 16-control scan that checks this in minutes: grandeza.io/scan",
-    "Quick math nobody wants to do: TCPA fines are $500–$1,500 PER text, and there's no cap. If your AI is texting leads, check your consent trail before it checks you. Free scan → grandeza.io/scan"),
-
-  day(2, "AUDIT", "01",
-    "Would your customers know they're talking to AI right now?",
-    "AI identity disclosure isn't optional anymore — it's the fastest-moving compliance wave in the country, with states rolling out their own rules on top of FTC Section 5's ban on deceptive practices. If your voice agent or chatbot never says what it is, that's an audit finding waiting to happen. Get ahead of it.",
-    ["Does it say \"I'm an AI\"?", "FTC Section 5: no deceptive practices", "grandeza.io/scan"],
-    "Quick audit question: does your AI agent ever actually say it's AI?\n\nNot buried in a footer — out loud, at the start of the interaction.\n\nFTC Section 5 already bans deceptive trade practices, and a wave of state AI-disclosure laws is stacking on top of it. This is the easiest control to fix and the easiest one to get caught missing.\n\nFree 16-control scan: grandeza.io/scan",
-    "Does your AI ever say \"I'm an AI\"? If the answer is no, that's control #1 on our free scan — and it's the cheapest fix on the whole list. grandeza.io/scan"),
-
-  day(3, "EXPLAINER", "09",
-    "In Nevada, recording a call without consent isn't a fine. It's a felony.",
-    "NRS 200.620 makes unauthorized call recording a category D felony in Nevada — all-party consent, no exceptions for \"the AI didn't know.\" If your intake agent records calls for training or QA and never discloses it, that liability sits with the business, not the vendor. It's a one-line fix. Most setups never make it.",
-    ["NRS 200.620", "Category D felony", "All-party consent required"],
-    "This one surprises people: recording a call without disclosure in Nevada isn't a civil fine — it's a category D felony under NRS 200.620.\n\nAll-party consent, no carve-out for \"our AI vendor handled it.\"\n\nIf your intake system records for QA or training, the disclosure line has to be there and it has to be documented. One control, real exposure.\n\ngrandeza.io/scan",
-    "Recording a call without consent in Nevada is a FELONY, not a fine (NRS 200.620). If your AI agent records calls, make sure the disclosure is actually there. grandeza.io/scan"),
-
-  day(4, "SCORE", "14",
-    "If you got audited tomorrow, could you produce the log?",
-    "Audit trail isn't glamorous, but it's the control that decides whether every other control is provable. No logs means no evidence — and no evidence means every other 'we're compliant' claim is just a claim. It's weighted heavy in our scan for a reason: it's the one that backs up all the others.",
-    ["No log = no proof", "Weight 8 of 16", "grandeza.io/scan"],
-    "Here's the control most teams skip: audit trail & logs.\n\nEvery other compliance claim you make — disclosure, consent, opt-out — is only as good as your ability to prove it happened. Without logs, \"we're compliant\" is just a sentence.\n\nIt's one of our four auto-fail controls for exactly this reason. Score yours free: grandeza.io/scan",
-    "Could you produce the log if you got audited tomorrow? If not, that's an auto-fail on our scan — and it's fixable in an afternoon. grandeza.io/scan"),
-
-  day(5, "STORY", "02",
-    "The consent checkbox everyone copies and nobody reads.",
-    "Most intake forms borrow a consent line from a template that predates NRS 603A. It technically exists, so it feels done. It isn't. Consent language has to actually name what data is collected, why, and for how long — or it doesn't hold up. We see this gap on almost every first scan.",
-    ["Copied ≠ compliant", "NRS 603A: name it, or it doesn't count", "grandeza.io/scan"],
-    "The most common gap we see isn't a missing consent checkbox — it's a checkbox that was copied from a template three companies ago.\n\nNRS 603A requires consent language to actually name what's collected and why. \"I agree to the terms\" doesn't clear that bar.\n\nIt's a five-minute rewrite once you know it's the problem. grandeza.io/scan",
-    "That consent checkbox on your form — was it written for your business, or copied from a template? NRS 603A cares about the difference. Free scan: grandeza.io/scan"),
-
-  day(6, "MATH", "07",
-    "What happens when your AI agent doesn't know the answer?",
-    "Every AI intake flow eventually hits a question it shouldn't answer alone — a legal question, a pricing exception, an angry customer. Human override & escalation is the control that decides whether that moment becomes a save or a liability. No escalation path, no safety net.",
-    ["No escalation path = no safety net", "Weight 7 of 16", "grandeza.io/scan"],
-    "Your AI agent will eventually hit a question it shouldn't answer alone.\n\nThe question isn't whether that happens — it's whether there's a documented human escalation path when it does.\n\nWe weight this control at 7 of 16 because it's the difference between a recoverable moment and a liability. grandeza.io/scan",
-    "What happens when your AI doesn't know the answer? If there's no human escalation path, that's the gap. Free scan → grandeza.io/scan"),
-
-  day(7, "AUDIT", "12",
-    "You have a fire extinguisher. Do you have an incident response plan for a data leak?",
-    "Every business plans for the physical emergency. Almost none plan for the digital one. An incident response plan for AI-handled data isn't bureaucracy — it's the difference between a contained problem and a headline. If your answer to 'what happens if this leaks' is a shrug, that's the finding.",
-    ["Physical emergency: planned for", "Data emergency: usually not", "grandeza.io/scan"],
-    "Quick gut check: you almost certainly have a fire extinguisher and an evacuation plan.\n\nDo you have a written incident response plan for what happens if the data your AI agent handles leaks?\n\nMost businesses we scan don't. It's control #12, and it's the one that turns a bad day into a survivable one. grandeza.io/scan",
-    "Fire extinguisher: yes. Incident response plan for a data leak: usually no. Which one are you missing? grandeza.io/scan"),
-
-  day(8, "EXPLAINER", "04",
-    "Your AI agent is collecting more data than it needs. That's the liability.",
-    "Data minimization sounds abstract until you look at an actual intake transcript and count the fields being stored that never get used. Every field you don't need is a field you have to secure, disclose, and eventually explain. Less collected is less exposed.",
-    ["Every unused field = exposure", "Collect less, secure less", "grandeza.io/scan"],
-    "We pulled an intake transcript during a scan recently — well, we do this constantly — and the pattern is always the same: AI agents collect more than the business ever uses.\n\nEvery field stored is a field you have to secure and disclose. Data minimization isn't a privacy nicety, it's a smaller attack surface.\n\ngrandeza.io/scan",
-    "If your AI agent is storing data it never actually uses, that's not thoroughness — it's unnecessary exposure. grandeza.io/scan"),
-
-  day(9, "SCORE", "05",
-    "Who else sees the data your AI agent collects?",
-    "Third-party data sharing is the control businesses are least able to answer on the spot. Your AI vendor, your CRM, your marketing platform — each one is a hop the data takes, and each hop needs a documented reason. If you can't map it, you can't defend it.",
-    ["Can you map every hop?", "Weight 6 of 16", "grandeza.io/scan"],
-    "Ask yourself: every platform your AI agent's data touches after the conversation ends — can you list them?\n\nCRM, vendor, marketing tool, backup service. Each hop needs a reason you can point to.\n\nThis is control #5 on our scan, and it's usually the one people answer with a shrug. grandeza.io/scan",
-    "Who else sees the data your AI agent collects? If you can't answer fast, that's the gap. Free scan: grandeza.io/scan"),
-
-  day(10, "STORY", "10",
-    "\"The AI told the customer something that wasn't true.\" We hear this more than you'd think.",
-    "Accuracy & scope limits exists because AI agents are confident even when they're wrong. Without a documented scope — what it can and can't speak to — a hallucinated answer becomes your liability, not the vendor's. The fix isn't complicated: define the edges, log the exceptions.",
-    ["Confident ≠ correct", "Undefined scope = your liability", "grandeza.io/scan"],
-    "\"The AI told the customer something that wasn't true\" is a sentence we hear more than any vendor wants to admit.\n\nAI agents are confident by default, even when wrong. Without a documented scope of what it's allowed to speak to, that confidence becomes your liability.\n\nDefine the edges. Log the exceptions. grandeza.io/scan",
-    "AI agents are confident even when they're wrong. Does yours have a documented scope of what it can and can't answer? grandeza.io/scan"),
-
-  day(11, "MATH", "06",
-    "\"STOP\" has to actually stop something.",
-    "Opt-out mechanisms fail quietly — a keyword that doesn't route anywhere, a form that submits into a void. TCPA and CAN-SPAM both expect it to work in practice, not just exist in policy. Test yours today: text STOP, see what happens.",
-    ["Test it: does STOP actually stop it?", "Weight 5 of 16", "grandeza.io/scan"],
-    "Quick test you can run right now: text \"STOP\" to your own AI outbound number.\n\nDoes it actually stop, or does it just acknowledge and keep going?\n\nOpt-out mechanisms are one of the most-failed controls on our scan because they look done on paper and aren't tested in practice. grandeza.io/scan",
-    "Text \"STOP\" to your own number. Did it actually stop? That's control #6. grandeza.io/scan"),
-
-  day(12, "AUDIT", "08",
-    "Does your team even know the rules for using AI at work?",
-    "Employee AI use policy is the control that closes the human gap — the well-meaning staffer who pastes a customer's info into a chatbot to get a quick answer. Without a written policy, that's not an edge case, it's a matter of time.",
-    ["No policy = matter of time", "Close the human gap", "grandeza.io/scan"],
-    "The AI risk in your business isn't always the agent you built — sometimes it's a well-meaning employee pasting customer data into a chatbot for a quick answer.\n\nAn employee AI use policy closes that gap. Without one, it's not an edge case, it's a matter of time.\n\ngrandeza.io/scan",
-    "Does your team have a written policy for using AI tools at work? If not, that's the gap most businesses miss. grandeza.io/scan"),
-
-  day(13, "EXPLAINER", "11",
-    "Your AI vendor's data practices are your data practices.",
-    "A Data Processing Agreement isn't paperwork for its own sake — it's the document that puts liability where it belongs when a vendor mishandles data. Without one, every vendor failure lands on you by default. Check your contracts before you need to.",
-    ["No DPA = liability defaults to you", "Weight 5 of 16", "grandeza.io/scan"],
-    "If your AI vendor mishandles customer data and you don't have a signed DPA, the liability doesn't stay with the vendor — it defaults back to you.\n\nA Data Processing Agreement is the document that fixes that. Most businesses assume it exists. Fewer have actually checked.\n\ngrandeza.io/scan",
-    "Do you have a signed DPA with every AI vendor touching customer data? If you're not sure, that's worth five minutes to check. grandeza.io/scan"),
-
-  day(14, "SCORE", "13",
-    "Has anyone checked your AI agent for bias?",
-    "Bias & fairness review is the control businesses assume doesn't apply to them because they're not a hiring platform. But any AI system that scores, ranks, or filters people — leads, applicants, claims — carries the same exposure. A documented review is the answer, not a guess.",
-    ["\"We're not hiring, so it doesn't apply\" — wrong", "Weight 5 of 16", "grandeza.io/scan"],
-    "\"Bias review doesn't apply to us, we're not a hiring platform\" is the most common thing we hear right before we point out the lead-scoring model doing exactly that job.\n\nAny AI system that scores, ranks, or filters people carries this exposure. A documented review beats a guess. grandeza.io/scan",
-    "If your AI scores, ranks, or filters people in any way — leads, applicants, claims — bias review applies to you. grandeza.io/scan"),
-
-  day(15, "STORY", "15",
-    "Compliant on launch day isn't compliant a year later.",
-    "Laws change. Vendors change their terms. Your AI agent's scope creeps. Annual compliance review is the least exciting control on the list and the one that keeps every other control from going stale. Set the calendar reminder now.",
-    ["Launch-day compliant ≠ still compliant", "Set the annual review", "grandeza.io/scan"],
-    "The compliance work you did at launch has a shelf life. Laws change, vendor terms change, and your AI agent's scope quietly expands over a year.\n\nAn annual review is the least exciting control on our list — and the one that keeps every other control from going stale.\n\ngrandeza.io/scan",
-    "Compliant on launch day isn't compliant a year later. When's your last review? grandeza.io/scan"),
-
-  day(16, "MATH", "16",
-    "Does your insurance actually cover an AI mistake?",
-    "Most general liability and E&O policies were written before AI agents existed, and plenty of insurers now carve out AI-related claims explicitly. If you haven't asked your broker this exact question, you likely don't have coverage for the thing you're most exposed to.",
-    ["Ask your broker this exact question", "Weight 4 of 16", "grandeza.io/scan"],
-    "Have you asked your insurance broker, specifically, whether your E&O or GL policy covers a mistake made by your AI agent?\n\nA lot of policies were written before AI agents existed and now carve these claims out entirely. It's the lowest-weighted control on our scan and one of the most overlooked. grandeza.io/scan",
-    "Does your insurance actually cover an AI mistake? Ask your broker the direct question — most policies don't. grandeza.io/scan"),
-
-  day(17, "SCORE", "BANDS",
-    "31 to 58. That's the typical first-scan score.",
-    "Most businesses that run our free scan for the first time land between 31 and 58 out of 100 — \"Exposed\" to \"Developing.\" That's not a scare tactic, it's just what an unaudited AI intake setup looks like. The scan tells you exactly which controls to fix first.",
-    ["Typical first score: 31–58", "That's Exposed to Developing", "grandeza.io/scan"],
-    "Curious where you'd land? Most businesses running our free scan for the first time score between 31 and 58 out of 100.\n\nThat's the \"Exposed\" to \"Developing\" range — not a failing grade, just an honest starting point. The scan tells you exactly which of the 16 controls to fix first.\n\ngrandeza.io/scan",
-    "Most first-time scores land 31–58 out of 100. Where would you land? grandeza.io/scan"),
-
-  day(18, "AUDIT", "MULTI",
-    "One FAIL and the whole scan flags red. Here's why.",
-    "Four controls on our scan are auto-fails: TCPA outbound, AI identity disclosure, recording consent, and audit trail. Fail any one of those and your overall score doesn't matter — the scan flags red regardless of total. They're the controls with real legal teeth, not just best practice.",
-    ["4 auto-fail controls", "One FAIL = red, regardless of score", "grandeza.io/scan"],
-    "Here's a detail people miss about our scan: 4 of the 16 controls are auto-fails.\n\nTCPA outbound compliance, AI identity disclosure, recording consent, and audit trail. Fail any single one and the overall score doesn't save you — it flags red regardless of total.\n\nThose four have the sharpest legal teeth. Start there. grandeza.io/scan",
-    "4 controls on our scan are auto-fails. Fail one and your score doesn't matter — it flags red no matter what. grandeza.io/scan"),
-
-  day(19, "EXPLAINER", "SCAN",
-    "The scan takes less time than reading this caption.",
-    "grandeza.io/scan runs all 16 controls against your AI intake setup and hands back a scored breakdown — what's passing, what's failing, and which auto-fails need attention first. No sales call required to see where you stand.",
-    ["16 controls, one scan", "No sales call required", "grandeza.io/scan"],
-    "You don't need a sales call to find out where you stand. The free scan at grandeza.io/scan runs all 16 controls against your AI intake setup and hands back a scored breakdown in minutes — including which auto-fails to fix first.\n\ngrandeza.io/scan",
-    "Free scan, 16 controls, no sales call. grandeza.io/scan"),
-
-  day(20, "STORY", "BRAND",
-    "Why we built the evidence layer instead of another AI feature.",
-    "Every AI vendor sells you the agent. Almost none of them sell you the proof that the agent is compliant. We built Grandeza because the businesses adopting AI fastest are the ones with the least documentation to show for it — and that gap is where the real risk lives.",
-    ["Everyone sells the agent", "Almost nobody sells the proof", "grandeza.io/scan"],
-    "Every AI vendor pitch sounds the same: faster intake, more leads, less staff time.\n\nAlmost none of them hand you proof that the agent is compliant while it does that. We built Grandeza to be the evidence layer — the documentation that backs up the AI feature you already bought.\n\ngrandeza.io/scan",
-    "AI vendors sell you the agent. We built the proof that it's compliant. grandeza.io/scan"),
-
-  day(21, "MATH", "MULTI",
-    "TCPA + recording consent + audit trail. Same call, three exposures.",
-    "One inbound call handled by an AI agent can touch three auto-fail controls at once: was the AI disclosed, was the recording consented to, and is there a log of both? Most businesses have checked none of the three. Stack the fixes, don't stack the fines.",
-    ["1 call, 3 auto-fail controls", "Check all three at once", "grandeza.io/scan"],
-    "One AI-handled call can touch three auto-fail controls simultaneously: AI disclosure, recording consent, and the audit log proving both happened.\n\nMost businesses we scan have addressed none of the three. Good news — fixing them together takes an afternoon, not a quarter. grandeza.io/scan",
-    "One call. Three auto-fail controls. Have you checked all three? grandeza.io/scan"),
-
-  day(22, "SCORE", "MULTI",
-    "Disclosure, Privacy, Outbound, Guardrails, Governance. Which pillar is weakest for you?",
-    "Our 16 controls roll up into five pillars. Most businesses are strong in one and blind in another — usually Governance, because it's the least visible until an audit asks for it. The scan breaks your score down by pillar, not just a single number.",
-    ["5 pillars, 1 score each", "Governance is usually the blind spot", "grandeza.io/scan"],
-    "Our 16 controls roll up into 5 pillars: Disclosure, Privacy, Outbound, Guardrails, Governance.\n\nMost businesses we scan are decent in one or two and blind in Governance specifically — it's the least visible pillar until someone actually asks for the paperwork.\n\nThe scan scores each pillar separately, not just a single number. grandeza.io/scan",
-    "5 pillars. Which one is your weak spot? Free breakdown: grandeza.io/scan"),
-
-  day(23, "AUDIT", "MULTI",
-    "The 5-minute version of a 16-control audit.",
-    "You don't need the full scan to spot the biggest risks. Ask three questions right now: does your AI ever say it's AI, does STOP actually stop outbound texts, and could you produce a log if asked. Two or more \"no\"s means it's time to run the real thing.",
-    ["3 questions, 5 minutes", "2+ \"no\"s = run the full scan", "grandeza.io/scan"],
-    "Try the 5-minute version of our audit right now:\n\n1. Does your AI ever say it's AI?\n2. Does texting STOP actually stop outbound messages?\n3. Could you produce a log if someone asked?\n\nTwo or more \"no\"s means it's worth running the real 16-control scan. grandeza.io/scan",
-    "3 quick questions to self-audit your AI setup — full list in comments/link. grandeza.io/scan"),
-
-  day(24, "STORY", "SCRIPT",
-    "\"We didn't think we needed a script for the AI. We were wrong.\"",
-    "A composite from calls we've reviewed: an AI intake agent with no documented scope started answering pricing questions it was never trained to answer confidently — and inconsistently. No script, no scope limit, no audit trail to catch it until a customer flagged the mismatch. Every one of those is a control on our list.",
-    ["No script = no scope", "Composite example, not a real client", "grandeza.io/scan"],
-    "A pattern we see often enough to be a composite, not a one-off: an AI intake agent with no documented scope starts answering questions it was never scoped for — confidently, and inconsistently.\n\nNo script. No scope limit. No log to catch it until a customer notices. Every piece of that is a control on our scan.\n\ngrandeza.io/scan",
-    "No documented scope for your AI agent means it'll eventually answer something it shouldn't. grandeza.io/scan"),
-
-  day(25, "EXPLAINER", "BANDS",
-    "\"Protected\" isn't a marketing word on our scan. It's a number.",
-    "91 to 100 is our top band: Protected. It means all four auto-fail controls pass and the weighted total clears 91. Very few businesses land there on a first scan — it's a target you build toward, control by control, not a claim you make on day one.",
-    ["91–100 = Protected", "Built control-by-control, not claimed", "grandeza.io/scan"],
-    "\"Protected\" isn't a marketing label on our scan — it's a specific number: 91–100, with all four auto-fail controls passing.\n\nVery few businesses land there on a first scan, and that's fine. It's a target you build toward one control at a time, not something you claim on day one.\n\ngrandeza.io/scan",
-    "Our top band is \"Protected\" — 91+ with every auto-fail passing. It's earned, not claimed. grandeza.io/scan"),
-
-  day(26, "MATH", "MULTI",
-    "16 controls. 4 are auto-fails. That's your priority order right there.",
-    "If you're triaging with limited time, fix the auto-fails first: TCPA outbound, AI identity disclosure, recording consent, audit trail. Everything else adds points; those four determine the color of your result. Start where the scan starts.",
-    ["Fix auto-fails first", "Everything else is points, these are the color", "grandeza.io/scan"],
-    "If you only have time to fix a handful of things this week, fix the 4 auto-fails: TCPA outbound, AI disclosure, recording consent, audit trail.\n\nEverything else adds to your score. Those four determine whether the result is red at all. grandeza.io/scan",
-    "4 controls determine red or not-red. Fix those first. grandeza.io/scan"),
-
-  day(27, "STORY", "BRAND",
-    "The scan exists because we kept seeing the same gap.",
-    "We didn't set out to build a compliance product. We kept reviewing AI intake setups for other reasons and kept finding the same handful of missing controls, over and over, across businesses that had nothing else in common. The scan is that pattern, turned into a checklist anyone can run themselves.",
-    ["Same gaps, different businesses", "Turned the pattern into a checklist", "grandeza.io/scan"],
-    "We didn't set out to build a compliance tool. We kept reviewing AI intake setups and kept finding the same handful of missing controls, in businesses that had nothing else in common.\n\nThe scan is that pattern, turned into something you can run on yourself in minutes. grandeza.io/scan",
-    "Same gaps, different businesses, every time. That's why we built the scan. grandeza.io/scan"),
-
-  day(28, "SCORE", "MULTI",
-    "Where do most businesses actually fail — Disclosure or Governance?",
-    "Across the scans we run, Governance controls (audit trail, incident response, vendor DPAs) fail more often than Disclosure controls — not because they're harder, but because they're invisible day-to-day. Nobody notices a missing log until someone asks for it.",
-    ["Governance fails more than Disclosure", "Invisible until someone asks", "grandeza.io/scan"],
-    "Across the scans we run, Governance controls — audit trail, incident response, vendor DPAs — fail more often than Disclosure controls.\n\nNot because they're harder. Because they're invisible day-to-day. Nobody notices a missing log until someone asks for it. grandeza.io/scan",
-    "Governance controls fail more than Disclosure ones. Not harder — just invisible until someone asks. grandeza.io/scan"),
-
-  day(29, "AUDIT", "MULTI",
-    "Run this before your next AI vendor demo.",
-    "Before you sign anything, ask the vendor three things: do you support disclosure language out of the box, do you log every interaction by default, and is there a signed DPA available today. Their answers tell you more about your future audit than the product demo does.",
-    ["3 questions for your next vendor demo", "The answers matter more than the demo", "grandeza.io/scan"],
-    "Before your next AI vendor demo, ask three questions: does it support disclosure language out of the box, does it log every interaction by default, and is a signed DPA available today.\n\nThe answers tell you more about your future audit exposure than the feature demo ever will. grandeza.io/scan",
-    "3 questions to ask before you sign with any AI vendor. grandeza.io/scan"),
-
-  day(30, "STORY", "SCAN",
-    "30 days of controls. One free scan to check them all.",
-    "We've walked all 16 controls this month — the auto-fails, the quiet governance gaps, the composite pillars. If you've been following along and want the actual number, the scan takes less time than this post did to read. grandeza.io/scan.",
-    ["16 controls, 30 days, 1 scan", "grandeza.io/scan", "Start where you are"],
-    "That's 30 days and all 16 controls — the auto-fails, the quiet governance gaps, the pillars that roll them up.\n\nIf you've been following along, the natural next step is just running the actual scan on your own setup. It takes less time than this post did.\n\ngrandeza.io/scan",
-    "16 controls, 30 days of posts, 1 free scan to see where you actually stand. grandeza.io/scan"),
+  {
+    day: 1, control: "03", format: "MATH",
+    hook: "Your chatbot just texted a customer. That single text could be worth $1,500 to a plaintiff's attorney.",
+    script: "Every automated text your business sends without prior express written consent on file is a $500-to-$1,500 exposure under the federal TCPA. Not per campaign. Per text. Send one blast to 1,000 homeowners with thin consent and you're looking at $500,000 to $1.5 million in class-action range — and TCPA class actions have no damages cap. The FCC's 'one-to-one consent' rule was vacated by a federal court in 2025 (Insurance Marketing Coalition v. FCC), so the older prior-express-written-consent standard still governs — and thin, purchased-lead consent is exactly what plaintiffs' attorneys go after. If your CRM or your AI is texting from a number that isn't 10DLC-registered with real written consent logged, the exposure is already running.",
+    onscreen: ["1 text = up to $1,500", "1,000 texts = up to $1.5M", "No cap on the class action", "Consent on file? Prove it."],
+    linkedin: "The most expensive line item in a home-services business right now isn't labor. It's an unlogged text message.\n\nFederal TCPA: $500–$1,500 per text sent without prior express written consent. No cap on the class action. The FCC's one-to-one consent rule was struck down in court in 2025, so the older prior-express-written-consent standard still applies — and resold, shared-lead consent is exactly what gets challenged.\n\nMost HVAC and plumbing shops running an AI or CRM texting tool have no idea whether their consent is documented in a way that survives a challenge. The Grandeza Scan checks exactly that — Control 03, our single heaviest-weighted control.\n\nRun the free scan: grandeza.io",
+    facebook: "One text from your chatbot. Up to $1,500 if the consent isn't on file.\n\nThat's federal TCPA — not a Nevada thing, a nationwide thing. And the class action has no cap.\n\nMost contractors can't prove consent if a lawyer asks. Can you?\n\nFree Grandeza Scan → grandeza.io"
+  },
+  {
+    day: 2, control: "01", format: "AUDIT",
+    hook: "I asked this company's chatbot one question: 'Am I talking to a real person?' Watch what it did.",
+    script: "I ran a live check on a public HVAC site. I asked the bot straight up whether I was talking to a human. It dodged. It kept using 'I' and 'we' like a person. It never disclosed it was AI. There's no Nevada statute forcing disclosure yet — the bill that would have, SB 199, died in committee last session. But FTC Section 5 already treats a bot pretending to be human as a deceptive practice, California requires disclosure under SB 1001, and Colorado, Utah, Texas, and Illinois all have live AI-disclosure laws on the books. The direction is one-way. The shops adding a one-line disclosure now are the ones who won't be rewriting their intake flow under pressure later.",
+    onscreen: ["'Am I talking to a person?'", "The bot dodged.", "FTC calls that deceptive — today", "One line fixes it"],
+    linkedin: "There is no Nevada law today that forces a business to disclose its chatbot is AI. The bill that would have — SB 199 — didn't survive last session.\n\nSo why does it still matter?\n\nBecause FTC Section 5 already treats a bot impersonating a human as a deceptive practice, California mandates disclosure, and Colorado, Utah, Texas, and Illinois have live AI-disclosure statutes. Nevada will revisit it. The exposure isn't a future deadline — it's federal, and it's now.\n\nControl 01 of the Grandeza Scan checks whether your AI discloses itself. It's a one-line fix that most shops haven't made.\n\ngrandeza.io",
+    facebook: "Ask any company's chatbot: 'Are you a real person?'\n\nIf it dodges, that's a problem. The FTC treats a bot pretending to be human as deceptive — and that's federal, today.\n\nThe fix is one sentence. Most shops still haven't added it.\n\nSee where you stand → grandeza.io"
+  },
+  {
+    day: 3, control: "09", format: "EXPLAINER",
+    hook: "In Nevada, recording a customer call the wrong way isn't a fine. It's a felony.",
+    script: "This is the one that surprises every contractor. Nevada is an all-party consent state under NRS 200.620 — everyone on the call has to be told and has to agree before it's recorded. Get it wrong and it's a category D felony: up to four years and a five-thousand-dollar fine. And here's the part that catches people — it's based on where the person physically is, not their area code. A customer standing in Las Vegas is covered even if their number says California. If your AI receptionist records calls, it needs to deliver a consent notice every single time and log that it did. That log is your defense. No log, no defense.",
+    onscreen: ["NRS 200.620 = all-party consent", "Category D felony", "Up to 4 yrs + $5,000", "It's where they STAND, not their area code"],
+    linkedin: "Most Nevada contractors think call recording is a gray area. It isn't.\n\nNRS 200.620 makes Nevada an all-party consent state. Recording a call without every party's consent is a category D felony — up to four years and a $5,000 fine. The Nevada Supreme Court set the all-party rule for phone calls in Lane v. Allstate (1998) and extended it to cell calls and text messages in Sharpe v. State (2015).\n\nIf your AI receptionist records calls, it must deliver a consent notice and log it on every call. Control 09 of the Grandeza Scan verifies exactly that.\n\ngrandeza.io",
+    facebook: "Recording a customer call the wrong way in Nevada isn't a slap on the wrist. Under NRS 200.620 it's a felony — up to 4 years and $5,000.\n\nAnd it's based on where your customer is standing, not their phone number.\n\nIf your AI answers and records calls, does it ask for consent every time — and log it? That log is your only defense.\n\ngrandeza.io"
+  },
+  {
+    day: 4, control: "14", format: "SCORE",
+    hook: "I ran the free scan on a real shop. It scored a 41. Here's the control that sank it.",
+    script: "Sixteen controls, scored zero to a hundred. This shop scored 41 — right in the range where most land on a first audit, which is 31 to 58. The control that hurt worst? Audit Trail, weighted 8. Their AI was having hundreds of customer conversations a month and keeping none of them. Here's why that's fatal: when a TCPA claim lands, your entire defense is the consent record and the conversation log. No log means you can't prove consent even if you had it. You don't lose because you were wrong. You lose because you can't show you were right.",
+    onscreen: ["Live scan: 41/100", "Most score 31–58 first time", "Control 14 — Audit Trail — FAILED", "No log = no defense"],
+    linkedin: "Ran the free Grandeza Scan on a real service shop this week. Score: 41 out of 100 — squarely in the 31–58 band where most contractors land on their first audit.\n\nThe control that did the most damage was Audit Trail (Control 14, weight 8). Hundreds of AI conversations a month, none of them retained.\n\nThat's the quiet killer. Your entire TCPA defense is the consent record and the conversation log. No log, no defense — even when you did everything else right.\n\nSee your own score: grandeza.io",
+    facebook: "Ran the free scan on a real shop. It scored 41 out of 100.\n\nWhat sank it? Its AI was talking to hundreds of customers a month and saving zero of those conversations.\n\nIf a lawyer ever asks you to prove a customer said yes — and you can't pull it up — you lose. Not because you were wrong. Because you couldn't show you were right.\n\ngrandeza.io"
+  },
+  {
+    day: 5, control: "02", format: "MATH",
+    hook: "Your intake form collects a phone number. Under Nevada law, that starts a clock you didn't know was running.",
+    script: "The moment your site or your AI collects a customer's personal information, NRS 603A kicks in. It requires a posted notice covering what you collect and how you use it, reasonable security around that data, and breach notification if it gets exposed. Skip the notice, mishandle the data, and you've handed the Nevada Attorney General a deceptive-practices angle plus civil exposure. This isn't exotic. It's the privacy policy nobody reads and the consent language nobody wrote — and it's Control 02 on the scan, weighted 7.",
+    onscreen: ["Collect a phone # → NRS 603A applies", "Posted notice required", "Breach notification required", "AG enforcement is real"],
+    linkedin: "The least glamorous compliance gap is also one of the most common: consent and notice language.\n\nUnder Nevada's NRS 603A, the moment you collect a customer's personal information you owe a posted notice covering collection and use, reasonable security, and breach notification. Miss it and you've opened a deceptive-practices angle for the AG plus civil exposure.\n\nControl 02 of the Grandeza Scan (weight 7) checks whether your consent and notice language actually holds. Most shops inherited a template that doesn't.\n\ngrandeza.io",
+    facebook: "The second your website or AI grabs a customer's phone number, Nevada's data law (NRS 603A) applies to you.\n\nYou need a real notice, real security, and a breach plan. The privacy policy you copy-pasted five years ago probably doesn't cut it.\n\nControl 02 on the free scan checks it → grandeza.io"
+  },
+  {
+    day: 6, control: "07", format: "STORY",
+    hook: "A homeowner told the AI she smelled gas. The AI booked her an appointment for Tuesday.",
+    script: "This is a real failure pattern I've documented. A customer reports a gas smell to an after-hours AI agent. A gas smell is a life-safety emergency — that call needs a human, immediately. Instead the AI treated it like any other request and scheduled a routine appointment days out. Two controls failed at once: Human Override and Escalation, weighted 7, and AI Identity Disclosure, weighted 8 — she never knew she was talking to a machine about an emergency. When an AI mishandles a safety call, that's not a compliance ding. That's personal-injury liability with your name on it. Every AI agent needs a hard escalation path for emergencies, and it needs to be tested.",
+    onscreen: ["'I smell gas.'", "AI: 'How's Tuesday?'", "That's a life-safety call", "No human escalation = injury liability"],
+    linkedin: "A homeowner told an after-hours AI agent she smelled gas. The AI booked her a routine appointment for the following week.\n\nA gas smell is a life-safety emergency. That call needed a human in seconds, not a calendar slot.\n\nTwo Grandeza controls failed at once: Human Override & Escalation (07, weight 7) and AI Identity Disclosure (01, weight 8). When AI mishandles a safety call, you're no longer in compliance territory — you're in personal-injury liability.\n\nEvery AI agent needs a tested emergency-escalation path. Control 07 checks whether yours has one.\n\ngrandeza.io",
+    facebook: "True story. A customer told a company's after-hours AI she smelled gas.\n\nThe AI offered her an appointment for Tuesday.\n\nA gas smell is an emergency. That call needed a human RIGHT THEN. If your AI can't recognize an emergency and hand it to a person, that's not a tech bug — that's a lawsuit waiting to happen.\n\nDoes your AI know when to get out of the way? grandeza.io"
+  },
+  {
+    day: 7, control: "12", format: "EXPLAINER",
+    hook: "The question isn't whether your data gets breached. It's whether you can prove what you did about it — Nevada law (NRS 603A.220) says notify 'without unreasonable delay,' with no fixed clock.",
+    script: "Every business that holds customer data will eventually face an incident. Nevada's NRS 603A and the broader breach-notification framework expect prompt notice and a documented response. Here's what sinks contractors: they have no incident response plan at all, so when something happens they improvise, miss notification windows, and turn a contained problem into an enforcement action. An incident response plan is one page: who gets called, what gets shut off, who gets notified and by when. That's Control 12, weighted 7. It costs nothing but an afternoon, and it's the difference between an incident and a violation.",
+    onscreen: ["Breaches aren't 'if'", "Notification windows are real", "No plan = improvising under fire", "One page fixes it"],
+    linkedin: "Incident response is the control everyone agrees they need and nobody actually has.\n\nUnder Nevada's NRS 603A and breach-notification rules, a data incident triggers prompt, documented notification. The contractors who get hurt aren't the ones who got breached — they're the ones who had no plan and improvised past the notification window.\n\nAn incident response plan is one page: who's called, what's isolated, who's notified and when. Control 12 (weight 7) checks whether that page exists.\n\ngrandeza.io",
+    facebook: "Your customer data will get breached someday. Everybody's does.\n\nThe question is whether you have a plan — who to call, what to shut off, who to notify and how fast. Nevada law expects it.\n\nMost shops have nothing written down. That turns a bad day into a legal one. One page fixes it.\n\nControl 12 on the free scan → grandeza.io"
+  },
+  {
+    day: 8, control: "04", format: "SCORE",
+    hook: "Every extra field your AI collects is one more thing a breach can cost you.",
+    script: "Data minimization is a simple idea with sharp teeth: collect only what you actually need. A lot of AI intake tools hoover up everything — full DOB, extra numbers, notes fields with sensitive detail — because storage is cheap. But every field you hold is a field a breach can expose, and your liability scales with the volume and sensitivity of what you were keeping. When I score this control — number 04, weight 6 — I'm looking at whether the AI asks for more than the job requires. Less data isn't just cleaner. It's a smaller blast radius.",
+    onscreen: ["Collect only what the job needs", "Every field = breach surface", "Liability scales with data held", "Less data = smaller blast radius"],
+    linkedin: "Data minimization sounds like a nice-to-have. It's actually a liability lever.\n\nEvery extra field your AI intake collects — full date of birth, secondary numbers, free-text notes with sensitive detail — is one more thing a breach can expose, and your exposure scales with the volume and sensitivity of what you held.\n\nControl 04 (weight 6) of the Grandeza Scan checks whether your AI is collecting more than the job requires. The fix usually shrinks your risk without costing a single booking.\n\ngrandeza.io",
+    facebook: "Here's a counterintuitive one: the LESS customer data your AI collects, the safer you are.\n\nEvery extra field is one more thing a hacker can steal and one more thing you're liable for. Most AI intake tools grab way more than the job needs.\n\nControl 04 checks whether yours does → grandeza.io"
+  },
+  {
+    day: 9, control: "05", format: "MATH",
+    hook: "Your AI vendor gets breached. Guess whose customers' data it was.",
+    script: "Most contractors run their AI through a third-party platform, and they assume that if the vendor gets breached, it's the vendor's problem. It isn't only the vendor's problem. When you share customer data with a third party, you can carry joint liability for how that vendor handles it. If they mishandle or expose it, your customers' data is still your customers' data — and your name is on the relationship. Control 05, weight 6, looks at what you're sending to third parties and whether the contract actually protects you when they fail. Which sets up tomorrow's control nicely.",
+    onscreen: ["You share data with a vendor", "Vendor gets breached", "Joint liability lands on YOU", "Your customers = your problem"],
+    linkedin: "\"If my AI vendor gets breached, that's on them.\"\n\nNot entirely. When you share customer data with a third-party platform, you can carry joint liability for that vendor's handling of it. Their breach becomes your customers' exposure and your reputational hit.\n\nControl 05 (weight 6) of the Grandeza Scan examines what you're handing to third parties and whether anything protects you when they slip. Most contractors have never read the vendor terms that decide this.\n\ngrandeza.io",
+    facebook: "You use an AI or CRM vendor. They get hacked. You think: not my problem.\n\nWrong. It's your customers' data, and you can share the liability for how your vendor handled it.\n\nDo you even know what you're sending them? Control 05 on the free scan → grandeza.io"
+  },
+  {
+    day: 10, control: "10", format: "AUDIT",
+    hook: "I watched an AI quote a customer a price the company doesn't offer. Then a warranty it doesn't honor.",
+    script: "AI makes things up. That's not a bug you can fully train out — it's a property of the tools. The danger for a service business is when the AI states a price, a timeline, or a warranty that isn't real. Now you've got a customer holding your AI to a promise you never made, and if you don't honor it you look like a bait-and-switch — which is squarely FTC deceptive-practices territory, and can trip licensing-board rules too. Control 10, weight 6, checks whether your AI has hard scope limits: what it's allowed to say, and where it's required to say 'let me get a human for that.' An AI without a fence will eventually wander into a promise.",
+    onscreen: ["AI quoted a fake price", "Then a fake warranty", "Customer holds YOU to it", "No scope limits = no fence"],
+    linkedin: "AI hallucinates. For a service business, the expensive version of that is when your AI invents a price, a timeline, or a warranty you don't actually offer.\n\nNow the customer is holding you to a promise you never made. Refuse to honor it and you're in bait-and-switch territory — FTC deceptive practices, and potentially licensing-board exposure.\n\nControl 10 (weight 6) checks whether your AI has hard scope limits and a clean 'let me get a human for that' handoff. An AI without a fence eventually wanders into a promise.\n\ngrandeza.io",
+    facebook: "Watched an AI assistant quote a customer a price the company doesn't offer — then promise a warranty it doesn't honor.\n\nGuess who the customer blames when the real bill shows up? You. And 'my AI said it' is not a defense — it's a deceptive-practices complaint.\n\nDoes your AI know what it's NOT allowed to promise? grandeza.io"
+  },
+  {
+    day: 11, control: "06", format: "EXPLAINER",
+    hook: "A customer texts STOP. If your system doesn't honor it instantly, every text after is a fresh violation.",
+    script: "The opt-out rule is the most mechanical control on the scan and one of the most violated. Under the TCPA and carrier 10DLC rules, a customer replying STOP, quit, unsubscribe, cancel, or end must be removed immediately, and you owe one confirmation message — nothing more. Every marketing text you send after a valid STOP is its own separate violation, at $500 to $1,500 a pop. HELP has to return your contact info too. This is Control 06, weight 5. It's a plumbing check, literally — does the STOP actually turn the faucet off? A shocking number don't.",
+    onscreen: ["Customer texts STOP", "You must stop — instantly", "Every text after = new violation", "$500–$1,500 each"],
+    linkedin: "The opt-out mechanism is the most mechanical control on the Grandeza Scan — and one of the most commonly broken.\n\nUnder the TCPA and 10DLC carrier rules, a customer who texts STOP (or quit, cancel, unsubscribe, end) must be removed immediately, with exactly one confirmation message. Every marketing text after a valid STOP is a separate $500–$1,500 violation. HELP must return your contact info.\n\nControl 06 (weight 5) tests whether STOP actually stops. A surprising number of systems don't.\n\ngrandeza.io",
+    facebook: "A customer texts STOP. Does your system actually stop?\n\nIf even one more marketing text goes out after that, it's a brand-new TCPA violation — $500 to $1,500 — on top of the last one. They stack.\n\nMost shops have never actually tested whether STOP works. Have you? grandeza.io"
+  },
+  {
+    day: 12, control: "08", format: "SCORE",
+    hook: "One of your techs just pasted a customer's info into ChatGPT to write an estimate. That's your breach now.",
+    script: "This control catches everyone off guard because the risk isn't the company's AI — it's your employees' personal AI use. A tech pastes a customer's name, address, and issue into a free chatbot to draft an estimate. That data just left your control and landed on a third-party server with terms nobody read. No policy, no training, no boundary. Control 08, weight 5, checks whether you have a written employee AI use policy — what's allowed, what's forbidden, and what never gets pasted into a public tool. Costs nothing. Prevents a category of breach you'd never see coming.",
+    onscreen: ["Tech pastes customer data into ChatGPT", "That data is gone", "No policy = no defense", "Control 08 checks it"],
+    linkedin: "The AI breach most contractors never see coming isn't the company's AI. It's the employee's.\n\nA tech pastes a customer's name, address, and problem into a free public chatbot to draft an estimate. That data just left your control, onto a third-party server, under terms nobody read.\n\nControl 08 (weight 5) checks for a written employee AI use policy — what's allowed, what's forbidden, what never gets pasted into a public tool. It costs an afternoon and closes a whole category of risk.\n\ngrandeza.io",
+    facebook: "Your best tech is trying to save time. He pastes a customer's name, address, and issue into ChatGPT to write up an estimate.\n\nThat customer's data is now on someone else's server. And it's your breach.\n\nDo your people have rules for AI? Most shops don't. Control 08 checks → grandeza.io"
+  },
+  {
+    day: 13, control: "11", format: "MATH",
+    hook: "Your AI vendor's contract probably says they don't have to tell you when they get breached.",
+    script: "Here's a line nobody reads until it's too late. A lot of AI and CRM vendor contracts have no data processing agreement and no breach-notification clause — meaning if they get compromised, they're not contractually required to tell you, or to tell you fast. You find out when your customers do. Control 11, weight 5, checks whether your vendor contracts actually give you breach-notice rights and basic data protections. If the answer is no, you're trusting a company to volunteer bad news about themselves. That's not a strategy. That's a hope.",
+    onscreen: ["Read your vendor's contract", "No breach-notice clause?", "They don't have to tell you", "You find out when customers do"],
+    linkedin: "Pull up your AI vendor's contract and look for one thing: a breach-notification clause.\n\nMany don't have one. No data processing agreement, no obligation to tell you promptly when they're compromised. You'd learn about it the same time your customers do — from the outside.\n\nControl 11 (weight 5) of the Grandeza Scan checks whether your vendor contracts actually protect you. If they don't, your breach-response plan depends on a vendor volunteering bad news about itself.\n\ngrandeza.io",
+    facebook: "Quick homework: does your AI or CRM vendor's contract say they have to tell you when THEY get hacked?\n\nA lot of them don't. Which means you find out when your customers start calling.\n\nControl 11 on the free scan checks your vendor terms → grandeza.io"
+  },
+  {
+    day: 14, control: "13", format: "EXPLAINER",
+    hook: "If your AI decides who gets a callback and who waits, it can quietly break fair-housing law.",
+    script: "This one feels distant until you see how it lands on a service business. If your AI prioritizes leads, screens callers, or routes who gets service first, it can produce patterns that correlate with protected classes — even with nobody intending it. That can implicate Fair Housing, ECOA on the financing side, and a growing stack of state AI-bias rules like Colorado's AI Act and New York City's Local Law 144. Control 13, weight 5, isn't asking you to become a data scientist. It's asking a simpler question: has anyone looked at whether your AI treats people evenhandedly? For most shops, the honest answer is 'nobody has checked.'",
+    onscreen: ["AI decides who gets served first?", "Patterns can track protected classes", "Fair Housing · ECOA · state AI laws", "Has anyone checked yours?"],
+    linkedin: "Bias and fairness sounds like a big-tech problem. It reaches a service business the moment AI decides who gets prioritized.\n\nIf your AI screens callers, ranks leads, or routes service order, it can generate patterns that correlate with protected classes — no intent required. That touches Fair Housing, ECOA on financing, and state rules like Colorado's AI Act and NYC Local Law 144.\n\nControl 13 (weight 5) doesn't require a data-science team. It asks whether anyone has checked. Usually, nobody has.\n\ngrandeza.io",
+    facebook: "If your AI decides which leads get called back first, it can accidentally discriminate — and break fair-housing and lending rules without anyone meaning to.\n\nYou don't need to be a tech expert to catch it. You just need someone to actually look. Most shops never have.\n\nControl 13 on the free scan → grandeza.io"
+  },
+  {
+    day: 15, control: "15", format: "AUDIT",
+    hook: "The compliance setup that was airtight in January is already leaking by summer. The law moves that fast.",
+    script: "Here's why one-and-done doesn't work. The rules underneath your AI change constantly — the FCC's one-to-one consent rule was struck down in 2025, carriers tightened 10DLC enforcement, states are passing AI laws on a rolling basis. A shop that got compliant last year and never revisited it has drifted out of compliance without doing anything wrong. Control 15, weight 4, is the annual review: a scheduled, documented check that your setup still matches the current law. It's the lightest-weight control on the scan and the one that keeps every other control from quietly going stale.",
+    onscreen: ["Compliant in January", "Drifting by June", "The law changes monthly", "One-and-done doesn't exist"],
+    linkedin: "Compliance isn't a state you reach. It's a state you maintain.\n\nThe FCC's one-to-one consent rule was struck down in court in 2025. Carriers keep tightening 10DLC. States pass AI laws on a rolling basis. A shop that got compliant last year and never looked again has drifted — without doing anything wrong.\n\nControl 15 (weight 4) is the annual review: a scheduled, documented check that your setup still matches current law. It's what keeps the other fifteen controls from quietly going stale.\n\ngrandeza.io",
+    facebook: "The compliance setup that was perfect in January is already outdated by summer. That's not neglect — that's how fast these laws change.\n\nIf you got 'handled' once and never looked again, you've probably drifted. A scheduled yearly review is the fix.\n\nControl 15 on the free scan → grandeza.io"
+  },
+  {
+    day: 16, control: "16", format: "MATH",
+    hook: "A TCPA claim lands. You call your insurance. They point to the exclusion for AI and automated dialing.",
+    script: "This is the one that can reach your personal assets. Many general-liability and E&O policies now carve out AI-related and TCPA claims — meaning the exact exposure your automated systems create is the exact thing your policy won't cover. If a claim lands and you're uninsured for it, that's not a business loss with a ceiling; that can become personal exposure. Control 16, weight 4, checks whether you actually have coverage for how you use AI — not whether you have insurance, but whether your insurance covers this. Most owners have never asked their broker the specific question. Ask it this week.",
+    onscreen: ["TCPA claim hits", "You call your insurer", "'That's excluded'", "Uncovered = your personal assets"],
+    linkedin: "The most dangerous assumption in an AI-run business: \"my insurance has me covered.\"\n\nMany GL and E&O policies now exclude AI-related and TCPA claims — the precise exposure your automated systems generate is the precise thing the policy carves out. An uncovered claim doesn't stop at the business; it can reach personal assets.\n\nControl 16 (weight 4) checks whether your coverage actually covers how you use AI. Most owners have never asked their broker the specific question. It's worth a phone call this week.\n\ngrandeza.io",
+    facebook: "A lawsuit hits over an automated text. You call your insurance, relieved you have a policy.\n\nThen they show you the exclusion for AI and auto-dialing. You're on your own — and that can reach your personal assets, not just the business.\n\nAsk your broker one question: am I covered for how I use AI? Control 16 → grandeza.io"
+  },
+  {
+    day: 17, control: "MULTI", format: "SCORE",
+    hook: "Four of the sixteen controls are auto-fails. One FAIL on any of them and your score is a warning light.",
+    script: "Not all sixteen controls carry equal danger. Four of them are what I call the critical four — a single FAIL on any one is an immediate red flag regardless of your total score. Control 03, TCPA outbound. Control 09, recording consent. Control 01, AI disclosure. Control 14, audit trail. These four are the ones that turn into actual claims and criminal exposure fastest. When I run a live scan, I check these first. If a shop scores 70 overall but fails one of the critical four, that 70 is lying to you. Where do you stand on the four that matter most?",
+    onscreen: ["16 controls. 4 are auto-fails.", "03 TCPA · 09 Recording · 01 Disclosure · 14 Audit Trail", "One FAIL = red flag", "Even a 'good' score can hide one"],
+    linkedin: "A compliance score can lie to you — if you don't know which controls are load-bearing.\n\nFour of the sixteen Grandeza controls are critical: a single FAIL on any one is an immediate red flag regardless of total score.\n\n• 03 — TCPA outbound\n• 09 — Recording consent (NRS 200.620 felony exposure)\n• 01 — AI identity disclosure\n• 14 — Audit trail\n\nThese convert into real claims and criminal exposure fastest. A 70 that fails one of these isn't a 70. The free scan flags them first.\n\ngrandeza.io",
+    facebook: "Not all compliance gaps are equal. Four of our sixteen controls are auto-fails — mess up any ONE and you're in real danger no matter how good the rest looks:\n\n• TCPA texting\n• Call recording consent\n• Telling people it's AI\n• Keeping the records\n\nWhere do you stand on the four that matter most? grandeza.io"
+  },
+  {
+    day: 18, control: "07", format: "STORY",
+    hook: "The recon that started this whole thing: one real audit, three failures, zero disclosure.",
+    script: "Let me tell you why I built Grandeza. I audited a real local service company's AI setup. Three things happened on one interaction: the AI never disclosed it was AI, it mishandled an urgent call that a human should've taken, and afterward it sent unsolicited follow-up texts with no consent trail. Disclosure, escalation, TCPA — three of the heaviest controls, failed in a single customer journey. And this was a good company. Licensed, reputable, quality work. That's the thing nobody wants to hear: a clean shop can have a wide-open AI. The AI is a door most owners have never checked. Grandeza checks it.",
+    onscreen: ["One real audit", "No AI disclosure", "Emergency mishandled", "Unsolicited texts, no consent", "A GOOD company"],
+    linkedin: "Why I built Grandeza, in one story.\n\nI audited a real, reputable local service company's AI setup. On a single customer interaction: the AI never disclosed it was AI, it mishandled an urgent call a human should have taken, and it followed up with unsolicited texts and no consent trail.\n\nThree of the heaviest-weighted controls — disclosure, escalation, TCPA — failed in one journey. And this was a good shop. Licensed, quality work, strong reputation.\n\nThat's the uncomfortable truth: a clean business can run a wide-open AI. It's a door most owners have never opened. The scan opens it.\n\ngrandeza.io",
+    facebook: "Here's the audit that made me build this.\n\nA good, licensed local company. Solid reputation. But their AI: never said it was AI, botched an urgent call, then texted the customer with no permission on file.\n\nThree big violations. One conversation. And they had no idea.\n\nA great shop can still have a wide-open AI. Have you checked yours? grandeza.io"
+  },
+  {
+    day: 19, control: "BANDS", format: "EXPLAINER",
+    hook: "Most contractors score between 31 and 58 the first time. Here's what your number actually means.",
+    script: "The Grandeza Score runs zero to a hundred across sixteen weighted controls, and it lands in one of five bands. Zero to 25 is critical — multiple open doors. 26 to 50, exposed — real gaps, several of them. 51 to 75, developing — ahead of most shops, but the proof is thin. 76 to 90, defensible — strong, now make it durable. 91 to 100, protected — airtight, keep it honest over time. Most service contractors score 31 to 58 on their first audit, so if that's you, you're normal — not doomed. The report tells you which controls to fix first for the fastest jump. The number isn't a grade. It's a map.",
+    onscreen: ["0–25 Critical", "26–50 Exposed", "51–75 Developing", "76–90 Defensible", "91–100 Protected", "Most start at 31–58"],
+    linkedin: "What your Grandeza Score actually means.\n\nSixteen weighted controls, scored 0–100, landing in one of five bands:\n\n• 0–25 Critical — multiple open doors\n• 26–50 Exposed — real, plural gaps\n• 51–75 Developing — ahead of most, thin proof\n• 76–90 Defensible — strong, make it durable\n• 91–100 Protected — airtight, keep it honest\n\nMost contractors land 31–58 on the first pass. That's normal, not fatal. The report ranks which fixes move your number — and your risk — fastest. It's a map, not a grade.\n\ngrandeza.io",
+    facebook: "Your Grandeza Score, decoded:\n\n0–25: Critical\n26–50: Exposed\n51–75: Developing\n76–90: Defensible\n91–100: Protected\n\nMost shops score 31–58 the first time. If that's you — you're normal, not doomed. The report shows exactly what to fix first.\n\nGet your number free → grandeza.io"
+  },
+  {
+    day: 20, control: "MULTI", format: "MATH",
+    hook: "One bad phone call. Add up what your own AI can cost you before the customer even hangs up.",
+    script: "Let's stack it. One call to your AI. It records without consent — in Nevada that's felony exposure under NRS 200.620, up to $5,000 and jail time on the table. It never discloses it's AI — FTC deceptive-practices angle. It follows up with a text you have no consent for — $500 to $1,500 under the TCPA. And none of it is logged, so you can't defend any of it. That's not three separate someday-problems. That's one phone call to your own system, generating four failures, any one of which a plaintiff's attorney can build a case on. The scan finds them before someone else does.",
+    onscreen: ["One call to your AI:", "Recorded w/o consent → felony", "No disclosure → FTC", "Text w/o consent → up to $1,500", "Nothing logged → no defense"],
+    linkedin: "The exposure math nobody runs: one bad call to your own AI.\n\n→ Records without consent — NRS 200.620 felony exposure in Nevada, up to $5,000\n→ Never discloses it's AI — FTC deceptive-practices angle\n→ Follows up with an unconsented text — $500–$1,500 under the TCPA\n→ Logs none of it — so none of it is defensible\n\nFour failures. One phone call. Any one of them is a case a plaintiff's attorney can build. The Grandeza Scan finds them before they do.\n\ngrandeza.io",
+    facebook: "Let's add up what ONE bad call to your AI can cost:\n\n• Records without asking → felony territory in Nevada\n• Doesn't say it's AI → FTC problem\n• Texts them after with no consent → up to $1,500\n• Saves no record → you can't defend any of it\n\nFour problems. One phone call. Find them first → grandeza.io"
+  },
+  {
+    day: 21, control: "11", format: "EXPLAINER",
+    hook: "\"My AI vendor handles compliance.\" I hear it every week. It's almost never true.",
+    script: "This is the single most common thing contractors tell me, and it's the most dangerous. Your AI vendor handles their platform's compliance — their uptime, their security certifications. They do not handle your consent trail, your recording disclosures, your TCPA obligations, or your Nevada-specific requirements. Those live with you, the business making the customer contact. When a claim lands, it lands on your business, not the vendor's. The vendor's terms of service almost always say exactly that, in a section you didn't read. Compliance isn't a feature you buy. It's a posture you hold — and prove.",
+    onscreen: ["'My vendor handles compliance'", "They handle THEIR platform", "YOUR consent trail is on YOU", "The claim lands on you"],
+    linkedin: "\"My AI vendor handles compliance.\" It's the most common line I hear — and the most expensive misunderstanding.\n\nYour vendor handles their platform: uptime, their own security posture. They do not own your consent trail, your recording disclosures, your TCPA obligations, or your Nevada requirements. Those sit with the business making customer contact — you.\n\nRead their terms of service. It almost always says so, plainly, in a section nobody opens. Compliance isn't a feature you buy; it's a posture you prove.\n\ngrandeza.io",
+    facebook: "\"My AI company handles all the compliance stuff.\"\n\nI hear this constantly. It's almost never true. Your vendor handles THEIR software. Your consent records, your disclosures, your legal exposure? That's on you — and their contract says so.\n\nWhen the lawsuit comes, it's got your name on it, not theirs. grandeza.io"
+  },
+  {
+    day: 22, control: "01", format: "EXPLAINER",
+    hook: "A dozen states now require you to tell people they're talking to AI. Nevada will be next. Get ahead of it.",
+    script: "Let me be straight, because a compliance company that overstates the law is worthless. Nevada does not currently mandate general AI disclosure — the bill that would have, SB 199, failed last session. But look at the map: California requires it under SB 1001, and Colorado, Utah, Texas, and Illinois all have live AI laws touching disclosure. Federally, the FTC already treats a bot posing as human as deceptive. The direction is one-way, and Nevada will revisit this. The smart move isn't waiting for a deadline — it's adding the one-line disclosure now, while it's a five-minute fix instead of a scramble. That's the whole Grandeza philosophy: ahead of it, not under it.",
+    onscreen: ["NV has no mandate yet (SB 199 failed)", "CA · CO · UT · TX · IL already require it", "FTC calls a fake-human bot deceptive", "Get ahead of it — it's a 1-line fix"],
+    linkedin: "A compliance company that overstates the law is worse than useless. So, plainly:\n\nNevada does not currently require general AI disclosure — SB 199 would have, and it failed last session.\n\nBut the map is one-directional. California (SB 1001), Colorado, Utah, Texas, and Illinois already have live AI-disclosure laws. The FTC already treats a bot posing as human as deceptive. Nevada will revisit this.\n\nThe move isn't waiting for a deadline. It's adding the one-line disclosure now, as a five-minute fix instead of a future scramble. Ahead of it, not under it.\n\ngrandeza.io",
+    facebook: "Straight talk: Nevada does NOT yet have a law forcing you to say your chatbot is AI. (A bill tried — it failed.)\n\nBut California, Colorado, Utah, Texas, and Illinois already do. And the FTC already treats a bot faking being human as deceptive. Nevada's coming.\n\nThe fix is one sentence. Add it now, on your terms — not later, in a panic. grandeza.io"
+  },
+  {
+    day: 23, control: "14", format: "EXPLAINER",
+    hook: "A compliance policy PDF proves you wrote a policy. It doesn't prove you followed it. Only the binder does.",
+    script: "There's a difference between a policy and proof, and it's the whole ballgame. Plenty of shops have a compliance policy — a document that says 'we get consent, we disclose, we honor opt-outs.' Great. When a claim lands, the policy proves you had good intentions. What actually defends you is the evidence that you did it on that specific call, with that specific customer: the consent record, the disclosure log, the conversation trail. That's the binder. That's what Grandeza builds and what Control 14 protects. A policy is a promise. A binder is a receipt. Attorneys don't argue with receipts.",
+    onscreen: ["Policy = 'we intend to comply'", "Binder = 'here's proof we did'", "One is a promise", "One is a receipt"],
+    linkedin: "The difference between a compliance policy and a compliance binder is the difference between losing and winning.\n\nA policy document says \"we get consent, we disclose, we honor opt-outs.\" It proves intent. When a claim lands, intent isn't the question.\n\nWhat defends you is proof you did it — on that call, with that customer: the consent record, the disclosure log, the conversation trail. That's the binder Grandeza builds and Control 14 protects.\n\nA policy is a promise. A binder is a receipt. You can argue with a promise.\n\ngrandeza.io",
+    facebook: "Having a compliance policy is like having a fire escape plan taped to the wall.\n\nNice — but when the fire comes, what saves you is proof you actually did the drills. On that call. With that customer.\n\nThat's the difference between a policy (a promise) and a binder (a receipt). Grandeza builds the receipts. grandeza.io"
+  },
+  {
+    day: 24, control: "MULTI", format: "SCORE",
+    hook: "I scanned a fancy AI-receptionist setup a competitor installed. It scored a 38.",
+    script: "Slick doesn't mean safe. I ran the scan on a service business using one of the polished, well-marketed AI receptionist products — the kind with great demos. It scored a 38. The AI was smooth, fast, natural-sounding. It was also recording without a Nevada consent notice, texting without a logged consent trail, and keeping no retrievable audit log. The product was built to book appointments, not to defend you in a claim. That's the gap in the whole category: these tools compete on features and conversation quality. Not one of them sells you the evidence layer. That's the only thing Grandeza sells.",
+    onscreen: ["Fancy AI receptionist", "Great demo. Score: 38.", "Smooth ≠ safe", "Built to book — not to defend you"],
+    linkedin: "Ran the Grandeza Scan on a business using one of the polished, heavily-marketed AI receptionist products. Score: 38.\n\nThe AI was excellent — fast, natural, great at booking. It was also recording without a Nevada consent notice, texting with no logged consent trail, and keeping no retrievable audit log.\n\nThat's the category gap. These tools compete on conversation quality and features. None of them sells the evidence layer that defends you when a claim lands. That layer is the entire point of Grandeza.\n\ngrandeza.io",
+    facebook: "Scanned a shop using one of those slick, expensive AI receptionists. Great demo. Scored a 38 out of 100.\n\nIt sounded amazing. It also recorded without consent, texted without a paper trail, and saved no records. Built to book jobs — not to protect you.\n\nSmooth isn't safe. grandeza.io"
+  },
+  {
+    day: 25, control: "BRAND", format: "STORY",
+    hook: "I spent years investigating people for Clark County. Now I make sure you're not the one getting investigated.",
+    script: "Before compliance, I was an investigator for Clark County. I know exactly how a case gets built: it starts with a paper trail, or the absence of one. When a regulator or a plaintiff's attorney comes after a business, the first thing they pull is the documentation. If it's clean, the case usually dies. If it's missing, that gap becomes the case. That's the whole reason Grandeza exists — I look at your AI the way an investigator would, find the gaps that create the paper trail someone else is hoping to find, and help you close them first. Sixteen controls. Free scan. I'd rather you find the gap than have someone find it for you.",
+    onscreen: ["Former Clark County Investigator", "I know how cases get built", "It starts with a missing paper trail", "Find your gap before they do"],
+    linkedin: "Before I did compliance, I was an investigator for Clark County.\n\nI know how a case gets built: it starts with the paper trail, or the hole where one should be. When a regulator or plaintiff's attorney targets a business, the documentation is the first thing they pull. Clean records, the case usually dies. Missing records, that gap becomes the case.\n\nThat's why Grandeza exists. I look at your AI the way an investigator would — find the gaps that create the trail someone else is hoping to find, and help you close them first.\n\nSixteen controls, free scan: grandeza.io",
+    facebook: "I used to investigate people for Clark County. Now I make sure you're not the one getting investigated.\n\nHere's what I learned: cases get built on paper trails — or the missing ones. The gap in your records IS the case against you.\n\nI find those gaps in your AI setup before anyone else does. 16 controls, free. grandeza.io"
+  },
+  {
+    day: 26, control: "03", format: "MATH",
+    hook: "One text to a thousand customers with bad consent isn't a fine. It's a class action with no ceiling.",
+    script: "Contractors underestimate the TCPA because they think in per-text terms. Think in list terms. You send one promotional blast to a thousand customers. Consent is thin or undocumented. At $500 to $1,500 per message, that's a half-million to a million-and-a-half dollars of exposure — from one send. And unlike a lot of statutes, TCPA class actions have no damages cap. This is why TCPA is a favorite of plaintiff's firms: the math scales against you automatically, and the defense is entirely about whether you can produce clean, per-recipient consent. Control 03 is weight 9 — the heaviest on the scan — for exactly this reason.",
+    onscreen: ["1 blast × 1,000 people", "× $500–$1,500 each", "= $500K–$1.5M", "No cap. That's why lawyers love it."],
+    linkedin: "Contractors underestimate the TCPA because they price it per text. Price it per list.\n\nOne promotional blast to 1,000 customers with thin or undocumented consent, at $500–$1,500 per message, is $500K–$1.5M of exposure from a single send. And TCPA class actions carry no damages cap.\n\nThat's why plaintiff's firms love it — the math scales against you automatically, and your entire defense is whether you can produce clean per-recipient consent. Control 03 is the heaviest on the scan (weight 9) for exactly this reason.\n\ngrandeza.io",
+    facebook: "You think of a bad text as a small fine. Here's the real math:\n\nOne blast to 1,000 customers × up to $1,500 each = up to $1.5 MILLION. And there's no cap on it.\n\nThat's why lawyers hunt for these. Your only defense is clean consent records for every single person. Got them? grandeza.io"
+  },
+  {
+    day: 27, control: "06", format: "EXPLAINER",
+    hook: "Everyone prepped for the FCC's 'one-to-one consent' rule. A federal court struck it down in 2025 — but the older rule it left standing is the one shops actually break.",
+    script: "In 2023 the FCC passed a 'one-to-one consent' rule meant to end shared-lead texting. A federal court vacated it in January 2025, so it never took effect — and a lot of shops either relaxed or never learned what still applies. What still applies is the TCPA's prior-express-written-consent standard: a marketing text to a cell number needs the customer's clear, written agreement to be contacted by YOUR business, by name. A form where a homeowner agreed to hear from 'up to five pros' is exactly the thin, resold consent plaintiffs' attorneys attack — vacated rule or not. And carriers still block unregistered 10DLC traffic outright. Control 06 checks your whole opt-in and opt-out chain.",
+    onscreen: ["2023: FCC 'one-to-one' rule", "Jan 2025: court vacated it", "Still live: prior express WRITTEN consent", "Resold 'up to 5 pros' consent = risk"],
+    linkedin: "Everyone in home services prepped for the FCC's 'one-to-one consent' rule. A federal court vacated it in January 2025 — so it never took effect.\n\nThe trap: the rule it left in place is the one shops actually violate. The TCPA still requires prior express WRITTEN consent for marketing texts — clear agreement to be contacted by your business, by name. A form where a homeowner agreed to hear from \"up to five pros\" is exactly the resold, thin consent plaintiffs' attorneys go after. And carriers still block unregistered 10DLC traffic.\n\nControl 06 checks your full opt-in/opt-out chain.\n\ngrandeza.io/scan",
+    facebook: "Everyone prepped for a new FCC texting rule. A federal court struck it down in January 2025 — it never took effect.\n\nBut the OLDER rule is still live: a text to a lead has to have their clear written consent to be contacted by YOUR business, by name — not \"up to 5 companies.\"\n\nShared, bought lead lists for texting are exactly what plaintiffs' attorneys target.\n\nIs your lead flow legal? Control 06 → grandeza.io"
+  },
+  {
+    day: 28, control: "14", format: "AUDIT",
+    hook: "Two smoke detectors. One beeps. One logs, tests itself monthly, and hands you the report. Only one saves you in court.",
+    script: "Here's the metaphor that makes this whole thing click. Picture two smoke detectors. Both work. Both go off in a fire. But one just beeps — and one logs every test, checks itself monthly, and can hand you a printed report proving it was working. In your living room, either is fine. In a lawsuit over whether your alarm worked, only one of them can prove it. Your AI is the same. Plenty of AI 'works' — it books jobs, answers calls. The question a claim asks is different: can it prove what it did, when, and with whose consent? That's the audit trail. That's Control 14. Grandeza is the smoke detector that logs.",
+    onscreen: ["Two smoke detectors", "One beeps", "One logs + tests + reports", "Only one proves it in court"],
+    linkedin: "The metaphor that makes compliance click:\n\nTwo smoke detectors. Both work. Both sound in a fire. But one just beeps — and one logs every test, self-checks monthly, and hands you a report proving it was working.\n\nAt home, either is fine. In a dispute over whether the alarm worked, only one can prove it.\n\nYour AI is the same. \"It works\" — it books jobs, answers calls. A claim asks something else entirely: can it prove what it did, when, and with whose consent? That's the audit trail. That's Control 14. Grandeza is the one that logs.\n\ngrandeza.io",
+    facebook: "Two smoke detectors. Both work. But one just beeps — and the other logs every test and can PROVE it was working when it mattered.\n\nIn court, only one of those saves you.\n\nYour AI 'works.' Fine. But can it prove what it did and who said yes? That's the difference Grandeza builds. grandeza.io"
+  },
+  {
+    day: 29, control: "SCAN", format: "EXPLAINER",
+    hook: "The scan is free, the report is yours, and there's no mandatory sales call. Here's exactly what you get.",
+    script: "Let me take the friction out of this. The Grandeza Scan is a human-led audit across sixteen weighted controls. You get a score, zero to a hundred, and a plain-English report that names your exposure and tells you which controls to fix first for the biggest improvement. The report is yours — keep it, hand it to your attorney, bring it to your insurance broker. There is no mandatory follow-up call, no obligation, no catch. I built it that way on purpose, because a compliance product that traps you isn't a compliance product, it's a funnel. Find out where you stand. If you want help fixing it, I'm here. If not, you keep the map either way.",
+    onscreen: ["Free · human-led · 16 controls", "Score + plain-English report", "The report is YOURS to keep", "No mandatory call. No catch."],
+    linkedin: "Let me remove the friction, because I know 'free scan' usually means 'sales trap.'\n\nThe Grandeza Scan is a human-led audit across sixteen weighted controls. You get a 0–100 score and a plain-English report naming your exposure and ranking which fixes move the needle fastest.\n\nThe report is yours — keep it, give it to your attorney, take it to your broker. No mandatory follow-up call. No obligation.\n\nI built it that way on purpose. A compliance product that traps you is just a funnel. Find out where you stand; you keep the map either way.\n\ngrandeza.io",
+    facebook: "Here's the honest pitch: the Grandeza Scan is free, it's done by a human (not a form), and the report is YOURS.\n\nKeep it. Show your lawyer. Show your insurance guy. There's no mandatory sales call and no catch.\n\nWhy? Because a compliance product that traps you isn't protecting you. Find out where you stand → grandeza.io"
+  },
+  {
+    day: 30, control: "SCAN", format: "SCORE",
+    hook: "30 days. 16 controls. One question left: where does your shop actually stand?",
+    script: "We've spent thirty days walking every one of the sixteen controls — TCPA texting, Nevada recording consent, AI disclosure, audit trails, vendor contracts, insurance, all of it. If you've been reading along nodding, or wincing, here's the only step that matters now: run the scan and get your actual number. It's free, it's human-led, the report is yours, and there's no mandatory call. Most shops score 31 to 58 the first time, and every one of them walks away knowing exactly what to fix first. You've seen the exposure. Now see your score. grandeza.io/scan. Let's make sure you're the shop that's ahead of it, not the one that's under it.",
+    onscreen: ["30 days. 16 controls.", "One question left:", "Where do YOU stand?", "Free scan → grandeza.io"],
+    linkedin: "Thirty days. Sixteen controls. Every major AI exposure a service business carries — TCPA, Nevada recording consent, disclosure, audit trails, vendor terms, insurance.\n\nIf you've been reading along nodding (or wincing), one step is left: get your actual number.\n\nThe Grandeza Scan is free and human-led. The report is yours. No mandatory call. Most shops score 31–58 first time — and every one walks away knowing what to fix first.\n\nYou've seen the exposure. Now see your score. Be the shop that's ahead of it.\n\ngrandeza.io",
+    facebook: "For 30 days I've broken down all 16 ways your AI can cost you — texting, recording, disclosure, records, contracts, insurance.\n\nNow there's one thing left to do: get your score.\n\nFree. Done by a human. Report is yours. No mandatory call. Most shops start at 31–58 and leave knowing exactly what to fix.\n\nSee where you stand → grandeza.io"
+  }
 ];
 
 module.exports = { CONTROLS, DAYS };

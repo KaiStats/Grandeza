@@ -1,30 +1,31 @@
 {
+  "_comment": "The Grandeza Scan — 16 controls, weights sum to 100. This is the scoring spine for the scan tool AND the backbone of the content bank (days 1-16 walk these heaviest-first).",
   "scoreBands": [
-    { "min": 0,  "max": 25,  "label": "Critical" },
-    { "min": 26, "max": 50,  "label": "Exposed" },
-    { "min": 51, "max": 75,  "label": "Developing" },
-    { "min": 76, "max": 90,  "label": "Defensible" },
-    { "min": 91, "max": 100, "label": "Protected" }
+    { "min": 0,  "max": 25,  "label": "Critical",   "meaning": "Actively exposed on multiple heavy controls." },
+    { "min": 26, "max": 50,  "label": "Exposed",     "meaning": "Real liability live; most first-time shops land here." },
+    { "min": 51, "max": 75,  "label": "Developing",  "meaning": "Foundation exists, gaps remain." },
+    { "min": 76, "max": 90,  "label": "Defensible",  "meaning": "Would survive scrutiny with minor fixes." },
+    { "min": 91, "max": 100, "label": "Protected",   "meaning": "Full evidence layer in place." }
   ],
   "typicalFirstAuditRange": [31, 58],
   "autoFailControls": ["03", "09", "01", "14"],
-  "autoFailRule": "A FAIL on ANY auto-fail control flags red regardless of total score.",
+  "autoFailRule": "A FAIL on ANY auto-fail control flags a red warning regardless of total score.",
   "controls": [
-    { "id": "01", "name": "AI Identity Disclosure",         "weight": 8, "pillar": "Disclosure", "autoFail": true },
-    { "id": "02", "name": "Consent Language & NRS 603A",    "weight": 7, "pillar": "Privacy" },
-    { "id": "03", "name": "TCPA Outbound Compliance",       "weight": 9, "pillar": "Outbound",   "autoFail": true },
-    { "id": "04", "name": "Data Minimization",              "weight": 6, "pillar": "Privacy" },
-    { "id": "05", "name": "Third-Party Data Sharing",       "weight": 6, "pillar": "Privacy" },
-    { "id": "06", "name": "Opt-Out Mechanism",              "weight": 5, "pillar": "Privacy" },
-    { "id": "07", "name": "Human Override & Escalation",    "weight": 7, "pillar": "Guardrails" },
-    { "id": "08", "name": "Employee AI Use Policy",         "weight": 5, "pillar": "Governance" },
-    { "id": "09", "name": "Recording Consent & Disclosure", "weight": 8, "pillar": "Disclosure", "autoFail": true },
-    { "id": "10", "name": "Accuracy & Scope Limits",        "weight": 6, "pillar": "Guardrails" },
-    { "id": "11", "name": "Vendor Contracts (DPA)",         "weight": 5, "pillar": "Governance" },
-    { "id": "12", "name": "Incident Response Plan",         "weight": 7, "pillar": "Governance" },
-    { "id": "13", "name": "Bias & Fairness Review",         "weight": 5, "pillar": "Guardrails" },
-    { "id": "14", "name": "Audit Trail & Logs",             "weight": 8, "pillar": "Governance",  "autoFail": true },
-    { "id": "15", "name": "Annual Compliance Review",       "weight": 4, "pillar": "Governance" },
-    { "id": "16", "name": "Insurance (E&O / GL for AI)",    "weight": 4, "pillar": "Governance" }
+    { "id": "01", "name": "AI Identity Disclosure",        "weight": 8, "pillar": "Disclosure", "autoFail": true },
+    { "id": "02", "name": "Consent Language & NRS 603A",   "weight": 7, "pillar": "Privacy",     "autoFail": false },
+    { "id": "03", "name": "TCPA Outbound Compliance",      "weight": 9, "pillar": "Outbound",    "autoFail": true },
+    { "id": "04", "name": "Data Minimization",             "weight": 6, "pillar": "Privacy",     "autoFail": false },
+    { "id": "05", "name": "Third-Party Data Sharing",      "weight": 6, "pillar": "Privacy",     "autoFail": false },
+    { "id": "06", "name": "Opt-Out Mechanism",             "weight": 5, "pillar": "Privacy",     "autoFail": false },
+    { "id": "07", "name": "Human Override & Escalation",   "weight": 7, "pillar": "Guardrails",  "autoFail": false },
+    { "id": "08", "name": "Employee AI Use Policy",        "weight": 5, "pillar": "Governance",  "autoFail": false },
+    { "id": "09", "name": "Recording Consent & Disclosure","weight": 8, "pillar": "Disclosure", "autoFail": true },
+    { "id": "10", "name": "Accuracy & Scope Limits",       "weight": 6, "pillar": "Guardrails",  "autoFail": false },
+    { "id": "11", "name": "Vendor Contracts (DPA)",        "weight": 5, "pillar": "Governance",  "autoFail": false },
+    { "id": "12", "name": "Incident Response Plan",        "weight": 7, "pillar": "Governance",  "autoFail": false },
+    { "id": "13", "name": "Bias & Fairness Review",        "weight": 5, "pillar": "Guardrails",  "autoFail": false },
+    { "id": "14", "name": "Audit Trail & Logs",            "weight": 8, "pillar": "Governance",  "autoFail": true },
+    { "id": "15", "name": "Annual Compliance Review",      "weight": 4, "pillar": "Governance",  "autoFail": false },
+    { "id": "16", "name": "Insurance (E&O / GL for AI)",   "weight": 4, "pillar": "Governance",  "autoFail": false }
   ]
 }
