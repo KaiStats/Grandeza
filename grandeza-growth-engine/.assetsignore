@@ -1,0 +1,10 @@
+# Files in this directory that should NOT be published as part of the site.
+# The deployed site only needs game/index.html and the media under assets/.
+# (gitignore-style patterns, relative to this directory.)
+*.md
+data/
+src/
+package.json
+package-lock.json
+.gitignore
+assets/characters/fetch-characters.sh

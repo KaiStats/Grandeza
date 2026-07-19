@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "grandeza",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-05-01",
+  "assets": {
+    "directory": "grandeza-growth-engine",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
