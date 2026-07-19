@@ -1,0 +1,152 @@
+/* ============================================================================
+   GRANDEZA MOTION SYSTEM · motion.css
+   Drop-in animation tokens + utilities. Pair with motion.js.
+   Philosophy: motion reveals and certifies — it never decorates.
+   Everything animates transform/opacity only (compositor-friendly, 60fps),
+   and degrades to a calm, instant experience under prefers-reduced-motion.
+   ============================================================================ */
+
+:root{
+  /* ---- Duration scale (each tier maps to a job, not a vibe) ---- */
+  --gz-dur-instant: 80ms;   /* tap / press feedback — must feel immediate      */
+  --gz-dur-fast:    160ms;  /* hover, toggles, small state changes             */
+  --gz-dur-base:    260ms;  /* default transition (color, border, position)    */
+  --gz-dur-slow:    440ms;  /* entrances, card reveals, drawers                */
+  --gz-dur-cine:    1100ms; /* the one orchestrated beat (gauge sweep)         */
+
+  /* ---- Easing tokens (named by intent) ---- */
+  --gz-ease-standard:   cubic-bezier(.22,.61,.36,1);  /* settle: fast in, gentle stop  */
+  --gz-ease-emphasized: cubic-bezier(.16,1,.3,1);     /* dramatic reveal, long tail    */
+  --gz-ease-inout:      cubic-bezier(.65,0,.35,1);    /* symmetric — transitions       */
+  --gz-ease-exit:       cubic-bezier(.4,0,1,1);       /* leaving — accelerate away      */
+
+  /* ---- Distance tokens ---- */
+  --gz-lift-sm: -2px;  --gz-lift-md: -4px;  --gz-lift-lg: -6px;
+  --gz-rise: 22px;     /* reveal travel distance */
+  --gz-stagger: 70ms;  /* delay between staggered siblings */
+}
+
+/* ============================================================
+   1. SCROLL REVEAL  (add .gz-reveal; motion.js toggles .is-in)
+   Purpose: direct reading order, chunk information, imply the
+   page is composing itself around the reader.
+   ============================================================ */
+.gz-reveal{
+  opacity:0; transform:translateY(var(--gz-rise));
+  transition:opacity var(--gz-dur-slow) var(--gz-ease-emphasized),
+             transform var(--gz-dur-slow) var(--gz-ease-emphasized);
+  will-change:opacity, transform;
+}
+.gz-reveal.is-in{opacity:1; transform:none; will-change:auto;}
+
+/* Stagger children of a container: motion.js sets --i on each child */
+.gz-stagger > *{transition-delay:calc(var(--i, 0) * var(--gz-stagger));}
+
+/* Directional variants */
+.gz-reveal.from-left{transform:translateX(calc(-1 * var(--gz-rise)));}
+.gz-reveal.from-right{transform:translateX(var(--gz-rise));}
+.gz-reveal.from-left.is-in,.gz-reveal.from-right.is-in{transform:none;}
+.gz-reveal.scale-in{transform:translateY(var(--gz-rise)) scale(.97);}
+.gz-reveal.scale-in.is-in{transform:none;}
+
+/* ============================================================
+   2. HOVER / LIFT  (interactive surfaces look interactive)
+   ============================================================ */
+.gz-lift{transition:transform var(--gz-dur-base) var(--gz-ease-standard),
+                    box-shadow var(--gz-dur-base) var(--gz-ease-standard),
+                    border-color var(--gz-dur-base) var(--gz-ease-standard);}
+.gz-lift:hover{transform:translateY(var(--gz-lift-md));}
+.gz-lift-lg:hover{transform:translateY(var(--gz-lift-lg));}
+
+/* Press feedback — pair on buttons/options for tactile confirmation */
+.gz-press{transition:transform var(--gz-dur-instant) var(--gz-ease-standard);}
+.gz-press:active{transform:scale(.975);}
+
+/* Link underline that grows from the leading edge */
+.gz-underline{background-image:linear-gradient(currentColor,currentColor);
+  background-size:0% 1.5px; background-position:0 100%; background-repeat:no-repeat;
+  transition:background-size var(--gz-dur-base) var(--gz-ease-standard); text-decoration:none;}
+.gz-underline:hover{background-size:100% 1.5px;}
+
+/* Arrow nudge inside a CTA (affordance: "this moves you forward") */
+.gz-arrow{display:inline-block;transition:transform var(--gz-dur-fast) var(--gz-ease-standard);}
+:where(a,button):hover > .gz-arrow{transform:translateX(3px);}
+
+/* Image "breathe" inside a fixed frame (frame must have overflow:hidden) */
+.gz-zoom{transition:transform var(--gz-dur-slow) var(--gz-ease-standard);}
+.gz-zoom:hover{transform:scale(1.04);}
+
+/* ============================================================
+   3. LOADING STATES  (reduce *perceived* latency, prevent CLS)
+   ============================================================ */
+/* Skeleton shimmer — hold layout while data arrives */
+.gz-skeleton{position:relative; overflow:hidden;
+  background:color-mix(in srgb, currentColor 9%, transparent); border-radius:8px;}
+.gz-skeleton::after{content:""; position:absolute; inset:0; transform:translateX(-100%);
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,currentColor 12%,transparent),transparent);
+  animation:gz-shimmer 1.25s var(--gz-ease-inout) infinite;}
+@keyframes gz-shimmer{100%{transform:translateX(100%);}}
+
+/* Inline spinner — proves an action registered */
+.gz-spinner{width:1.1em; height:1.1em; border-radius:50%;
+  border:2px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-top-color:currentColor; animation:gz-spin .7s linear infinite;}
+@keyframes gz-spin{100%{transform:rotate(360deg);}}
+
+/* Brand "certify" loader stroke draw (SVG path with pathLength=1) */
+.gz-draw{stroke-dasharray:1; stroke-dashoffset:1;
+  animation:gz-draw var(--gz-dur-cine) var(--gz-ease-emphasized) forwards;}
+@keyframes gz-draw{to{stroke-dashoffset:0;}}
+
+/* ============================================================
+   4. FEEDBACK / CONFIRMATION  (closure = the certify metaphor)
+   ============================================================ */
+.gz-stamp{animation:gz-stamp 520ms var(--gz-ease-emphasized) both;}
+@keyframes gz-stamp{
+  0%{opacity:0; transform:scale(1.6) rotate(-8deg);}
+  60%{opacity:1; transform:scale(.94) rotate(1deg);}
+  100%{opacity:1; transform:scale(1) rotate(0);}
+}
+.gz-pulse{animation:gz-pulse 2.2s var(--gz-ease-inout) infinite;}
+@keyframes gz-pulse{
+  0%{box-shadow:0 0 0 0 color-mix(in srgb, currentColor 55%, transparent);}
+  70%{box-shadow:0 0 0 10px transparent;}
+  100%{box-shadow:0 0 0 0 transparent;}
+}
+
+/* ============================================================
+   5. PAGE / VIEW TRANSITIONS  (continuity between routes)
+   Cross-document View Transitions (MPA). Progressive enhancement:
+   unsupported browsers simply hard-cut.
+   ============================================================ */
+@view-transition{navigation:auto;}
+::view-transition-old(root){animation:gz-fade-out var(--gz-dur-base) var(--gz-ease-exit) both;}
+::view-transition-new(root){animation:gz-fade-in var(--gz-dur-slow) var(--gz-ease-emphasized) both;}
+@keyframes gz-fade-out{to{opacity:0; transform:translateY(-8px);}}
+@keyframes gz-fade-in{from{opacity:0; transform:translateY(10px);}}
+/* Shared elements keep their name across pages to morph (seal, score card) */
+.gz-vt-seal{view-transition-name:gz-seal;}
+.gz-vt-score{view-transition-name:gz-score;}
+
+/* In-page step transition (e.g. multi-step scan) */
+.gz-step-enter{animation:gz-step-in var(--gz-dur-slow) var(--gz-ease-emphasized) both;}
+.gz-step-exit{animation:gz-step-out var(--gz-dur-base) var(--gz-ease-exit) both;}
+@keyframes gz-step-in{from{opacity:0; transform:translateX(24px);}}
+@keyframes gz-step-out{to{opacity:0; transform:translateX(-24px);}}
+
+/* ============================================================
+   6. REDUCED MOTION  (a first-class path, never an afterthought)
+   Keep meaning (things still appear/confirm) but remove travel,
+   loops, parallax and long cinematic beats.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important; scroll-behavior:auto !important;
+  }
+  .gz-reveal{opacity:1 !important; transform:none !important;}
+  .gz-skeleton::after,.gz-spinner,.gz-pulse{animation:none !important;}
+}
+/* Same neutralization when JS sets a manual preview flag */
+:root[data-gz-motion="off"] .gz-reveal{opacity:1 !important; transform:none !important;}
+:root[data-gz-motion="off"] *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
