@@ -3,7 +3,8 @@
 **Audience:** HVAC & plumbing contractors and service-business owners/operators.
 Visual brand book: [`/brand.html`](../brand.html). This doc is the written source of truth for
 marketers, writers and developers. It aligns with the tokens already live across
-`index.html`, `landing.html`, `scan.html`, `mobile.html` and the motion system.
+`index.html`, `landing.html`, `mobile.html` and the motion system. (The scan lives at the
+production page `grandeza.io/scan`, built separately — the site links out to it.)
 
 ---
 

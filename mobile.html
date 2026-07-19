@@ -1,5 +1,5 @@
 <title>Grandeza — Mobile Experience</title>
-<meta name="description" content="Mobile-first redesign of Grandeza.io: thumb-zone navigation, a persistent bottom conversion dock, native bottom sheets, scroll-snap proof, and a lean performance profile for HVAC & plumbing pros on their phones.">
+<meta name="description" content="Mobile-first redesign of Grandeza.io: thumb-zone navigation, a persistent bottom conversion dock, scroll-snap proof, and a lean performance profile for HVAC & plumbing pros on their phones.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <style>
   :root{
@@ -278,18 +278,6 @@
     </div>
   </div>
 
-  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Free scan">
-    <div class="grab" id="grab"></div>
-    <div class="sheet-body">
-      <span class="eyebrow">Free · 12 minutes</span>
-      <h3>Get your Grandeza Score</h3>
-      <p class="lead">One number that tells you exactly where your intake stands. No code access, no card.</p>
-      <div class="fld"><label for="ph">Mobile number</label><input id="ph" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 000-0000"></div>
-      <div class="fld"><label for="em2">Work email</label><input id="em2" type="email" inputmode="email" autocomplete="email" placeholder="you@yourshop.com"></div>
-      <button class="btn btn-primary" id="sheetSubmit">Text me my scan link →</button>
-      <p class="micro"><span>✓ No card</span><span>✓ No code access</span><span>✓ 8 slots left</span></p>
-    </div>
-  </div>
 
   <!-- scrollable screen -->
   <div class="screen" id="screen">
@@ -404,7 +392,7 @@
 
   <!-- BOTTOM DOCK (thumb zone, persistent) -->
   <div class="dock">
-    <button class="btn btn-primary" id="dockCta">Get my free score →</button>
+    <a class="btn btn-primary" href="/scan">Get my free score →</a>
     <a class="call" href="tel:+18555550142" aria-label="Call Grandeza">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h4l2 5-3 2a11 11 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 011-2z"/></svg>
     </a>
@@ -440,7 +428,7 @@
   /* menu */
   var scrim=document.getElementById("scrim"),menu=document.getElementById("menu");
   function openMenu(){menu.classList.add("show");scrim.classList.add("show");}
-  function closeAll(){menu.classList.remove("show");sheet.classList.remove("show");scrim.classList.remove("show");}
+  function closeAll(){menu.classList.remove("show");scrim.classList.remove("show");}
   document.getElementById("menuOpen").addEventListener("click",openMenu);
   document.getElementById("menuClose").addEventListener("click",closeAll);
   scrim.addEventListener("click",closeAll);
@@ -448,22 +436,7 @@
     e.preventDefault();closeAll();var t=document.querySelector(a.getAttribute("href"));
     if(t)setTimeout(function(){t.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});},260);});});
 
-  /* bottom sheet */
-  var sheet=document.getElementById("sheet");
-  function openSheet(){sheet.classList.add("show");scrim.classList.add("show");}
-  document.getElementById("dockCta").addEventListener("click",openSheet);
-  document.getElementById("sheetSubmit").addEventListener("click",function(){closeAll();});
-  /* swipe-down to dismiss the sheet */
-  var grab=document.getElementById("grab"),startY=null,curY=0;
-  function dragStart(e){startY=(e.touches?e.touches[0].clientY:e.clientY);sheet.style.transition="none";}
-  function dragMove(e){if(startY==null)return;var y=(e.touches?e.touches[0].clientY:e.clientY);
-    curY=Math.max(0,y-startY);sheet.style.transform="translateY("+curY+"px)";}
-  function dragEnd(){if(startY==null)return;sheet.style.transition="";sheet.style.transform="";
-    if(curY>90)closeAll();startY=null;curY=0;}
-  grab.addEventListener("touchstart",dragStart,{passive:true});grab.addEventListener("touchmove",dragMove,{passive:true});grab.addEventListener("touchend",dragEnd);
-  grab.addEventListener("pointerdown",dragStart);addEventListener("pointermove",function(e){if(startY!=null)dragMove(e);});addEventListener("pointerup",dragEnd);
-
-  /* esc closes */
+  /* esc closes the menu */
   addEventListener("keydown",function(e){if(e.key==="Escape")closeAll();});
 
   /* mini gauge + score chip (simulated load = perceived-perf demo) */
