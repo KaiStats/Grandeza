@@ -172,6 +172,28 @@ the score and control codes makes data *feel* like evidence.
 
 ---
 
+## 4a. Photography (Higgsfield · Nano Banana 2)
+The homepage revision adds a restrained **editorial photography layer** — kept in the
+darker, cinematic "dossier" register (low-key, brass rim-light, teal-charcoal grounds) so it
+reads as institutional, not stock-photo warm. Three images, three jobs:
+
+| Asset | Placement | UX rationale | Source URL |
+|---|---|---|---|
+| **Brass-seal macro** | Faint hero background texture (16% light / 28% dark, masked top-right) | *Ambient authority* — the certificate/seal motif made literal, without competing with the score gauge | `…hf_20260719_160441_f23932d3-…2a.png` |
+| **Compliance-binder still-life** | "The proof isn't a promise. It's a binder." feature (image + benefits) | *Concreteness / endowment* — makes the abstract deliverable tangible right before Guardian | `…hf_20260719_160439_d64b858d-…3b.png` |
+| **Owner portrait** (low-key) | Full-bleed editorial band with a pull-quote | *Identification / empathy* — a human beat that breaks the light-section run and voices the buyer's brief | `…hf_20260719_160436_71bdfc3d-…75.png` |
+
+**Integration rules that preserve the brand:**
+- All three use CSS `background-image` over a brand gradient/ground → a blocked or expired URL
+  **degrades silently** (no broken-image icon). This session's egress policy blocks the
+  Higgsfield CDN, so images won't render in the sandboxed artifact preview but load on deploy.
+- Photography is *supporting*, never the hero — the animated Grandeza Score gauge remains the
+  thesis. Images are placed to punctuate rhythm (one dark editorial band amid light sections)
+  and to make two abstractions concrete (the seal, the binder).
+- **Production:** self-host as `.webp` (+ `.jpg`), resize to displayed size, add
+  `loading="lazy"` equivalents, and repoint `--img-seal` / `--img-binder` / `--img-portrait`.
+  Full asset table (all generated images + job IDs) is in `docs/social-assets.md`.
+
 ## 5. Layout, spacing & grid
 - **Container:** `--maxw: 1200px`, fluid side padding `clamp(1.1rem, 4vw, 2.5rem)`.
 - **Section rhythm:** `padding-block: clamp(4rem, 9vw, 7.5rem)` — generous vertical
