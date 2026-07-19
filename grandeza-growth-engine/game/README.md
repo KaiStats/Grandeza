@@ -37,6 +37,24 @@ cues on each choice, the red-flag hit, and the final verdict. It's synthesized
 inline (no audio files), **muted by default**, and disabled entirely when the
 browser requests `prefers-reduced-motion`.
 
+## Shareable single-file build (art baked in)
+
+`index.html` loads the art from `../assets/characters/` at runtime — great for
+hosting, but a sandboxed Artifact/link can't fetch those files. To get one
+self-contained file that shows the full cast anywhere:
+
+```bash
+bash ../assets/characters/fetch-characters.sh   # if you don't have the art yet
+node build-inline.mjs            # stills only  -> index.inlined.html (~9–10 MB)
+node build-inline.mjs --videos   # also embed the Seedance clips (much bigger)
+```
+
+`build-inline.mjs` embeds the assets as data: URIs via the `window.GRANDEZA_INLINE`
+manifest (see the `INLINE`/`srcOf` hooks in `index.html`). `index.inlined.html`
+is a build output — gitignored, safe to publish as an Artifact or drop on any
+host. Stills-only is the reliable size for a shared link; `--videos` is best for
+self-hosting.
+
 ## Legal accuracy
 
 Statutory figures shown are the verified ones only (TCPA $500–$1,500/text;

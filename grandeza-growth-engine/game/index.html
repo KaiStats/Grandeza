@@ -382,6 +382,7 @@
   </div>
 </div>
 
+<!-- INLINE-MANIFEST -->
 <script>
 (function () {
   "use strict";
@@ -677,6 +678,12 @@
      shareable artifact has no files), the game degrades to the text UI —
      mountMedia only reveals an element once it actually loads. */
   var ASSET_BASE = "../assets/characters/";
+  // When built with build-inline.mjs, window.GRANDEZA_INLINE maps
+  // filename -> data: URI so the page is fully self-contained (shareable
+  // artifact shows the cast). Empty in the normal repo file — art loads from
+  // ASSET_BASE at runtime instead.
+  var INLINE = (typeof window !== "undefined" && window.GRANDEZA_INLINE) || {};
+  function srcOf(file) { return INLINE[file] || (ASSET_BASE + file); }
   var GUARDO = {
     img: "guardo.png", video: "guardo-intro.mp4",
     cheer: "guardo-cheer.mp4",
@@ -721,7 +728,7 @@
     im.alt = alt || "";
     im.onload = function () { box.innerHTML = ""; box.appendChild(im); };
     im.onerror = function () {}; // stay empty — UI already stands on its own
-    im.src = ASSET_BASE + file;
+    im.src = srcOf(file);
   }
   // try a looping video; fall back to a still image; else stay empty
   function mountVideo(sel, file, posterFile, alt) {
@@ -735,7 +742,7 @@
     v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true");
     v.addEventListener("loadeddata", function () { box.innerHTML = ""; box.appendChild(v); });
     v.addEventListener("error", function () { if (posterFile) mountImg(box, posterFile, alt || ""); });
-    v.src = ASSET_BASE + file;
+    v.src = srcOf(file);
   }
 
   /* -------- state -------- */
