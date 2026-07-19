@@ -615,13 +615,35 @@
     worriedImg: "guardo-worried.png", worried: "guardo-worried.mp4",
     name: "Guardo"
   };
-  var VILLAINS = {
-    "01": { img: "phantom-bot.png", video: "phantom-bot-attack.mp4", name: "Phantom Bot" },   // AI disclosure
-    "03": { img: "robotexter.png",  video: "robotexter-attack.mp4",  name: "The Robotexter" },// TCPA
-    "09": { img: "sneaky-pete.png", video: "sneaky-pete-attack.mp4", name: "Sneaky Pete" },   // recording consent
-    "14": { img: "the-shredder.png",video: "the-shredder-attack.mp4",name: "The Shredder" }   // audit trail
+  /* CAST — one entry per control code (progressive enhancement).
+     The four auto-fail controls have a named rogue (own still + Seedance
+     "attack" clip) that gets you on the red-flag screen. The other twelve are
+     "minion" slots: they currently fall back to Guardo (the guide). To give a
+     control its own lighter minion, generate the art (Higgsfield
+     nano_banana_pro still + optional seedance_2_0 image->video clip — recipe
+     and the suggested filenames are in CHARACTERS.md), drop the files into
+     ASSET_BASE, and fill that code's entry in below. A missing file is safe:
+     mountImg/mountVideo only reveal an element once it actually loads. */
+  var CAST = {
+    "01": { img: "phantom-bot.png",  video: "phantom-bot-attack.mp4",  name: "Phantom Bot" },    // AI disclosure    (auto-fail)
+    "02": null,                                                                                   // Consent language & NRS 603A
+    "03": { img: "robotexter.png",   video: "robotexter-attack.mp4",   name: "The Robotexter" }, // TCPA outbound    (auto-fail)
+    "04": null,                                                                                   // Data minimization
+    "05": null,                                                                                   // Third-party data sharing
+    "06": null,                                                                                   // Opt-out mechanism
+    "07": null,                                                                                   // Human override & escalation
+    "08": null,                                                                                   // Employee AI use policy
+    "09": { img: "sneaky-pete.png",  video: "sneaky-pete-attack.mp4",  name: "Sneaky Pete" },    // Recording consent (auto-fail)
+    "10": null,                                                                                   // Accuracy & scope limits
+    "11": null,                                                                                   // Vendor contracts (DPA)
+    "12": null,                                                                                   // Incident response plan
+    "13": null,                                                                                   // Bias & fairness review
+    "14": { img: "the-shredder.png", video: "the-shredder-attack.mp4", name: "The Shredder" },   // Audit trail       (auto-fail)
+    "15": null,                                                                                   // Annual compliance review
+    "16": null                                                                                    // Insurance (E&O / GL)
   };
-  function charFor(code) { return VILLAINS[code] || GUARDO; }
+  var VILLAINS = CAST; // back-compat alias
+  function charFor(code) { return CAST[code] || GUARDO; }
 
   // reveal an <img> into container only if it loads; silent no-op otherwise
   function mountImg(sel, file, alt) {
