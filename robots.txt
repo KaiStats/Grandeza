@@ -1,0 +1,19 @@
+# Grandeza.io — robots.txt
+# Allow everything crawlable; keep app/thank-you/query noise out of the index.
+
+User-agent: *
+Allow: /
+
+# Post-conversion + app surfaces (no SEO value, avoid thin/duplicate)
+Disallow: /scan/result
+Disallow: /thank-you
+Disallow: /app/
+Disallow: /api/
+Disallow: /*?*utm_
+Disallow: /*?*ref=
+
+# Let ad/marketing bots read landing pages
+User-agent: AdsBot-Google
+Allow: /
+
+Sitemap: https://grandeza.io/sitemap.xml

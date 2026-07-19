@@ -1,0 +1,49 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://grandeza.io/#organization",
+      "name": "Grandeza",
+      "legalName": "Grandeza, Inc.",
+      "url": "https://grandeza.io/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://grandeza.io/assets/logo-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "description": "Grandeza hardens the AI, SMS and voice customer intake that HVAC and plumbing contractors run — turning invisible TCPA risk into a scored, provable compliance record.",
+      "slogan": "Prove your intake is compliant.",
+      "knowsAbout": ["TCPA compliance", "SMS consent", "A2P 10DLC", "Do-Not-Call compliance", "AI intake compliance", "HVAC operations", "plumbing operations"],
+      "areaServed": { "@type": "Country", "name": "United States" },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-855-555-0142",
+        "contactType": "sales",
+        "areaServed": "US",
+        "availableLanguage": "English"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/grandeza",
+        "https://x.com/grandeza_io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://grandeza.io/#website",
+      "url": "https://grandeza.io/",
+      "name": "Grandeza",
+      "publisher": { "@id": "https://grandeza.io/#organization" },
+      "inLanguage": "en-US",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://grandeza.io/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
