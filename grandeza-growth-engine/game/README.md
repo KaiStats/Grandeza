@@ -17,6 +17,21 @@ so people finish it instead of balking at a 16-question form.
 - The verdict screen gives your band (Critical → Protected), a per-pillar
   breakdown, your "fix these first" list, and a CTA to `grandeza.io/scan`.
 
+## Characters (Guardo & the Rogues)
+
+The game shows a 3D Pixar-lite cast — **Guardo** the shield-mascot guide plus
+four rogues (one per auto-fail control): The Robotexter (TCPA), Phantom Bot
+(AI disclosure), Sneaky Pete (recording consent), and The Shredder (audit
+trail). Art was generated with Higgsfield (nano-banana stills + a Seedance 2.0
+animation of Guardo). See `CHARACTERS.md` for the cast bible, exact prompts,
+and job IDs, and `GAME_UPGRADE_SPEC.md` for how to extend it in Cursor.
+
+The art lives in `../assets/characters/`. It's wired as **progressive
+enhancement**: the game auto-detects the files and shows the cast; without them
+(e.g. the shareable single-file Artifact) it falls back to the text UI with
+nothing broken. To pull the binaries down locally, run
+`../assets/characters/fetch-characters.sh`.
+
 ## Legal accuracy
 
 Statutory figures shown are the verified ones only (TCPA $500–$1,500/text;
