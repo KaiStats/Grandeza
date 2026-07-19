@@ -23,11 +23,16 @@ import { fileURLToPath } from "node:url";
 import { dirname, join, extname } from "node:path";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const assetsDir = join(here, "..", "assets", "characters");
+const argv = process.argv.slice(2);
+const withVideos = argv.includes("--videos");
+// --assets <dir> points at an alternate (e.g. compressed) asset folder; the
+// filenames inside must match what the game requests (guardo.png, etc.).
+const ai = argv.indexOf("--assets");
+const assetsDir = ai !== -1 && argv[ai + 1]
+  ? argv[ai + 1]
+  : join(here, "..", "assets", "characters");
 const srcHtml = join(here, "index.html");
 const outHtml = join(here, "index.inlined.html");
-
-const withVideos = process.argv.includes("--videos");
 
 const MIME = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
                ".webp": "image/webp", ".gif": "image/gif", ".mp4": "video/mp4",

@@ -55,6 +55,33 @@ is a build output — gitignored, safe to publish as an Artifact or drop on any
 host. Stills-only is the reliable size for a shared link; `--videos` is best for
 self-hosting.
 
+### Under a size cap (e.g. 16 MB Artifact limit) — compress first
+
+The full-res `--videos` build is ~27 MB. To fit a hosted/Artifact cap, compress
+into a temp dir (keeping the **same filenames**) and point the build at it with
+`--assets`:
+
+```bash
+# needs ffmpeg + Pillow (pip install imageio-ffmpeg pillow, or system ffmpeg)
+OUT=$(mktemp -d)
+# stills -> 512px png
+python3 - "$OUT" <<'PY'
+import glob,os,sys
+from PIL import Image
+for p in glob.glob("../assets/characters/*.png"):
+    im=Image.open(p).convert("RGBA"); im.thumbnail((512,512),Image.LANCZOS)
+    im.save(os.path.join(sys.argv[1],os.path.basename(p)),optimize=True)
+PY
+# clips -> 480p, crf 30, silent
+for f in ../assets/characters/*.mp4; do
+  ffmpeg -y -loglevel error -i "$f" -vf scale=-2:480 -c:v libx264 -crf 30 -preset veryfast -an "$OUT/$(basename "$f")"
+done
+node build-inline.mjs --videos --assets "$OUT"   # ~2.6 MB, all 13 assets
+```
+
+480p reads fine at the character sizes used in the UI. Drop `crf` (e.g. 26) for
+higher quality / larger file.
+
 ## Legal accuracy
 
 Statutory figures shown are the verified ones only (TCPA $500–$1,500/text;
