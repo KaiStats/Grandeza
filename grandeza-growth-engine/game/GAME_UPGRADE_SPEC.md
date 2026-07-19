@@ -35,20 +35,24 @@ scenario), `#flashChar` (red-flag villain), `#resultChar` (Guardo reaction).
 
 ## Recommended upgrades (in priority order)
 
-1. **Background-cutout the stills.** They render on solid navy today. Run each
-   PNG through a cutout (Higgsfield `remove_background`, or any matte tool) and
-   save as transparent PNG so characters sit on the UI cleanly. Keep filenames.
-2. **One Seedance "attack" loop per rogue** for the red-flag screen — see the
-   recipe + prompts in `CHARACTERS.md`. Swap `#flashChar` from `mountImg` to a
-   `mountVideo`-style helper (mirror `mountHero`) keyed by control code.
-3. **Guardo reaction variants** — a "worried" clip for red-flagged results and a
-   "cheer" clip for a Protected score; pick in `renderResult()` by `flagged` /
-   `score`.
-4. **Sound (optional).** Short SFX on choose/red-flag/victory. Gate behind a
+1. ~~Background-cutout the stills~~ **DONE.** All six stills are transparent
+   PNGs (Higgsfield `remove_background`); `fetch-characters.sh` pulls the
+   cutouts into the canonical filenames. The navy-background originals are
+   commented out in that script if you ever want them.
+2. ~~One Seedance "attack" loop per rogue~~ **DONE.** Each rogue has a
+   `*-attack.mp4`; the red-flag screen plays it via `mountVideo` (still
+   fallback).
+3. ~~Guardo reaction variants~~ **DONE.** `guardo-cheer.mp4` /
+   `guardo-worried.mp4` play on the results screen by `flagged`.
+4. **Videos are still navy-background.** The stills are cut out but the Seedance
+   clips have navy baked in. To make a clip transparent you'd matte it per-frame
+   (Higgsfield `remove_background` with `media_type:"video"`), then use a
+   `.webm`/alpha-capable format. Optional polish once the look is locked.
+5. **Sound (optional).** Short SFX on choose/red-flag/victory. Gate behind a
    mute toggle and honor `prefers-reduced-motion`; keep it off by default.
-5. **Non-auto-fail flavor.** Optionally give the 12 non-auto-fail controls
-   lighter "minion" characters instead of reusing Guardo, if you want more
-   variety. Extend the `VILLAINS` map (rename it `CAST`) with all 16 codes.
+6. **Non-auto-fail flavor.** Optionally give the 12 non-auto-fail controls
+   lighter "minion" characters instead of reusing Guardo. Extend the `VILLAINS`
+   map (rename it `CAST`) with all 16 codes.
 
 ## Guardrails (unchanged — keep enforcing)
 

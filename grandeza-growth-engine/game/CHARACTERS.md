@@ -7,10 +7,12 @@ background. Fun-loving and goofy — the *consequences* are dire, the characters
 are not scary.
 
 Generated with **Higgsfield**: stills via `nano_banana_pro` (2 credits each),
-animation via **Seedance 2.0** (`seedance_2_0`, image→video, ~17.5 credits for
-5s/720p). Files live in `../assets/characters/`; run
+backgrounds cut out via `remove_background` (transparent PNGs — what the game
+uses), animation via **Seedance 2.0** (`seedance_2_0`, image→video, ~17.5
+credits for 5s/720p). Files live in `../assets/characters/`; run
 `../assets/characters/fetch-characters.sh` to pull them locally (see the note
-there about the egress block).
+there about the egress block). Note: the video clips still have navy baked in;
+only the stills are transparent.
 
 ## The hero
 
