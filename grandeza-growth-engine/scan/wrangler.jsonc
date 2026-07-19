@@ -1,0 +1,21 @@
+{
+  // Cloudflare Worker that serves the "Survive the Audit" game at
+  // https://grandeza.io/scan. It's a static-assets worker (no server code):
+  // the single self-contained page in ./public is served for the /scan route,
+  // with SPA fallback so /scan and anything under it returns the game.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "grandeza-scan",
+  "compatibility_date": "2026-07-19",
+
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "single-page-application"
+  },
+
+  // Map the money-page route. Requires the grandeza.io zone to be active in
+  // this Cloudflare account (nameservers pointed at Cloudflare).
+  "routes": [
+    { "pattern": "grandeza.io/scan",   "zone_name": "grandeza.io" },
+    { "pattern": "grandeza.io/scan/*", "zone_name": "grandeza.io" }
+  ]
+}
