@@ -25,12 +25,17 @@ screen (approving when you're Defensible+, concerned when you're red-flagged).
 
 Each auto-fail threat has a villain who "gets you" on the red-flag screen.
 
-| Control | Villain | File | Job ID | What they are |
+| Control | Villain | Still | Attack clip | What they are |
 |---|---|---|---|---|
-| **03** TCPA | **The Robotexter** | `robotexter.png` | `667a87d8-0cbb-436b-95f5-d4b9d43042a7` | Chunky retro robot with a smartphone belly spewing spam texts |
-| **01** AI disclosure | **Phantom Bot** | `phantom-bot.png` | `9e172803-da4a-4832-9a8b-22b13149847e` | Ghost-bot in a cheap human mask + "DEFINITELY HUMAN" name tag |
-| **09** Recording consent | **Sneaky Pete** | `sneaky-pete.png` | `78f80aff-21de-47c5-959e-09ca0d8baeeb` | Goofy trench-coat spy bristling with hidden mics, going "shhh" |
-| **14** Audit trail | **The Shredder** | `the-shredder.png` | `def163d9-c5bc-4b76-9163-31ba5340c1d0` | Gleeful paper-shredder gremlin eating the evidence logs |
+| **03** TCPA | **The Robotexter** | `robotexter.png` | `robotexter-attack.mp4` | Chunky retro robot with a smartphone belly spewing spam texts |
+| **01** AI disclosure | **Phantom Bot** | `phantom-bot.png` | `phantom-bot-attack.mp4` | Ghost-bot in a cheap human mask + "DEFINITELY HUMAN" name tag |
+| **09** Recording consent | **Sneaky Pete** | `sneaky-pete.png` | `sneaky-pete-attack.mp4` | Goofy trench-coat spy bristling with hidden mics, going "shhh" |
+| **14** Audit trail | **The Shredder** | `the-shredder.png` | `the-shredder-attack.mp4` | Gleeful paper-shredder gremlin eating the evidence logs |
+
+Each rogue also has a 5-second Seedance 2.0 "attack" loop (above) that plays on
+the red-flag screen. Guardo has three clips: `guardo-intro.mp4` (intro bounce),
+`guardo-cheer.mp4` (victory), and `guardo-worried.mp4` (shown on a red-flagged
+result, off the `guardo-worried.png` still). All wired in `game/index.html`.
 
 ## Exact generation prompts
 
@@ -54,9 +59,12 @@ Params used for Guardo: `duration:5, resolution:"720p", mode:"fast",
 generate_audio:false, aspect_ratio:"16:9"`. Keep the navy background still and
 the motion subtle so it loops cleanly behind UI.
 
-### Suggested next clips (not yet generated)
-- **Villain "attack" loops** (one per rogue) for the red-flag screen — e.g. The
-  Robotexter frantically machine-guns texts; The Shredder chomps a stack of
-  logs and cackles. Same recipe, start_image = each villain's job ID.
-- **Guardo "worried"** variant for red-flagged results, and **Guardo "cheer"**
-  for Protected. Generate a still first (new pose), then animate.
+### Generated so far
+- Guardo intro / cheer / worried (worried has its own still, `guardo-worried.png`).
+- One attack loop per rogue (Robotexter, Phantom Bot, Sneaky Pete, The Shredder).
+
+### Nice-to-have next
+- Attack loops for the 12 non-auto-fail controls (needs "minion" characters —
+  see the `CAST` idea in `GAME_UPGRADE_SPEC.md`).
+- Higher-res (1080p, `mode:"std"`) or transparent-background versions once the
+  look is locked.

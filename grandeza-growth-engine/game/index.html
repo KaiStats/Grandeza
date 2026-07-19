@@ -317,18 +317,18 @@
   .sc-avatar img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover;
     border: 1px solid var(--line); background: var(--navy-deep); }
   .flash-char { min-height: 0; margin-bottom: 6px; }
-  .flash-char img {
-    width: clamp(120px, 34vw, 180px); height: auto; border-radius: 16px;
+  .flash-char img, .flash-char video {
+    width: clamp(120px, 34vw, 180px); height: auto; border-radius: 16px; display: block; margin: 0 auto;
     filter: drop-shadow(0 14px 30px rgba(255,70,50,.4));
     animation: villainPop .5s cubic-bezier(.2,1.5,.4,1) both;
   }
   @keyframes villainPop { from { transform: scale(.4) rotate(-8deg); opacity: 0; } to { transform: none; opacity: 1; } }
   .result-char { margin-bottom: 4px; }
-  .result-char img { width: clamp(84px, 22vw, 116px); height: auto; border-radius: 14px;
+  .result-char img, .result-char video { width: clamp(84px, 22vw, 116px); height: auto; border-radius: 14px; display: block;
     filter: drop-shadow(0 12px 22px rgba(0,0,0,.4)); }
   @media (prefers-reduced-motion: reduce) {
     .hero-char img, .hero-char video { animation: none; }
-    .flash-char img { animation: none; }
+    .flash-char img, .flash-char video { animation: none; }
   }
 
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
@@ -607,12 +607,17 @@
      shareable artifact has no files), the game degrades to the text UI —
      mountMedia only reveals an element once it actually loads. */
   var ASSET_BASE = "../assets/characters/";
-  var GUARDO = { img: "guardo.png", video: "guardo-intro.mp4", name: "Guardo" };
+  var GUARDO = {
+    img: "guardo.png", video: "guardo-intro.mp4",
+    cheer: "guardo-cheer.mp4",
+    worriedImg: "guardo-worried.png", worried: "guardo-worried.mp4",
+    name: "Guardo"
+  };
   var VILLAINS = {
-    "01": { img: "phantom-bot.png", name: "Phantom Bot" },   // AI disclosure
-    "03": { img: "robotexter.png",  name: "The Robotexter" },// TCPA
-    "09": { img: "sneaky-pete.png", name: "Sneaky Pete" },   // recording consent
-    "14": { img: "the-shredder.png",name: "The Shredder" }   // audit trail
+    "01": { img: "phantom-bot.png", video: "phantom-bot-attack.mp4", name: "Phantom Bot" },   // AI disclosure
+    "03": { img: "robotexter.png",  video: "robotexter-attack.mp4",  name: "The Robotexter" },// TCPA
+    "09": { img: "sneaky-pete.png", video: "sneaky-pete-attack.mp4", name: "Sneaky Pete" },   // recording consent
+    "14": { img: "the-shredder.png",video: "the-shredder-attack.mp4",name: "The Shredder" }   // audit trail
   };
   function charFor(code) { return VILLAINS[code] || GUARDO; }
 
@@ -626,16 +631,19 @@
     im.onerror = function () {}; // stay empty — UI already stands on its own
     im.src = ASSET_BASE + file;
   }
-  // try a looping video; fall back to the still image; else nothing
-  function mountHero(sel) {
-    var box = document.getElementById(sel);
+  // try a looping video; fall back to a still image; else stay empty
+  function mountVideo(sel, file, posterFile, alt) {
+    var box = typeof sel === "string" ? document.getElementById(sel) : sel;
     if (!box) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (posterFile) mountImg(box, posterFile, alt); return;
+    }
     var v = document.createElement("video");
     v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
     v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true");
     v.addEventListener("loadeddata", function () { box.innerHTML = ""; box.appendChild(v); });
-    v.addEventListener("error", function () { mountImg(box, GUARDO.img, "Guardo, your guide"); });
-    v.src = ASSET_BASE + GUARDO.video;
+    v.addEventListener("error", function () { if (posterFile) mountImg(box, posterFile, alt || ""); });
+    v.src = ASSET_BASE + file;
   }
 
   /* -------- state -------- */
@@ -682,7 +690,7 @@
         '<p class="mini">No sign-up. Nothing leaves your browser. Keyboard: press 1–3 to answer.</p>' +
       '</div>';
     document.getElementById("startBtn").addEventListener("click", begin);
-    mountHero("heroChar");
+    mountVideo("heroChar", GUARDO.video, GUARDO.img, "Guardo, your guide");
   }
 
   function begin() {
@@ -798,7 +806,8 @@
   function showFlag(t) {
     var c = charFor(t.code);
     document.getElementById("flashChar").innerHTML = "";
-    mountImg("flashChar", c.img, c.name);
+    if (c.video) mountVideo("flashChar", c.video, c.img, c.name);
+    else mountImg("flashChar", c.img, c.name);
     document.getElementById("flashTitle").textContent = c.name + " got you — Control " + t.code + ": " + t.name;
     document.getElementById("flashBody").textContent = t.fail;
     flash.classList.add("show");
@@ -895,7 +904,8 @@
       '</div>';
 
     document.getElementById("againBtn").addEventListener("click", intro);
-    mountImg("resultChar", GUARDO.img, flagged ? "Guardo looks concerned" : "Guardo approves");
+    if (flagged) mountVideo("resultChar", GUARDO.worried, GUARDO.worriedImg, "Guardo looks concerned");
+    else mountVideo("resultChar", GUARDO.cheer, GUARDO.img, "Guardo approves");
     // animate the ring fill from 0
     var ring = stage.querySelector(".ring");
     ring.style.setProperty("--p", 0);
