@@ -1,0 +1,462 @@
+<title>Grandeza — Brand Identity System</title>
+<meta name="description" content="The complete Grandeza brand system: logo direction, color palette, typography, brand voice, messaging framework and visual guidelines for a compliance-first company serving HVAC & plumbing contractors.">
+<style>
+  :root{
+    --font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:"SF Mono","JetBrains Mono",ui-monospace,"Cascadia Code",Menlo,Consolas,monospace;
+    --maxw:1180px;--radius:14px;--radius-sm:9px;--ease:cubic-bezier(.22,.61,.36,1);
+    --brass-bright:#c6a15b;--fail:#c4463a;--warn:#d68a2e;--pass:#2f8f5b;--panel-dark:#0b1517;
+  }
+  :root{
+    --bg:#e9edec;--bg-tint:#e0e6e4;--surface:#f5f7f6;--surface-2:#fff;
+    --ink:#0c1618;--ink-soft:#42544f;--ink-faint:#6b7d78;
+    --line:rgba(12,22,24,.12);--line-strong:rgba(12,22,24,.2);
+    --accent:#8a6a2e;--seal-1:#b78f3f;--seal-2:#e0c079;--link:#2e6e6a;
+    --shadow:0 1px 2px rgba(12,22,24,.06),0 12px 34px -18px rgba(12,22,24,.28);
+    --shadow-lift:0 2px 6px rgba(12,22,24,.08),0 26px 60px -22px rgba(12,22,24,.4);color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a1315;--bg-tint:#0d191b;--surface:#10201f;--surface-2:#152826;
+    --ink:#e9efec;--ink-soft:#a7bcb6;--ink-faint:#7d938d;
+    --line:rgba(198,161,91,.16);--line-strong:rgba(198,161,91,.3);
+    --accent:#c9a45e;--seal-1:#c6a15b;--seal-2:#8a6a2e;--link:#5aa9a2;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 44px -20px rgba(0,0,0,.7);
+    --shadow-lift:0 2px 8px rgba(0,0,0,.5),0 32px 70px -24px rgba(0,0,0,.8);color-scheme:dark;
+  }}
+  :root[data-theme="light"]{--bg:#e9edec;--bg-tint:#e0e6e4;--surface:#f5f7f6;--surface-2:#fff;
+    --ink:#0c1618;--ink-soft:#42544f;--ink-faint:#6b7d78;--line:rgba(12,22,24,.12);--line-strong:rgba(12,22,24,.2);
+    --accent:#8a6a2e;--seal-1:#b78f3f;--seal-2:#e0c079;--link:#2e6e6a;
+    --shadow:0 1px 2px rgba(12,22,24,.06),0 12px 34px -18px rgba(12,22,24,.28);
+    --shadow-lift:0 2px 6px rgba(12,22,24,.08),0 26px 60px -22px rgba(12,22,24,.4);color-scheme:light;}
+  :root[data-theme="dark"]{--bg:#0a1315;--bg-tint:#0d191b;--surface:#10201f;--surface-2:#152826;
+    --ink:#e9efec;--ink-soft:#a7bcb6;--ink-faint:#7d938d;--line:rgba(198,161,91,.16);--line-strong:rgba(198,161,91,.3);
+    --accent:#c9a45e;--seal-1:#c6a15b;--seal-2:#8a6a2e;--link:#5aa9a2;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 44px -20px rgba(0,0,0,.7);
+    --shadow-lift:0 2px 8px rgba(0,0,0,.5),0 32px 70px -24px rgba(0,0,0,.8);color-scheme:dark;}
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.1;margin:0;letter-spacing:-.01em;text-wrap:balance}
+  p{margin:0}
+  a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+  :focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:5px}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1.1rem,4vw,2.4rem)}
+  .mono{font-family:var(--font-mono)}.tnum{font-variant-numeric:tabular-nums}
+  .eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);
+    display:inline-flex;align-items:center;gap:.6em}
+  .eyebrow::before{content:"";width:1.9em;height:1px;background:currentColor;opacity:.6}
+
+  /* header + section nav */
+  header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);
+    backdrop-filter:blur(12px) saturate(1.2);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;gap:1rem;height:60px;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1.1rem,4vw,2.4rem)}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:var(--font-display);font-size:1.2rem;font-weight:600;color:var(--ink)}
+  .brand:hover{text-decoration:none}
+  .brand small{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.12em;color:var(--ink-faint)}
+  .seclinks{display:flex;gap:.2rem;margin-left:1rem;overflow-x:auto;scrollbar-width:none}
+  .seclinks::-webkit-scrollbar{display:none}
+  .seclinks a{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft);padding:.4rem .6rem;
+    border-radius:8px;white-space:nowrap}
+  .seclinks a:hover{background:var(--surface);color:var(--ink);text-decoration:none}
+  .nav .r{margin-left:auto}
+  .icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:9px;border:1px solid var(--line);
+    background:transparent;color:var(--ink-soft);cursor:pointer;flex-shrink:0}
+  .icon-btn:hover{border-color:var(--line-strong);color:var(--ink)}
+  @media (max-width:900px){.seclinks{display:none}}
+
+  /* cover */
+  .cover{padding:clamp(3rem,8vw,6rem) 0 clamp(2rem,5vw,3.5rem);position:relative;overflow:hidden}
+  .cover::before{content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(90% 70% at 85% 0%,color-mix(in srgb,var(--brass-bright) 14%,transparent),transparent 60%)}
+  .cover .lock{display:flex;align-items:center;gap:1rem;margin-bottom:1.6rem}
+  .cover .lock .seal{width:64px;height:64px}
+  .cover .lock .wm{font-family:var(--font-display);font-size:clamp(2.4rem,6vw,3.6rem);font-weight:600;letter-spacing:-.02em}
+  .cover h1{font-size:clamp(1.8rem,1.4rem + 1.8vw,2.8rem);max-width:22ch;margin-top:.4rem}
+  .cover p{color:var(--ink-soft);font-size:clamp(1.05rem,1rem + .3vw,1.25rem);margin-top:1rem;max-width:60ch}
+  .cover .meta{margin-top:1.6rem;font-family:var(--font-mono);font-size:.76rem;letter-spacing:.06em;color:var(--ink-faint);
+    display:flex;gap:1.4rem;flex-wrap:wrap}
+
+  section{padding-block:clamp(2.6rem,5vw,4rem);border-top:1px solid var(--line)}
+  .sec-head{margin-bottom:1.8rem}
+  .sec-head .num{font-family:var(--font-mono);font-size:.8rem;color:var(--accent);letter-spacing:.1em}
+  .sec-head h2{font-size:clamp(1.5rem,1.2rem + 1vw,2.1rem);margin-top:.5rem}
+  .sec-head p{color:var(--ink-soft);margin-top:.6rem;max-width:66ch}
+  .lede{font-family:var(--font-display);font-size:clamp(1.3rem,1.1rem + .8vw,1.7rem);line-height:1.35;max-width:24ch}
+
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  @media (max-width:820px){.cols2,.cols3{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem}
+  .card h3{font-size:1.1rem}.card h4{font-size:1rem;margin-bottom:.3rem}
+  .card p{color:var(--ink-soft);font-size:.94rem;margin-top:.4rem}
+  .kicker{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+
+  /* essence pills */
+  .traits{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem}
+  .trait{border:1px solid var(--line-strong);border-radius:999px;padding:.5rem 1rem;font-weight:600;font-size:.92rem;background:var(--surface)}
+  .trait span{color:var(--ink-faint);font-weight:400}
+
+  /* ---- LOGO ---- */
+  .logo-stage{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:2rem;display:grid;place-items:center;min-height:170px}
+  .logo-stage.dark{background:var(--panel-dark)}
+  .logo-stage.brass{background:linear-gradient(135deg,var(--seal-2),var(--seal-1))}
+  .lock-h{display:flex;align-items:center;gap:.7rem}
+  .lock-v{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+  .lock-h .wm,.lock-v .wm{font-family:var(--font-display);font-weight:600;letter-spacing:-.01em}
+  .lock-h .wm{font-size:2rem}.lock-v .wm{font-size:1.6rem}
+  .on-dark{color:#f4efe6}.on-brass{color:#20180a}
+  .cap{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-faint);margin-top:.7rem;text-align:center}
+  .dont{border-color:color-mix(in srgb,var(--fail) 40%,var(--line))}
+  .dont .x{color:var(--fail);font-weight:700}
+  .do .c{color:var(--pass);font-weight:700}
+  .misuse{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1.2rem}
+  @media (max-width:760px){.misuse{grid-template-columns:1fr 1fr}}
+  .mu{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:1rem;text-align:center;font-size:.82rem;color:var(--ink-soft)}
+  .mu .ic{height:54px;display:grid;place-items:center;margin-bottom:.5rem}
+
+  /* ---- COLOR ---- */
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+  @media (max-width:820px){.swatches{grid-template-columns:1fr 1fr}}
+  .sw{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;background:var(--surface);
+    transition:transform .2s var(--ease),box-shadow .2s}
+  .sw:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .sw .chip{height:96px;display:flex;align-items:flex-end;justify-content:flex-end;padding:.5rem}
+  .sw .chip small{font-family:var(--font-mono);font-size:.62rem;background:rgba(0,0,0,.25);color:#fff;padding:.15em .4em;border-radius:4px;opacity:0;transition:opacity .2s}
+  .sw:hover .chip small{opacity:1}
+  .sw .meta{padding:.7rem .8rem}
+  .sw .nm{font-weight:600;font-size:.9rem}
+  .sw .hx{font-family:var(--font-mono);font-size:.76rem;color:var(--ink-soft);margin-top:.15rem}
+  .sw .use{font-size:.76rem;color:var(--ink-faint);margin-top:.3rem}
+  .ratio{display:flex;height:44px;border-radius:10px;overflow:hidden;margin-top:1.2rem;border:1px solid var(--line);font-family:var(--font-mono);font-size:.7rem}
+  .ratio div{display:grid;place-items:center;color:#fff}
+
+  /* ---- TYPE ---- */
+  .specimen{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem}
+  .specimen .big{font-family:var(--font-display);font-size:clamp(2.6rem,7vw,4rem);line-height:1;letter-spacing:-.02em}
+  .specimen .row{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:.8rem;margin-top:.9rem;flex-wrap:wrap;gap:.5rem}
+  .specimen .glyphs{font-size:1.2rem;color:var(--ink-soft);letter-spacing:.02em}
+  .scale-row{display:flex;align-items:baseline;gap:1rem;border-bottom:1px solid var(--line);padding:.7rem 0}
+  .scale-row .lbl{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-faint);width:110px;flex-shrink:0}
+
+  /* ---- VOICE ---- */
+  .saytable{width:100%;border-collapse:collapse}
+  .saytable th{text-align:left;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-faint);padding:.6rem .7rem;border-bottom:1px solid var(--line)}
+  .saytable td{padding:.6rem .7rem;border-bottom:1px solid var(--line);vertical-align:top;font-size:.92rem}
+  .saytable .say{color:var(--pass);font-weight:600}.saytable .no{color:var(--fail);text-decoration:line-through;opacity:.85}
+  .tone{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1.2rem}
+  @media (max-width:820px){.tone{grid-template-columns:1fr 1fr}}
+  .tone .t{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:1rem}
+  .tone .t .k{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+  .tone .t b{display:block;margin:.3rem 0}.tone .t p{font-size:.84rem;color:var(--ink-soft)}
+
+  /* ---- MESSAGING ---- */
+  .msg-hero{background:var(--panel-dark);color:#f4efe6;border-radius:var(--radius);padding:clamp(1.8rem,4vw,2.8rem);text-align:center;position:relative;overflow:hidden}
+  .msg-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 90% at 50% 0%,color-mix(in srgb,var(--brass-bright) 20%,transparent),transparent 70%)}
+  .msg-hero>*{position:relative}
+  .msg-hero .tag{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);color:#fbf7ef}
+  .msg-hero .alt{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.06em;color:#a7bcb6;margin-top:1rem}
+  .pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:1.2rem}
+  @media (max-width:820px){.pillars{grid-template-columns:1fr 1fr}}
+  .pillar{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem}
+  .pillar .p{font-family:var(--font-display);font-size:1.15rem}
+  .pillar p{font-size:.86rem;color:var(--ink-soft);margin-top:.3rem}
+  .persona{display:flex;gap:.8rem;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:1rem}
+  .persona .av{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;color:#20180a;font-weight:600;font-family:var(--font-mono);background:linear-gradient(180deg,var(--seal-2),var(--seal-1))}
+  .persona b{font-size:.94rem}.persona p{font-size:.85rem;color:var(--ink-soft);margin-top:.15rem}
+  .quote{font-family:var(--font-display);font-style:italic;color:var(--ink)}
+
+  /* ---- APPLICATIONS ---- */
+  .apps{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+  @media (max-width:820px){.apps{grid-template-columns:1fr}}
+  .bizcard{aspect-ratio:1.75/1;border-radius:14px;padding:1.3rem;display:flex;flex-direction:column;justify-content:space-between;
+    background:var(--panel-dark);color:#f4efe6;border:1px solid rgba(198,161,91,.25);position:relative;overflow:hidden}
+  .bizcard::before{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;opacity:.14;
+    background:radial-gradient(circle,var(--brass-bright),transparent 68%)}
+  .bizcard .nm{font-family:var(--font-display);font-size:1.3rem}
+  .bizcard .rl{font-family:var(--font-mono);font-size:.72rem;color:#a7bcb6;letter-spacing:.04em;margin-top:.15rem}
+  .bizcard .ct{font-family:var(--font-mono);font-size:.72rem;color:#c9d6d1}
+  .avatar-demo{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+  .av-c{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:var(--panel-dark);border:1px solid rgba(198,161,91,.3)}
+  .av-c.brass{background:linear-gradient(135deg,var(--seal-2),var(--seal-1))}
+  .av-sq{width:72px;height:72px;border-radius:16px;display:grid;place-items:center;background:var(--panel-dark);border:1px solid rgba(198,161,91,.3)}
+  .badge-cert{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--line);
+    border-radius:999px;padding:.5rem .9rem}
+  .badge-cert .g{font-family:var(--font-mono);font-weight:600;color:var(--pass)}
+  .badge-cert small{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+  .sig{font-family:var(--font-mono);font-size:.82rem;color:var(--ink-soft);line-height:1.7}
+  .sig b{color:var(--ink);font-family:var(--font-body)}
+  .sig .g{color:var(--accent)}
+
+  footer{border-top:1px solid var(--line);padding-block:2.4rem;color:var(--ink-faint);font-size:.85rem}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .toast{position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--panel-dark);
+    color:#f4efe6;font-family:var(--font-mono);font-size:.82rem;padding:.7rem 1.1rem;border-radius:10px;box-shadow:var(--shadow-lift);
+    opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:80}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+
+<header>
+  <nav class="nav">
+    <a class="brand" href="#top">
+      <svg width="26" height="26" viewBox="0 0 40 40" aria-hidden="true">
+        <defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--seal-2)"/><stop offset="1" stop-color="var(--seal-1)"/></linearGradient></defs>
+        <path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/>
+        <path fill="none" stroke="#20180a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/>
+      </svg>Grandeza <small>/ BRAND</small>
+    </a>
+    <div class="seclinks">
+      <a href="#foundation">Foundation</a><a href="#logo">Logo</a><a href="#color">Color</a>
+      <a href="#type">Type</a><a href="#voice">Voice</a><a href="#messaging">Messaging</a>
+      <a href="#visual">Visual</a><a href="#apps">Applications</a>
+    </div>
+    <div class="r">
+      <button class="icon-btn" id="theme" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- COVER -->
+  <div class="wrap cover">
+    <div class="lock">
+      <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
+        <path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/>
+        <path fill="none" stroke="#20180a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/>
+      </svg>
+      <span class="wm">Grandeza</span>
+    </div>
+    <span class="eyebrow">Brand identity system · v1.0</span>
+    <h1>The seal of proof for the trades.</h1>
+    <p>Grandeza gives HVAC &amp; plumbing operators something they can't buy anywhere else: proof that their customer intake is compliant. This system makes that promise visible — in every mark, color, word and layout.</p>
+    <div class="meta"><span>FOR · HVAC &amp; plumbing owners + operators</span><span>ESSENCE · Certified protection</span><span>2026</span></div>
+  </div>
+
+  <!-- FOUNDATION -->
+  <section id="foundation" class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>Brand foundation</h2></div>
+    <div class="cols2">
+      <div>
+        <p class="lede">We turn invisible risk into a seal you can hand your insurer.</p>
+        <div class="traits">
+          <span class="trait">Authoritative <span>· not stuffy</span></span>
+          <span class="trait">Calm <span>· not alarmist</span></span>
+          <span class="trait">Precise <span>· not vague</span></span>
+          <span class="trait">On your side <span>· not a vendor</span></span>
+        </div>
+      </div>
+      <div class="cols2" style="grid-template-columns:1fr">
+        <div class="card"><span class="kicker">Positioning</span><p style="color:var(--ink);font-size:1rem;margin-top:.5rem">For HVAC &amp; plumbing shops that automated their intake, Grandeza is the compliance partner that makes your existing SMS, calls and AI provably legal — because we're compliance-first, not another tech tool.</p></div>
+        <div class="card"><span class="kicker">Essence</span><p style="color:var(--ink);font-size:1rem;margin-top:.5rem"><b>Certified protection.</b> Every expression should feel like being handed a signed, sealed document that says: <i>you did this right.</i></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO -->
+  <section id="logo" class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>Logo &amp; mark</h2>
+      <p>The mark is a <b>16-point heraldic seal</b> holding a checkmark — a certificate stamp for the digital age. Sixteen points is not decorative: it stands for the 16-control framework. The seal can stand alone; the wordmark is set in the display serif.</p></div>
+    <div class="cols2">
+      <div><div class="logo-stage"><div class="lock-h"><svg width="52" height="52" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/><path fill="none" stroke="#20180a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/></svg><span class="wm">Grandeza</span></div></div><div class="cap">Primary lockup — horizontal</div></div>
+      <div><div class="logo-stage"><div class="lock-v"><svg width="48" height="48" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/><path fill="none" stroke="#20180a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/></svg><span class="wm">Grandeza</span></div></div><div class="cap">Stacked — tight spaces</div></div>
+      <div><div class="logo-stage dark"><div class="lock-h"><svg width="52" height="52" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/><path fill="none" stroke="#0b1517" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/></svg><span class="wm on-dark">Grandeza</span></div></div><div class="cap">Reversed — on ink</div></div>
+      <div><div class="logo-stage brass"><div class="lock-h"><svg width="52" height="52" viewBox="0 0 40 40" aria-hidden="true"><path fill="#0b1517" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/><path fill="none" stroke="#e0c079" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/></svg><span class="wm on-brass">Grandeza</span></div></div><div class="cap">Monochrome — on brass</div></div>
+    </div>
+
+    <div class="cols3" style="margin-top:1.2rem">
+      <div class="card"><h4>Clearspace</h4><p>Keep clear space equal to the height of the seal's checkmark on all sides. Never crowd the mark with text or edges.</p></div>
+      <div class="card"><h4>Minimum size</h4><p>Mark: 24px / 0.25in. Full lockup: 120px / 1in wide. Below that, use the mark alone.</p></div>
+      <div class="card"><h4>File formats</h4><p>SVG for digital (the mark is vector). PNG @1x/2x/3x for avatars. One-color versions for fax/embossing.</p></div>
+    </div>
+
+    <div class="misuse">
+      <div class="mu do"><div class="ic"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/><path fill="none" stroke="#20180a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/></svg></div><span class="c">✓ Do</span> use the brass-on-ink seal</div>
+      <div class="mu dont"><div class="ic" style="filter:hue-rotate(140deg) saturate(1.6)"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/></svg></div><span class="x">✕ Don't</span> recolor the seal</div>
+      <div class="mu dont"><div class="ic" style="transform:skewX(-16px)"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/></svg></div><span class="x">✕ Don't</span> stretch or skew</div>
+      <div class="mu dont"><div class="ic" style="opacity:.4"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/></svg></div><span class="x">✕ Don't</span> place on low contrast</div>
+    </div>
+  </section>
+
+  <!-- COLOR -->
+  <section id="color" class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Color palette</h2>
+      <p>Deep institutional ground, one heraldic brass accent, and a strictly separate PASS/PARTIAL/FAIL semantic scale. Tap any swatch to copy its hex. Neutrals are hue-biased toward the accent — chosen, never default grey.</p></div>
+    <div class="swatches" id="swatches"></div>
+    <div class="ratio" aria-label="Usage ratio">
+      <div style="flex:60;background:#e9edec;color:#0c1618">60% Neutral ground</div>
+      <div style="flex:26;background:#0c1618">26% Ink</div>
+      <div style="flex:10;background:linear-gradient(90deg,#e0c079,#b78f3f);color:#20180a">10% Brass</div>
+      <div style="flex:4;background:#2f8f5b">4%</div>
+    </div>
+    <p class="cap" style="text-align:left">Ratio guide — brass is an accent of proof, never a background. Semantic colors signal status only; they are never used decoratively, and brass is never used to signal status.</p>
+  </section>
+
+  <!-- TYPE -->
+  <section id="type" class="wrap">
+    <div class="sec-head"><span class="num">04</span><h2>Typography</h2>
+      <p>A three-voice system: a humanist <b>serif</b> for authority (certificates, headlines), a clean <b>sans</b> for operator-legible body, and <b>monospace</b> for data — scores, control codes, audit lines. The serif/mono pairing is the whole personality: legal document meets audit terminal.</p></div>
+    <div class="cols2">
+      <div class="specimen">
+        <div class="big">Grandeza</div>
+        <div class="row"><span class="kicker">Display · Serif</span><span class="mono" style="font-size:.78rem">Newsreader / Freight Text</span></div>
+        <div class="glyphs">AaBbCc 0123 — “Prove it.”</div>
+        <p style="color:var(--ink-soft);font-size:.88rem;margin-top:.6rem">Headlines, the wordmark, pull-quotes. Weight 600, tight tracking. Never for long body text.</p>
+      </div>
+      <div class="specimen">
+        <div class="big mono" style="font-size:clamp(2.2rem,6vw,3.2rem)">88<span style="color:var(--ink-faint);font-size:.5em">/100</span></div>
+        <div class="row"><span class="kicker">Data · Mono</span><span class="mono" style="font-size:.78rem">JetBrains Mono</span></div>
+        <div class="glyphs mono">CTRL-01 · PASS · 09:41:02</div>
+        <p style="color:var(--ink-soft);font-size:.88rem;margin-top:.6rem">Scores, control codes, timestamps, labels. Tabular numerals always. Uppercase labels get .12–.18em tracking.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <span class="kicker">Body · Sans</span>
+      <div class="scale-row"><span class="lbl">Display / H1</span><span style="font-family:var(--font-display);font-size:2rem">Certified protection</span></div>
+      <div class="scale-row"><span class="lbl">Heading / H2</span><span style="font-family:var(--font-display);font-size:1.4rem">Prove your intake is compliant</span></div>
+      <div class="scale-row"><span class="lbl">Body</span><span style="font-size:1rem">Grandeza hardens the intake you already run. Body copy stays ~60–65 characters per line for comfortable reading.</span></div>
+      <div class="scale-row" style="border-bottom:none"><span class="lbl">Caption / Mono</span><span class="mono" style="font-size:.8rem">16 controls · one score · signed audit trail</span></div>
+    </div>
+  </section>
+
+  <!-- VOICE -->
+  <section id="voice" class="wrap">
+    <div class="sec-head"><span class="num">05</span><h2>Brand voice &amp; tone</h2>
+      <p>We sound like a sharp operator who happens to know compliance cold — talking to another operator across a truck hood. Plain, specific, calm, on their side. We never sound like a law firm or a fear-mongering ad.</p></div>
+    <table class="saytable">
+      <thead><tr><th>We say</th><th>Not</th><th>Because</th></tr></thead>
+      <tbody>
+        <tr><td class="say">Prove it. Here's the signed record.</td><td class="no">Trust us, you're covered.</td><td>Proof over promises — the whole brand.</td></tr>
+        <tr><td class="say">A 12-minute scan of your shop.</td><td class="no">Comprehensive compliance assessment solution.</td><td>Specific + plain beats corporate.</td></tr>
+        <tr><td class="say">Your crew, your shop, your call.</td><td class="no">SMBs, users, stakeholders.</td><td>Speak their language, not SaaS-speak.</td></tr>
+        <tr><td class="say">One text can cost you five figures.</td><td class="no">Are you TERRIFIED of lawsuits?!</td><td>State the stakes calmly; the number does the work.</td></tr>
+        <tr><td class="say">We harden what you already run.</td><td class="no">Rip out your stack and start over.</td><td>Reassuring, low-friction, honest.</td></tr>
+        <tr><td class="say">Not legal advice — compliance engineering.</td><td class="no">Guaranteed legal protection.</td><td>Honesty is a trust signal (and it's true).</td></tr>
+      </tbody>
+    </table>
+    <div class="tone">
+      <div class="t"><span class="k">Educating</span><b>Patient teacher</b><p>Clear, jargon-free, generous. Explain the TCPA like a mentor, not a professor.</p></div>
+      <div class="t"><span class="k">Selling</span><b>Quiet confidence</b><p>State value and proof. Let anchors ($50k vs $3.3k) and specifics persuade — never hype.</p></div>
+      <div class="t"><span class="k">Support</span><b>Steady hand</b><p>Reassuring and direct. Own the problem, name the fix, no fluff or apologies.</p></div>
+      <div class="t"><span class="k">Legal / disclaimer</span><b>Plain &amp; honest</b><p>Say exactly what we do and don't do. Short sentences. No hedging, no scare.</p></div>
+    </div>
+  </section>
+
+  <!-- MESSAGING -->
+  <section id="messaging" class="wrap">
+    <div class="sec-head"><span class="num">06</span><h2>Messaging framework</h2></div>
+    <div class="msg-hero">
+      <span class="eyebrow" style="color:var(--brass-bright);justify-content:center">Primary tagline</span>
+      <div class="tag">Prove your intake is compliant.</div>
+      <div class="alt">Alternates → “Compliance you can hand your insurer.” · “From High Risk to Protected.”</div>
+    </div>
+
+    <div class="cols2" style="margin-top:1.2rem">
+      <div class="card"><span class="kicker">One-liner</span><p style="color:var(--ink);font-size:1.02rem;margin-top:.5rem">Grandeza hardens the AI, SMS and voice intake HVAC &amp; plumbing shops already run — turning invisible TCPA risk into a scored, provable compliance record.</p></div>
+      <div class="card"><span class="kicker">Boilerplate</span><p style="margin-top:.5rem">Grandeza is a compliance-first company that hardens customer intake for HVAC &amp; plumbing contractors. Its 16-control framework scores a shop's TCPA exposure, remediates the gaps in the tools they already use, and delivers an insurance-ready compliance binder. Grandeza is compliance engineering, not legal advice.</p></div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar"><div class="p">Provable</div><p>A signed audit trail and a binder — evidence, not assurances.</p></div>
+      <div class="pillar"><div class="p">Practical</div><p>We harden your existing stack. No rip-and-replace, 4 weeks.</p></div>
+      <div class="pillar"><div class="p">Protective</div><p>Insurance-ready proof that lowers real E&amp;O exposure.</p></div>
+      <div class="pillar"><div class="p">Measurable</div><p>One 0–100 Grandeza Score. Compliance you can watch improve.</p></div>
+    </div>
+
+    <h3 style="margin:1.6rem 0 .8rem;font-size:1.15rem">Speak to the person, not "the market"</h3>
+    <div class="cols3">
+      <div class="persona"><span class="av">OW</span><div><b>The Owner</b><p class="quote">"Protect the business you built. One number, and a document you can hand anyone who asks."</p></div></div>
+      <div class="persona"><span class="av">OP</span><div><b>Ops Manager</b><p class="quote">"Turnkey, no downtime, one searchable log. We handle the compliance so dispatch keeps moving."</p></div></div>
+      <div class="persona"><span class="av">$</span><div><b>Cost-focused</b><p class="quote">"One complaint ≈ $50k. Grandeza ≈ $3.3k/yr. The math isn't close — it's a 16× hedge."</p></div></div>
+    </div>
+  </section>
+
+  <!-- VISUAL LANGUAGE -->
+  <section id="visual" class="wrap">
+    <div class="sec-head"><span class="num">07</span><h2>Visual language</h2></div>
+    <div class="cols3">
+      <div class="card"><h4>The seal motif</h4><p>The brass seal is our proof-stamp. Use it sparingly, as punctuation — a certification moment, never wallpaper. An embossed macro of the seal is the signature texture.</p></div>
+      <div class="card"><h4>Iconography</h4><p>Line icons, 1.7px stroke, rounded joins, minimal. Shield, checkmark, gauge, document, lock — the vocabulary of protection and proof.</p></div>
+      <div class="card"><h4>The Grandeza Score</h4><p>The 270° gauge is a brand asset in its own right. Mono numerals, semantic band color, one cinematic sweep. It <i>is</i> the product, visualized.</p></div>
+      <div class="card"><h4>Photography</h4><p>Cinematic, low-key, teal-charcoal + brass grade. Real tradespeople with dignity — never cheesy stock. The human behind the compliance.</p></div>
+      <div class="card"><h4>Patterns &amp; texture</h4><p>A faint blueprint/audit grid; the embossed seal. Both whisper "documentation" without shouting. Always low-contrast, behind content.</p></div>
+      <div class="card"><h4>Layout</h4><p>Generous whitespace = confidence. Control-code eyebrows (CTRL-01). Dossier-like sectioning. Data reads like evidence.</p></div>
+    </div>
+  </section>
+
+  <!-- APPLICATIONS -->
+  <section id="apps" class="wrap">
+    <div class="sec-head"><span class="num">08</span><h2>Applications</h2>
+      <p>The system in the wild — where the seal earns its keep.</p></div>
+    <div class="apps">
+      <div class="bizcard">
+        <div class="lock-h"><svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/><path fill="none" stroke="#0b1517" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/></svg><span class="wm on-dark" style="font-size:1.3rem">Grandeza</span></div>
+        <div><div class="nm on-dark">Kai Mercer</div><div class="rl">Founder &amp; Compliance Lead</div></div>
+        <div class="ct">kai@grandeza.io · (855) 555-0142 · grandeza.io</div>
+      </div>
+      <div class="card">
+        <span class="kicker">Social avatar</span>
+        <div class="avatar-demo" style="margin-top:.8rem">
+          <div class="av-c"><svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/><path fill="none" stroke="#0b1517" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/></svg></div>
+          <div class="av-c brass"><svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><path fill="#0b1517" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/></svg></div>
+          <div class="av-sq"><svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/><path fill="none" stroke="#0b1517" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/></svg></div>
+        </div>
+        <span class="kicker" style="display:block;margin-top:1.2rem">"Grandeza Certified" badge — ties brand to product</span>
+        <div style="margin-top:.6rem"><span class="badge-cert"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pass)" stroke-width="1.8"><path d="M12 2l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V5z"/><path d="M9 12l2 2 4-4"/></svg><span><small>Grandeza score</small><br><span class="g">88 · Protected</span></span></span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <span class="kicker">Email signature</span>
+      <p class="sig" style="margin-top:.6rem"><b>Kai Mercer</b> — Founder, Grandeza<br>Prove your intake is compliant. <span class="g">grandeza.io/scan</span><br>(855) 555-0142 · <span class="g">Grandeza is compliance engineering, not legal advice.</span></p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="mono" style="letter-spacing:.04em">GRANDEZA BRAND SYSTEM · v1.0</div>
+  <p style="margin-top:.5rem">Written companion &amp; tokens in <span class="mono">docs/brand-system.md</span>. Colors, type and the mark align with the live product across <span class="mono">index / landing / scan / mobile / motion</span>.</p>
+</footer>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  document.getElementById("theme").addEventListener("click",function(){
+    var c=root.getAttribute("data-theme");if(!c){c=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";}
+    root.setAttribute("data-theme",c==="dark"?"light":"dark");
+  });
+  /* swatches */
+  var colors=[
+    {n:"Ink · Deep Slate Teal",h:"#0C1618",bg:"#0C1618",fg:"#e9edec",u:"Primary dark · text, ink bands"},
+    {n:"Brass · Certified Gold",h:"#C6A15B",bg:"linear-gradient(135deg,#e0c079,#b78f3f)",fg:"#20180a",u:"The seal · accent of proof"},
+    {n:"Brass Deep",h:"#8A6A2E",bg:"#8A6A2E",fg:"#fff",u:"Brass text on light (AA)"},
+    {n:"Verdigris · Patina",h:"#2E6E6A",bg:"#2E6E6A",fg:"#fff",u:"Secondary · links, depth"},
+    {n:"Paper · Dossier",h:"#E9EDEC",bg:"#E9EDEC",fg:"#0c1618",u:"Light ground (cool, chosen)"},
+    {n:"Pass",h:"#2F8F5B",bg:"#2F8F5B",fg:"#fff",u:"Semantic · PASS / Protected"},
+    {n:"Warn",h:"#D68A2E",bg:"#D68A2E",fg:"#20180a",u:"Semantic · PARTIAL / At Risk"},
+    {n:"Fail",h:"#C4463A",bg:"#C4463A",fg:"#fff",u:"Semantic · FAIL / High Risk"}
+  ];
+  var host=document.getElementById("swatches");
+  colors.forEach(function(c){
+    var el=document.createElement("button");el.className="sw";el.type="button";
+    el.innerHTML='<div class="chip" style="background:'+c.bg+';color:'+c.fg+'"><small>tap to copy</small></div>'+
+      '<div class="meta"><div class="nm">'+c.n+'</div><div class="hx">'+c.h+'</div><div class="use">'+c.u+'</div></div>';
+    el.addEventListener("click",function(){
+      navigator.clipboard&&navigator.clipboard.writeText(c.h);
+      var t=document.getElementById("toast");t.textContent="Copied "+c.h;t.classList.add("show");
+      clearTimeout(window._tt);window._tt=setTimeout(function(){t.classList.remove("show");},1300);
+    });
+    host.appendChild(el);
+  });
+  /* reveal */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+})();
+</script>
