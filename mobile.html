@@ -1,6 +1,11 @@
 <title>Grandeza — Mobile Experience</title>
 <meta name="description" content="Mobile-first redesign of Grandeza.io: thumb-zone navigation, a persistent bottom conversion dock, scroll-snap proof, and a lean performance profile for HVAC & plumbing pros on their phones.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Speculative prefetch: warm the primary conversion page so it opens instantly on tap.
+     Prefetch only (no side effects); ignored by browsers without Speculation Rules support. -->
+<script type="speculationrules">
+{"prefetch":[{"source":"list","urls":["/scan"]}]}
+</script>
 <style>
   :root{
     --font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
