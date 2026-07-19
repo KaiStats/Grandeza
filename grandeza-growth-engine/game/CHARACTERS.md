@@ -66,7 +66,30 @@ the motion subtle so it loops cleanly behind UI.
 - One attack loop per rogue (Robotexter, Phantom Bot, Sneaky Pete, The Shredder).
 
 ### Nice-to-have next
-- Attack loops for the 12 non-auto-fail controls (needs "minion" characters —
-  see the `CAST` idea in `GAME_UPGRADE_SPEC.md`).
+- **Minions for the 12 non-auto-fail controls.** `game/index.html` now has a
+  `CAST` map keyed by all 16 codes; the twelve non-auto-fail codes are `null`
+  slots that fall back to Guardo. To fill one in: generate a still (and
+  optionally an attack clip) with the recipe above, `remove_background` the
+  still, drop the files in `../assets/characters/` using the suggested
+  filenames below, then set that code's entry in `CAST`
+  (`{ img:"<code>.png", video:"<code>-attack.mp4", name:"<Name>" }`).
+
+  | Control | Suggested still | Suggested clip | Minion idea |
+  |---|---|---|---|
+  | **02** Consent language | `consent-clerk.png` | `consent-clerk-attack.mp4` | Flustered clerk buried in unsigned consent forms |
+  | **04** Data minimization | `data-hoarder.png` | `data-hoarder-attack.mp4` | Pack-rat bot hoarding data crates it never uses |
+  | **05** Third-party sharing | `leaky-courier.png` | `leaky-courier-attack.mp4` | Courier dropping customer envelopes down side alleys |
+  | **06** Opt-out | `stop-ignorer.png` | `stop-ignorer-attack.mp4` | Bot cheerfully texting past a giant STOP sign |
+  | **07** Human override | `auto-pilot.png` | `auto-pilot-attack.mp4` | Snoozing autopilot booking "Tuesday at 2" through an alarm |
+  | **08** Employee AI policy | `paste-happy.png` | `paste-happy-attack.mp4` | Tech gleefully pasting records into a public chatbot |
+  | **10** Accuracy & scope | `hallucinator.png` | `hallucinator-attack.mp4` | Overconfident bot inventing prices and warranties |
+  | **11** Vendor DPA | `handshake-dodger.png` | `handshake-dodger-attack.mp4` | Vendor sliding away from an unsigned contract |
+  | **12** Incident response | `panic-button.png` | `panic-button-attack.mp4` | Frozen mascot staring at a blinking breach alert |
+  | **13** Bias & fairness | `unfair-sorter.png` | `unfair-sorter-attack.mp4` | Sorting machine playing favorites with the lead queue |
+  | **15** Annual review | `dust-bunny.png` | `dust-bunny-attack.mp4` | Cobwebbed "compliant last January" binder gremlin |
+  | **16** Insurance | `fine-print.png` | `fine-print-attack.mp4` | Grinning policy waving an AI-exclusion clause |
+
+  Keep them **lighter and goofier** than the four rogues (they're minions, not
+  bosses) and comedic, never menacing.
 - Higher-res (1080p, `mode:"std"`) or transparent-background versions once the
   look is locked.

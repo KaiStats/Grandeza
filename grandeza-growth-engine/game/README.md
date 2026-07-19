@@ -32,6 +32,11 @@ enhancement**: the game auto-detects the files and shows the cast; without them
 nothing broken. To pull the binaries down locally, run
 `../assets/characters/fetch-characters.sh`.
 
+An optional **Sound** toggle (top-right, next to Theme) adds short Web-Audio
+cues on each choice, the red-flag hit, and the final verdict. It's synthesized
+inline (no audio files), **muted by default**, and disabled entirely when the
+browser requests `prefers-reduced-motion`.
+
 ## Legal accuracy
 
 Statutory figures shown are the verified ones only (TCPA $500–$1,500/text;

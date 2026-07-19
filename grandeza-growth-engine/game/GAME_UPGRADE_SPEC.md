@@ -24,8 +24,11 @@ In the `<script>` of `game/index.html`:
 
 - `ASSET_BASE` — path prefix to the art (`../assets/characters/`). Change this
   if you host the game at a different route (e.g. `grandeza.io/scan/game`).
-- `GUARDO` / `VILLAINS` — filename + display name per character. `VILLAINS` is
-  keyed by control code (`"01","03","09","14"`).
+- `GUARDO` / `CAST` — filename + display name per character. `CAST` is keyed by
+  **all 16** control codes: the four auto-fail codes (`"01","03","09","14"`) map
+  to their rogue; the other twelve are `null` "minion" slots that fall back to
+  Guardo until you add art (see upgrade 6). (`VILLAINS` remains as a back-compat
+  alias for `CAST`.)
 - `mountImg(id, file, alt)` — injects an `<img>` **only after it loads**; on
   error it stays empty. This is why a missing asset never shows a broken image.
 - `mountHero(id)` — tries `guardo-intro.mp4`, falls back to `guardo.png`.
@@ -48,11 +51,18 @@ scenario), `#flashChar` (red-flag villain), `#resultChar` (Guardo reaction).
    clips have navy baked in. To make a clip transparent you'd matte it per-frame
    (Higgsfield `remove_background` with `media_type:"video"`), then use a
    `.webm`/alpha-capable format. Optional polish once the look is locked.
-5. **Sound (optional).** Short SFX on choose/red-flag/victory. Gate behind a
-   mute toggle and honor `prefers-reduced-motion`; keep it off by default.
-6. **Non-auto-fail flavor.** Optionally give the 12 non-auto-fail controls
-   lighter "minion" characters instead of reusing Guardo. Extend the `VILLAINS`
-   map (rename it `CAST`) with all 16 codes.
+5. ~~Sound (optional).~~ **DONE.** A Web-Audio SFX layer plays short tones on
+   choose (pass/partial/fail), red-flag, and the victory/worried result. It is
+   synthesized inline (no audio files — stays self-contained / Artifact-safe),
+   **muted by default** behind a `Sound` toggle in the brand bar, and forced
+   off (button disabled) when `prefers-reduced-motion` is set.
+6. **Non-auto-fail flavor (scaffolded).** `VILLAINS` was renamed to `CAST` and
+   now lists **all 16** control codes; the four rogues are wired, the other
+   twelve are `null` minion slots that fall back to Guardo. To give a control
+   its own lighter minion: generate the art (recipe + suggested filenames in
+   `CHARACTERS.md`), drop the files into `../assets/characters/`, and fill in
+   that code's entry in `CAST`. (Generating the 12 minion assets needs
+   Higgsfield access.)
 
 ## Guardrails (unchanged — keep enforcing)
 
