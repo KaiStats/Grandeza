@@ -75,4 +75,6 @@ Mobile budget: **usable on mid-tier Android over 3G**.
   full-bleed `100dvh`, so on a real device you ship just the inner `.screen` + `.dock`.
 - Reuses the Grandeza tokens (teal-charcoal + brass, serif/mono) and pairs with
   `assets/motion.css`/`motion.js` from the motion system.
-- The bottom-sheet scan wires to the same `submitLead()` seam as `scan.html`.
+- The scan lives at the production page **`grandeza.io/scan`** (owned/built separately). The
+  mobile dock's "Get my free score" is a direct link to `/scan` — the site itself no longer
+  hosts a scan form.

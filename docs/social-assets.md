@@ -25,26 +25,18 @@ fallback), self-host under `/assets/`, and repoint the CSS custom properties
 `og:image` / `twitter:image` meta URLs. Don't hot-link the CloudFront generation URLs
 long-term.
 
-## 2. The `/scan` funnel (`scan.html`)
-An 8-question, single-question-at-a-time self-assessment that computes a Grandeza Score and
-reveals it on the signature animated gauge.
+## 2. The scan — external, at `grandeza.io/scan`
+The Grandeza Score scan is owned and built separately and lives at the production URL
+**`grandeza.io/scan`**. The marketing site does **not** host a scan form or capture scan data.
 
-- **Weighted scoring:** each question maps to a real control (`CTRL-01` Consent, `CTRL-04`
-  DNC, etc.) with a weight reflecting TCPA-risk priority (Consent 20, DNC 16, Audit 15…).
-  Score = Σ(weight × answer) / Σweight × 100, banded Critical → Protected.
-- **Email gate before reveal** — the classic lead-capture pattern: the buyer has sunk 8
-  answers (commitment/consistency), so the email ask converts far better here than up front.
-- **Result** shows the score, a band-specific headline, and the **top-3 exposures** pulled
-  from the lowest-scoring answers (FAIL/PARTIAL chips) → then the CTA to book hardening.
-- **Wiring point:** `submitLead(payload)` in the script is the single integration seam.
-  Payload is `{ name, company, email, answers, score }`. Replace the `console.info` stub
-  with `fetch('/api/scan', { method:'POST', body: JSON.stringify(payload) })` pointed at
-  your CRM / the existing `discovery-coach` scoring service in `/sales`.
-- **CTAs across the site** (`index.html`, `landing.html`) now point to `scan.html`, making
-  the free scan the single macro-conversion end to end.
+- **CTAs across the site** (`index.html`, `landing.html`, `mobile.html`) link to `/scan`,
+  making the free scan the single macro-conversion. Because the site deploys on the same
+  domain, root-relative `/scan` resolves to `grandeza.io/scan`.
+- The earlier bundled demo funnel (`scan.html`) was **removed** — the real page supersedes it.
+- The `og:url` for the scan page (`grandeza.io/scan`) is already listed in `sitemap.xml`.
 
 ## 3. Open Graph / social share
-- **Meta tags** added to `index.html`, `landing.html`, `scan.html` (og:title/description/
+- **Meta tags** added to `index.html`, `landing.html` (og:title/description/
   image + `twitter:card=summary_large_image`). Each page has page-specific title/description.
 - **`og:image`** currently points to the abstract brand image (2752×1536, ratio 1.79 — valid
   for OG). For a text-on-card share image, use `og-card.html`:
@@ -54,11 +46,11 @@ reveals it on the signature animated gauge.
   `html-to-image`, or Vercel OG / Satori), host it, and swap the `og:image` URLs to it.
   Per-page variants: duplicate the card, change the headline, export `og-{page}.jpg`.
 
-## 4. Files added this pass
+## 4. Files
 ```
-scan.html              # /scan lead-capture funnel (animated gauge result)
 og-card.html           # 1200×630 social-card render target
 docs/social-assets.md  # this file
-landing.html           # + proof band, homeowner portrait, OG meta, CTAs → scan.html
-index.html             # + OG meta, CTAs → scan.html
+landing.html           # proof band, homeowner portrait, OG meta, CTAs → /scan
+index.html             # OG meta, CTAs → /scan
 ```
+(The scan lives at grandeza.io/scan — not in this repo.)
