@@ -10,9 +10,14 @@ Companion: `docs/deploy-cloudflare.md`.
 - [ ] Review and **Merge**. (Or, if you'd rather not merge yet, you can point Cloudflare Pages
       at the feature branch in Phase 4 instead.)
 
+> **Status:** the code side is done — the multi-page site is built (`about`, `pricing`,
+> `product/*`, the TCPA pillar, `privacy`, `terms`), images are already repointed to `/img/`,
+> internal demos are moved to `/design/`, and nav/footers are wired. What's left for you:
+> **drop the optimized image files into `/img/` (Phase 2a–2b), then deploy (Phase 4–6).**
+
 ## Phase 2 — Self-host the images  ⚠️ do this before deploy
-The photos are currently hot-linked to the Higgsfield generation CDN, which you don't control.
-Move all 8 into `/img/` and repoint.
+The photos are hot-linked to the Higgsfield generation CDN, which you don't control.
+**2c is already done** (the HTML now points at `/img/…`); you just need to add the files.
 
 **2a. Download** — each URL is `https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/` + the filename below.
 
@@ -31,21 +36,16 @@ Move all 8 into `/img/` and repoint.
 longest edge to ~1600px, export **WebP quality ~80**. For #5, export **JPG**, ideally cropped to
 **1200×630** (social share ratio). Put all files in a new `/img/` folder at the repo root.
 
-**2c. Repoint the code** — in `index.html`, `landing.html`, `og-card.html`, replace each full
-`https://…cloudfront.net/…/hf_….png` URL with its new path:
-- CSS background vars (#1–4, 6, 7, 8) → root-relative, e.g. `--img-hero:url("/img/hero-hvac.webp")`.
-- **`og:image` and `twitter:image` (#5) must be ABSOLUTE** (social crawlers require it):
-  `https://grandeza.io/img/og-default.jpg`.
-- `og-card.html` `--img-og` (#5) → `/img/og-default.jpg` (root-relative is fine here).
+**2c. Repoint the code — ✅ DONE.** `index.html`, `landing.html` and `design/og-card.html`
+already reference `/img/…` (og:image/twitter:image use the absolute `https://grandeza.io/img/og-default.jpg`).
+Nothing to do here unless you rename a file.
 
 **2d.** After go-live, uncomment the stricter `Content-Security-Policy` in `_headers`.
 
-## Phase 3 — Keep internal deliverable pages private
-`brand.html`, `motion.html`, `seo.html`, `copy.html`, `og-card.html` are internal — don't ship
-them as public routes.
-- [ ] Create a `design/` folder and move those 5 files into it, **and**
-- [ ] Add `Disallow: /design/` under `User-agent: *` in `robots.txt`.
-(Public pages that stay at root: `index.html`, `landing.html`, `mobile.html`.)
+## Phase 3 — Keep internal pages private — ✅ DONE
+`brand`, `motion`, `seo`, `copy`, `og-card` and `mobile` were moved to `/design/`, and
+`robots.txt` now has `Disallow: /design/`. Public routes: `index` (`/`), `landing`, `about`,
+`pricing`, `product/*`, `tcpa-compliance-hvac-plumbing`, `privacy`, `terms`.
 
 ## Phase 4 — Deploy on Cloudflare Pages
 - [ ] Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**.
@@ -71,14 +71,22 @@ them as public routes.
 - [ ] Run **Lighthouse** (mobile): aim LCP < 2.5s, INP < 200ms, CLS < 0.1.
 - [ ] Google Search Console → add property → submit `https://grandeza.io/sitemap.xml`.
 
-## Phase 7 — Round out the site (after it's live)
-Not blocking, but needed for a "complete" site (copy is written in `docs/website-copy.md`):
-- [ ] Build `/about`, `/pricing`, `/product/{hardening,protected-intake,guardian}` as real pages.
-- [ ] Build the SEO pillar/cluster pages from `docs/seo-strategy.md`; embed the JSON-LD from
-      `assets/schema/`.
+## Phase 7 — Round out the site
+Already built: ✅ `/about`, `/pricing`, `/product/{hardening,protected-intake,guardian}`,
+✅ the `/tcpa-compliance-hvac-plumbing` pillar (with Article/FAQ/Breadcrumb JSON-LD),
+✅ `/privacy` + `/terms` (template — see below), ✅ shared `assets/site.css` + `site.js`,
+✅ nav/footer wired across the site.
+
+Still to do (not blocking a first deploy):
+- [ ] Build the SEO **cluster** pages (`/tcpa-penalties`, `/tcpa-sms-consent`,
+      `/a2p-10dlc-registration`, `/dnc-compliance-contractors`,
+      `/appointment-reminder-compliance`) and `/solutions/{hvac,plumbing}` from
+      `docs/seo-strategy.md`; reuse `assets/site.css` + the `.prose` layout and embed the
+      JSON-LD from `assets/schema/`.
+- [ ] **Have counsel complete `/privacy` and `/terms`** — they're structured templates with
+      `noindex` set; the disclaimers and data sections need real legal review.
 - [ ] Self-host production fonts (`@font-face` woff2) per `docs/design-system.md` §4.
-- [ ] Add analytics + a cookie-consent banner.
-- [ ] Replace placeholder legal links with real `/privacy` and `/terms`.
+- [ ] Add analytics + a cookie-consent banner (referenced in the privacy policy).
 - [ ] Swap illustrative testimonials for genuine, client-approved ones before adding any
       Review/AggregateRating schema.
 ```
