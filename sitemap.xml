@@ -1,37 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Grandeza.io target URL architecture. Regenerate from CMS at build time.
-     lastmod should reflect real content updates; priority/changefreq are hints only. -->
+<!-- Grandeza.io — live URLs only. Add cluster/vertical pages here as they ship
+     (target architecture is in docs/seo-strategy.md). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- ===== Money / conversion ===== -->
-  <url><loc>https://grandeza.io/</loc><lastmod>2026-07-19</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://grandeza.io/scan</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://grandeza.io/pricing</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Money / conversion -->
+  <url><loc>https://grandeza.io/</loc><lastmod>2026-07-20</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://grandeza.io/scan</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://grandeza.io/pricing</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <!-- ===== Product ===== -->
-  <url><loc>https://grandeza.io/product/hardening</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://grandeza.io/product/protected-intake</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://grandeza.io/product/guardian</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Product -->
+  <url><loc>https://grandeza.io/product/hardening</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://grandeza.io/product/protected-intake</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://grandeza.io/product/guardian</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <!-- ===== Pillar hubs ===== -->
-  <url><loc>https://grandeza.io/tcpa-compliance-hvac-plumbing</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://grandeza.io/the-16-controls</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Guides (SEO pillar) -->
+  <url><loc>https://grandeza.io/tcpa-compliance-hvac-plumbing</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
-  <!-- ===== Cluster / informational (top-10 build) ===== -->
-  <url><loc>https://grandeza.io/tcpa-penalties</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://grandeza.io/tcpa-sms-consent</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://grandeza.io/a2p-10dlc-registration</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://grandeza.io/ai-intake-compliance</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://grandeza.io/dnc-compliance-contractors</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://grandeza.io/appointment-reminder-compliance</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <!-- ===== Vertical solution landing pages ===== -->
-  <url><loc>https://grandeza.io/solutions/hvac</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://grandeza.io/solutions/plumbing</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-  <!-- ===== Resources ===== -->
-  <url><loc>https://grandeza.io/resources/tcpa-101</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://grandeza.io/resources/glossary</loc><lastmod>2026-07-19</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://grandeza.io/about</loc><lastmod>2026-07-19</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <!-- Company -->
+  <url><loc>https://grandeza.io/about</loc><lastmod>2026-07-20</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
 
 </urlset>

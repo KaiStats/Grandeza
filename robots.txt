@@ -1,8 +1,10 @@
 # Grandeza.io — robots.txt
-# Allow everything crawlable; keep app/thank-you/query noise out of the index.
 
 User-agent: *
 Allow: /
+
+# Internal design deliverables / demos (not part of the public site)
+Disallow: /design/
 
 # Post-conversion + app surfaces (no SEO value, avoid thin/duplicate)
 Disallow: /scan/result
