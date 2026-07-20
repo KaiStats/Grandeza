@@ -77,16 +77,21 @@ Already built: ✅ `/about`, `/pricing`, `/product/{hardening,protected-intake,g
 ✅ `/privacy` + `/terms` (template — see below), ✅ shared `assets/site.css` + `site.js`,
 ✅ nav/footer wired across the site.
 
-Still to do (not blocking a first deploy):
-- [ ] Build the SEO **cluster** pages (`/tcpa-penalties`, `/tcpa-sms-consent`,
-      `/a2p-10dlc-registration`, `/dnc-compliance-contractors`,
-      `/appointment-reminder-compliance`) and `/solutions/{hvac,plumbing}` from
-      `docs/seo-strategy.md`; reuse `assets/site.css` + the `.prose` layout and embed the
-      JSON-LD from `assets/schema/`.
-- [ ] **Have counsel complete `/privacy` and `/terms`** — they're structured templates with
-      `noindex` set; the disclaimers and data sections need real legal review.
+Also done: ✅ all 5 SEO **cluster** guides (`/tcpa-penalties`, `/tcpa-sms-consent`,
+`/a2p-10dlc-registration`, `/dnc-compliance-contractors`, `/appointment-reminder-compliance`)
+with Article/FAQ/HowTo/Breadcrumb JSON-LD, cross-linked to the pillar and each other and added
+to the sitemap. ✅ **Consent-gated analytics + cookie banner** (`assets/consent.js`) on every
+page — nothing that tracks loads until the visitor accepts; a "Cookie settings" footer link
+reopens it.
+
+- [ ] **Turn analytics on:** paste your token into `ANALYTICS` at the top of
+      `assets/consent.js` (`cloudflareToken` for Cloudflare Web Analytics — matches your
+      hosting — or `ga4Id` for GA4). Until then, no analytics loads.
+- [ ] **Have counsel complete `/privacy` and `/terms`** — structured `noindex` templates; the
+      disclaimers and data sections need real legal review.
+- [ ] (Optional) Build `/solutions/{hvac,plumbing}` vertical landing pages from
+      `docs/seo-strategy.md` — reuse `assets/site.css` + `.prose`.
 - [ ] Self-host production fonts (`@font-face` woff2) per `docs/design-system.md` §4.
-- [ ] Add analytics + a cookie-consent banner (referenced in the privacy policy).
 - [ ] Swap illustrative testimonials for genuine, client-approved ones before adding any
       Review/AggregateRating schema.
 ```
