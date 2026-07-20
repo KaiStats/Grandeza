@@ -1,0 +1,105 @@
+# Survive the Audit — the Grandeza Scan as a game
+
+`index.html` turns the 16-control Grandeza Scan into a ~3-minute survival game
+so people finish it instead of balking at a 16-question form.
+
+## How it plays
+
+- Sixteen "threats" walk in — one per control (`data/controls.json`), in the
+  same heaviest-first order. Each is a scenario card with three honest choices:
+  **Locked down** (pass, full weight), **Winging it** (partial, half weight),
+  **Exposed** (fail, zero).
+- Two live meters: a **Defensibility** score filling toward 100 and a running
+  **liability exposure** counter that climbs when you're exposed.
+- The four auto-fail controls (**01, 03, 09, 14**) throw a full-screen
+  **RED FLAG** interstitial on a fail and flag the whole verdict red regardless
+  of total score — matching `controls.json`'s `autoFailRule`.
+- The verdict screen gives your band (Critical → Protected), a per-pillar
+  breakdown, your "fix these first" list, and a CTA to `grandeza.io/scan`.
+
+## Characters (Guardo & the Rogues)
+
+The game shows a 3D Pixar-lite cast — **Guardo** the shield-mascot guide plus
+four rogues (one per auto-fail control): The Robotexter (TCPA), Phantom Bot
+(AI disclosure), Sneaky Pete (recording consent), and The Shredder (audit
+trail). Art was generated with Higgsfield (nano-banana stills + a Seedance 2.0
+animation of Guardo). See `CHARACTERS.md` for the cast bible, exact prompts,
+and job IDs, and `GAME_UPGRADE_SPEC.md` for how to extend it in Cursor.
+
+The art lives in `../assets/characters/`. It's wired as **progressive
+enhancement**: the game auto-detects the files and shows the cast; without them
+(e.g. the shareable single-file Artifact) it falls back to the text UI with
+nothing broken. To pull the binaries down locally, run
+`../assets/characters/fetch-characters.sh`.
+
+An optional **Sound** toggle (top-right, next to Theme) adds short Web-Audio
+cues on each choice, the red-flag hit, and the final verdict. It's synthesized
+inline (no audio files), **muted by default**, and disabled entirely when the
+browser requests `prefers-reduced-motion`.
+
+## Shareable single-file build (art baked in)
+
+`index.html` loads the art from `../assets/characters/` at runtime — great for
+hosting, but a sandboxed Artifact/link can't fetch those files. To get one
+self-contained file that shows the full cast anywhere:
+
+```bash
+bash ../assets/characters/fetch-characters.sh   # if you don't have the art yet
+node build-inline.mjs            # stills only  -> index.inlined.html (~9–10 MB)
+node build-inline.mjs --videos   # also embed the Seedance clips (much bigger)
+```
+
+`build-inline.mjs` embeds the assets as data: URIs via the `window.GRANDEZA_INLINE`
+manifest (see the `INLINE`/`srcOf` hooks in `index.html`). `index.inlined.html`
+is a build output — gitignored, safe to publish as an Artifact or drop on any
+host. Stills-only is the reliable size for a shared link; `--videos` is best for
+self-hosting.
+
+### Under a size cap (e.g. 16 MB Artifact limit) — compress first
+
+The full-res `--videos` build is ~27 MB. To fit a hosted/Artifact cap, compress
+into a temp dir (keeping the **same filenames**) and point the build at it with
+`--assets`:
+
+```bash
+# needs ffmpeg + Pillow (pip install imageio-ffmpeg pillow, or system ffmpeg)
+OUT=$(mktemp -d)
+# stills -> 512px png
+python3 - "$OUT" <<'PY'
+import glob,os,sys
+from PIL import Image
+for p in glob.glob("../assets/characters/*.png"):
+    im=Image.open(p).convert("RGBA"); im.thumbnail((512,512),Image.LANCZOS)
+    im.save(os.path.join(sys.argv[1],os.path.basename(p)),optimize=True)
+PY
+# clips -> 480p, crf 30, silent
+for f in ../assets/characters/*.mp4; do
+  ffmpeg -y -loglevel error -i "$f" -vf scale=-2:480 -c:v libx264 -crf 30 -preset veryfast -an "$OUT/$(basename "$f")"
+done
+node build-inline.mjs --videos --assets "$OUT"   # ~2.6 MB, all 13 assets
+```
+
+480p reads fine at the character sizes used in the UI. Drop `crf` (e.g. 26) for
+higher quality / larger file.
+
+## Legal accuracy
+
+Statutory figures shown are the verified ones only (TCPA $500–$1,500/text;
+NRS 200.620 / 193.130 recording penalties; NRS 603A breach duties; FTC § 5) —
+see `../data/legal-spine.json` and `../CORRECTIONS.md`. The running exposure
+*total* is explicitly framed in-game as an illustrative dramatization, not a
+quote. No phantom law.
+
+## Build / host
+
+Fully self-contained — no build step, no external requests (CSP-safe). Open
+`index.html` directly, or drop it on the Cloudflare Worker behind
+`grandeza.io/scan` (or a `/scan/game` route). The scan spine is mirrored inline
+in the file; if `controls.json` changes, update the `BANDS`/`THREATS` data at
+the top of the `<script>`.
+
+## Scope note
+
+This is the **fun front-door** version — a fixed, self-scored quiz. It is not
+the real scoring engine; it doesn't persist results or capture leads. Wiring it
+to the actual scan backend / a lead capture is a separate task.

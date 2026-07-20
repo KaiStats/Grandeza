@@ -1,0 +1,14 @@
+{
+  "name": "grandeza-growth-engine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Content + scan engine behind grandeza.io",
+  "scripts": {
+    "build:scripts": "node src/build-scripts.js",
+    "build:seo-ads": "node src/build-seo-ads.js",
+    "build:calendar": "python3 src/build-calendar.py"
+  },
+  "dependencies": {
+    "docx": "^8.5.0"
+  }
+}
