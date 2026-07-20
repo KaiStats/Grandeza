@@ -1,22 +1,27 @@
-# /img — self-hosted images
+# /public/img — site images
 
-Drop the optimized site images here. The HTML references these exact paths:
+**Current state:** the live site loads its photos directly from the Higgsfield CDN
+(the `cloudfront.net` URLs in the page CSS + `og:image`). The site is **image-complete with no
+upload needed** — and if a CDN URL ever expires, the affected section falls back to a clean
+brand gradient (never a broken image).
 
-| File | Source (Higgsfield Nano Banana 2) job | Used by |
+**Durable follow-up (recommended, not urgent):** self-host the 8 images here so you don't
+depend on an external CDN.
+
+1. Download the 8 originals (base `https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/` + filename):
+
+| Source `hf_…png` | Save as | Used by |
 |---|---|---|
-| `hero-hvac.webp` | `22a16854…` (HVAC tech w/ phone, 16:9) | `landing.html` hero |
-| `plumber.webp` | `468934e6…` (plumber w/ tablet, 4:5) | `landing.html` split |
-| `dispatcher.webp` | `7b6c3688…` (dispatcher + dashboard, 16:9) | `landing.html` proof band |
-| `homeowner.webp` | `83e897cd…` (homeowner greeting, 4:5) | `landing.html` social proof |
-| `portrait.webp` | `71bdfc3d…` (owner portrait, 16:9) | `index.html` editorial band |
-| `binder.webp` | `d64b858d…` (compliance binder, 3:2) | `index.html` binder feature |
-| `seal-macro.webp` | `f23932d3…` (brass seal macro, 16:9) | `index.html` hero texture |
-| `og-default.jpg` | `faa99bc3…` (abstract brand, → crop 1200×630) | `og:image` all pages, og-card |
+| `…154736_22a16854-….png` | `hero-hvac.webp` | landing hero |
+| `…154737_468934e6-….png` | `plumber.webp` | landing split |
+| `…155705_7b6c3688-….png` | `dispatcher.webp` | landing proof band |
+| `…155707_83e897cd-….png` | `homeowner.webp` | landing social proof |
+| `…160436_71bdfc3d-….png` | `portrait.webp` | index editorial band |
+| `…160439_d64b858d-….png` | `binder.webp` | index binder feature |
+| `…160441_f23932d3-….png` | `seal-macro.webp` | index hero texture + schema logo |
+| `…155710_faa99bc3-….png` | `og-default.jpg` (1200×630) | og:image (all pages) |
 
-**Download URLs** (each = `https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/` + the
-`hf_…png` filename) are listed in full in `docs/social-assets.md` and `docs/golive-runbook.md`.
-
-**Optimize:** [squoosh.app](https://squoosh.app) → resize longest edge ~1600px → **WebP q80**.
-For `og-default.jpg`, export **JPG** cropped to **1200×630**.
-
-Until these files exist, every page falls back to a clean brand gradient (no broken images).
+2. Optimize at [squoosh.app](https://squoosh.app) → WebP q80 (JPEG for the OG one); drop them here.
+3. Swap the `cloudfront.net/...png` URLs in `public/index.html`, `public/landing.html`, and the
+   `og:image` meta across pages back to local paths (e.g. `/img/hero-hvac.webp`,
+   `https://grandeza.io/img/og-default.jpg`). Commit.
