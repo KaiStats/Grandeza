@@ -1,0 +1,484 @@
+<title>Grandeza — Mobile Experience</title>
+<meta name="description" content="Mobile-first redesign of Grandeza.io: thumb-zone navigation, a persistent bottom conversion dock, scroll-snap proof, and a lean performance profile for HVAC & plumbing pros on their phones.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Speculative prefetch: warm the primary conversion page so it opens instantly on tap.
+     Prefetch only (no side effects); ignored by browsers without Speculation Rules support. -->
+<script type="speculationrules">
+{"prefetch":[{"source":"list","urls":["/scan"]}]}
+</script>
+<style>
+  :root{
+    --font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:"SF Mono","JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+    --brass-bright:#c6a15b;--fail:#c4463a;--warn:#d68a2e;--pass:#2f8f5b;--panel-dark:#0b1517;
+    --ease:cubic-bezier(.22,.61,.36,1);--ease-emp:cubic-bezier(.16,1,.3,1);
+    --tap:48px; /* comfortable minimum touch target */
+  }
+  :root{
+    --bg:#e9edec;--bg-tint:#e0e6e4;--surface:#f5f7f6;--surface-2:#fff;
+    --ink:#0c1618;--ink-soft:#42544f;--ink-faint:#6b7d78;
+    --line:rgba(12,22,24,.12);--line-strong:rgba(12,22,24,.2);
+    --accent:#8a6a2e;--seal-1:#b78f3f;--seal-2:#e0c079;--link:#2e6e6a;
+    --shadow:0 1px 2px rgba(12,22,24,.06),0 10px 30px -16px rgba(12,22,24,.3);
+    --shadow-dock:0 -6px 24px -12px rgba(12,22,24,.28);color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a1315;--bg-tint:#0d191b;--surface:#10201f;--surface-2:#152826;
+    --ink:#e9efec;--ink-soft:#a7bcb6;--ink-faint:#7d938d;
+    --line:rgba(198,161,91,.16);--line-strong:rgba(198,161,91,.3);
+    --accent:#c9a45e;--seal-1:#c6a15b;--seal-2:#8a6a2e;--link:#5aa9a2;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 36px -18px rgba(0,0,0,.7);
+    --shadow-dock:0 -6px 26px -12px rgba(0,0,0,.6);color-scheme:dark;
+  }}
+  :root[data-theme="light"]{--bg:#e9edec;--bg-tint:#e0e6e4;--surface:#f5f7f6;--surface-2:#fff;
+    --ink:#0c1618;--ink-soft:#42544f;--ink-faint:#6b7d78;--line:rgba(12,22,24,.12);--line-strong:rgba(12,22,24,.2);
+    --accent:#8a6a2e;--seal-1:#b78f3f;--seal-2:#e0c079;--link:#2e6e6a;
+    --shadow:0 1px 2px rgba(12,22,24,.06),0 10px 30px -16px rgba(12,22,24,.3);--shadow-dock:0 -6px 24px -12px rgba(12,22,24,.28);color-scheme:light;}
+  :root[data-theme="dark"]{--bg:#0a1315;--bg-tint:#0d191b;--surface:#10201f;--surface-2:#152826;
+    --ink:#e9efec;--ink-soft:#a7bcb6;--ink-faint:#7d938d;--line:rgba(198,161,91,.16);--line-strong:rgba(198,161,91,.3);
+    --accent:#c9a45e;--seal-1:#c6a15b;--seal-2:#8a6a2e;--link:#5aa9a2;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 36px -18px rgba(0,0,0,.7);--shadow-dock:0 -6px 26px -12px rgba(0,0,0,.6);color-scheme:dark;}
+
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+  body{margin:0;font-family:var(--font-body);color:var(--ink);
+    background:
+      radial-gradient(90% 60% at 50% 0%,color-mix(in srgb,var(--brass-bright) 10%,transparent),transparent 60%),
+      var(--bg-tint);
+    min-height:100vh;display:grid;place-items:center;padding:clamp(0px,3vw,28px)}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.12;margin:0;letter-spacing:-.01em;text-wrap:balance}
+  p{margin:0}
+  .mono{font-family:var(--font-mono)}.tnum{font-variant-numeric:tabular-nums}
+  :focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+  /* ---------- Device frame (drops away on real phones) ---------- */
+  .phone{position:relative;width:min(402px,100%);height:min(864px,94vh);
+    background:var(--bg);border-radius:44px;overflow:hidden;
+    border:10px solid #0c1214;box-shadow:0 40px 90px -30px rgba(0,0,0,.55),0 0 0 2px rgba(0,0,0,.3);
+    isolation:isolate}
+  @media (max-width:520px){body{padding:0;place-items:stretch}
+    .phone{width:100%;height:100dvh;border-radius:0;border:0;box-shadow:none}}
+
+  /* faux status bar */
+  .status{position:absolute;top:0;left:0;right:0;height:34px;z-index:40;display:flex;align-items:center;
+    justify-content:space-between;padding:0 22px;font-family:var(--font-mono);font-size:.72rem;font-weight:600;
+    color:var(--ink);pointer-events:none}
+  .status .r{display:flex;gap:6px;align-items:center}
+  .status svg{display:block}
+
+  /* scrollable screen */
+  .screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
+    padding-top:34px;padding-bottom:96px;scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){.screen{scroll-behavior:auto}}
+
+  /* ---------- App bar ---------- */
+  .appbar{position:sticky;top:34px;z-index:30;display:flex;align-items:center;gap:.6rem;height:56px;padding:0 14px;
+    background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px) saturate(1.2);
+    border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+  .appbar.scrolled{border-bottom-color:var(--line);background:color-mix(in srgb,var(--bg) 92%,transparent)}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:var(--font-display);font-size:1.18rem;font-weight:600;color:var(--ink);text-decoration:none}
+  .seal{width:26px;height:26px;flex-shrink:0}
+  .appbar .spacer{margin-left:auto}
+  .iconbtn{width:var(--tap);height:var(--tap);display:grid;place-items:center;border:none;background:transparent;
+    color:var(--ink-soft);cursor:pointer;border-radius:12px;position:relative}
+  .iconbtn:active{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+  .score-chip{display:inline-flex;align-items:center;gap:.4rem;height:34px;padding:0 .7rem;border-radius:999px;
+    background:var(--surface);border:1px solid var(--line);font-family:var(--font-mono);font-size:.8rem;font-weight:600;color:var(--ink)}
+  .score-chip .d{width:8px;height:8px;border-radius:50%;background:var(--pass)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;padding:1.4rem 1.2rem 1.6rem;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(120% 80% at 90% 0%,color-mix(in srgb,var(--brass-bright) 16%,transparent),transparent 60%)}
+  .eyebrow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+    display:inline-flex;align-items:center;gap:.5em}
+  .eyebrow::before{content:"";width:1.6em;height:1px;background:currentColor;opacity:.6}
+  .hero h1{font-size:1.92rem;margin-top:.7rem}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero p{color:var(--ink-soft);font-size:1rem;margin-top:.8rem}
+  .hero-gauge{display:flex;align-items:center;gap:1rem;margin-top:1.3rem;padding:1rem;border-radius:18px;
+    background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .mini-gauge{position:relative;width:88px;height:88px;flex-shrink:0}
+  .mini-gauge svg{width:88px;height:88px;transform:rotate(0)}
+  .mini-gauge .c{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+  .mini-gauge .n{font-family:var(--font-mono);font-weight:600;font-size:1.5rem;line-height:1;color:var(--ink)}
+  .hero-gauge .g-copy b{font-size:.96rem}
+  .hero-gauge .g-copy .band{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pass);font-weight:600}
+  .hero-gauge .g-copy p{font-size:.82rem;color:var(--ink-soft);margin-top:.2rem}
+  .trust-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1.1rem}
+  .pill{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.04em;color:var(--ink-soft);
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.35rem .65rem;
+    display:inline-flex;align-items:center;gap:.35em}
+  .pill .d{width:6px;height:6px;border-radius:50%;background:var(--pass)}
+
+  /* ---------- Sections ---------- */
+  .sect{padding:1.6rem 1.2rem;border-top:1px solid var(--line)}
+  .sect > .eyebrow{margin-bottom:.5rem}
+  .sect h2{font-size:1.4rem}
+  .sect .lead{color:var(--ink-soft);font-size:.95rem;margin-top:.5rem}
+  .content-visibility{content-visibility:auto;contain-intrinsic-size:auto 480px}
+
+  /* stat strip (horizontal scroll-snap, mobile-native) */
+  .snap{display:flex;gap:.7rem;overflow-x:auto;scroll-snap-type:x mandatory;margin:1.1rem -1.2rem 0;padding:0 1.2rem .4rem;
+    scrollbar-width:none}
+  .snap::-webkit-scrollbar{display:none}
+  .stat{flex:0 0 44%;scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1rem}
+  .stat .fig{font-family:var(--font-mono);font-weight:600;font-size:1.7rem;color:var(--ink);letter-spacing:-.02em}
+  .stat .fig .u{color:var(--accent)}
+  .stat p{font-size:.8rem;color:var(--ink-soft);margin-top:.3rem}
+
+  /* steps as vertical rhythm */
+  .steps{display:grid;gap:.7rem;margin-top:1.1rem}
+  .step{display:flex;gap:.9rem;align-items:flex-start;background:var(--surface);border:1px solid var(--line);
+    border-radius:16px;padding:1rem}
+  .step .n{flex-shrink:0;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+    font-family:var(--font-mono);font-weight:600;background:var(--bg);border:1px solid var(--line);color:var(--accent)}
+  .step h3{font-size:1rem}.step p{font-size:.85rem;color:var(--ink-soft);margin-top:.15rem}
+
+  /* segmented control (replaces side-by-side desktop pricing cards) */
+  .seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px;margin-top:1rem;position:relative}
+  .seg button{flex:1;min-height:44px;border:none;background:transparent;font:inherit;font-weight:600;font-size:.9rem;
+    color:var(--ink-soft);cursor:pointer;border-radius:10px;z-index:1;transition:color .25s}
+  .seg button[aria-selected="true"]{color:var(--ink)}
+  .seg .thumb{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:10px;
+    background:var(--surface-2);box-shadow:var(--shadow);transition:transform .3s var(--ease)}
+  .seg[data-i="1"] .thumb{transform:translateX(100%)}
+  .plan{margin-top:1rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.3rem}
+  .plan .ptag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+  .plan .pname{font-size:1.3rem;margin:.3rem 0 .1rem}
+  .plan .pfor{color:var(--ink-soft);font-size:.88rem}
+  .plan .price{display:flex;align-items:baseline;gap:.4rem;margin:1rem 0 .2rem;font-family:var(--font-mono)}
+  .plan .price .big{font-size:2rem;font-weight:600;color:var(--ink)}
+  .plan .price .per{color:var(--ink-faint);font-size:.82rem}
+  .plan .psub{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-soft)}
+  .plan ul{list-style:none;padding:0;margin:1rem 0 0;display:grid;gap:.6rem}
+  .plan li{display:flex;gap:.6rem;font-size:.88rem;color:var(--ink-soft);align-items:flex-start}
+  .plan li svg{flex-shrink:0;margin-top:.15em;color:var(--pass)}
+
+  /* testimonials swipe */
+  .tsnap{display:flex;gap:.8rem;overflow-x:auto;scroll-snap-type:x mandatory;margin:1.1rem -1.2rem .6rem;padding:0 1.2rem;scrollbar-width:none}
+  .tsnap::-webkit-scrollbar{display:none}
+  .testi{flex:0 0 86%;scroll-snap-align:center;background:var(--surface-2);border:1px solid var(--line);
+    border-radius:18px;padding:1.2rem;box-shadow:var(--shadow)}
+  .testi .stars{color:var(--seal-1);font-size:.9rem}
+  .testi blockquote{margin:.6rem 0 0;font-size:.98rem;color:var(--ink);line-height:1.5}
+  .testi blockquote b{color:var(--accent)}
+  .who{display:flex;align-items:center;gap:.6rem;margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--line)}
+  .av{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-family:var(--font-mono);
+    font-weight:600;font-size:.82rem;color:#20180a;background:linear-gradient(180deg,var(--seal-2),var(--seal-1))}
+  .who .nm{font-weight:600;font-size:.86rem}.who .rl{color:var(--ink-faint);font-size:.76rem}
+  .dots{display:flex;gap:.4rem;justify-content:center;margin-top:.2rem}
+  .dots i{width:7px;height:7px;border-radius:50%;background:var(--line-strong);transition:transform .25s,background .25s}
+  .dots i.on{background:var(--accent);transform:scale(1.35)}
+
+  /* FAQ accordion (native) */
+  .faq{margin-top:1rem;display:grid;gap:.6rem}
+  details{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  summary{list-style:none;cursor:pointer;min-height:var(--tap);display:flex;align-items:center;justify-content:space-between;
+    gap:1rem;padding:.9rem 1rem;font-weight:600;font-size:.94rem}
+  summary::-webkit-details-marker{display:none}
+  summary .chev{flex-shrink:0;color:var(--accent);transition:transform .25s var(--ease)}
+  details[open] summary .chev{transform:rotate(180deg)}
+  details .a{padding:0 1rem 1rem;color:var(--ink-soft);font-size:.88rem;line-height:1.55}
+
+  /* collapsible footer */
+  .mfoot{padding:1.4rem 1.2rem 2rem;border-top:1px solid var(--line);color:var(--ink-faint);font-size:.8rem}
+  .mfoot .disc{margin-top:.8rem;line-height:1.5;font-size:.74rem}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--font-body);font-weight:600;
+    font-size:1rem;min-height:52px;padding:0 1.3em;border-radius:14px;border:1px solid transparent;cursor:pointer;
+    text-decoration:none;position:relative;overflow:hidden;width:100%;transition:transform .12s var(--ease)}
+  .btn:active{transform:scale(.98)}
+  .btn-primary{background:linear-gradient(180deg,var(--seal-2),var(--seal-1));color:#20180a;box-shadow:var(--shadow)}
+  .btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line-strong)}
+  .ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(32,24,10,.25);pointer-events:none;
+    animation:ripple .55s var(--ease) forwards}
+  @keyframes ripple{to{transform:scale(2.4);opacity:0}}
+
+  /* ---------- Bottom conversion dock (thumb zone) ---------- */
+  .dock{position:absolute;left:0;right:0;bottom:0;z-index:35;display:flex;gap:.7rem;align-items:center;
+    padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+    background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(14px) saturate(1.2);
+    border-top:1px solid var(--line);box-shadow:var(--shadow-dock)}
+  .dock .btn{flex:1}
+  .dock .call{flex:0 0 auto;width:52px;min-height:52px;border-radius:14px;background:var(--surface);
+    border:1px solid var(--line-strong);display:grid;place-items:center;color:var(--ink);text-decoration:none}
+  .dock .call:active{transform:scale(.96)}
+
+  /* ---------- Full-screen menu ---------- */
+  .scrim{position:absolute;inset:0;z-index:45;background:rgba(7,15,16,.5);opacity:0;visibility:hidden;
+    transition:opacity .3s,visibility .3s}
+  .scrim.show{opacity:1;visibility:visible}
+  .menu{position:absolute;inset:0;z-index:46;background:var(--bg);transform:translateY(100%);visibility:hidden;
+    transition:transform .34s var(--ease-emp),visibility .34s;display:flex;flex-direction:column;padding-top:34px}
+  .menu.show{transform:none;visibility:visible}
+  .menu-top{display:flex;align-items:center;height:56px;padding:0 14px;border-bottom:1px solid var(--line)}
+  .menu-top .t{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+  .menu nav{padding:.6rem;display:grid;gap:.2rem;overflow-y:auto}
+  .menu a{display:flex;align-items:center;gap:1rem;min-height:56px;padding:0 1rem;border-radius:14px;
+    color:var(--ink);text-decoration:none;font-size:1.1rem;font-weight:500}
+  .menu a:active{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+  .menu a .mi{width:26px;color:var(--accent);flex-shrink:0}
+  .menu a .ar{margin-left:auto;color:var(--ink-faint)}
+  .menu-cta{margin-top:auto;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom))}
+
+  /* ---------- Bottom sheet ---------- */
+  .sheet{position:absolute;left:0;right:0;bottom:0;z-index:47;background:var(--surface-2);
+    border-radius:22px 22px 0 0;transform:translateY(100%);visibility:hidden;
+    transition:transform .36s var(--ease-emp),visibility .36s;box-shadow:0 -20px 50px -20px rgba(0,0,0,.4);
+    max-height:82%;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}
+  .sheet.show{transform:none;visibility:visible}
+  .grab{width:40px;height:5px;border-radius:3px;background:var(--line-strong);margin:.7rem auto .2rem}
+  .sheet-body{padding:.4rem 1.3rem 1.3rem;overflow-y:auto}
+  .sheet h3{font-size:1.3rem;margin-top:.4rem}
+  .sheet .lead{color:var(--ink-soft);font-size:.9rem;margin-top:.4rem}
+  .fld{margin-top:1rem;position:relative}
+  .fld input{width:100%;min-height:52px;font:inherit;font-size:16px;/* 16px prevents iOS zoom */
+    padding:0 .9em;border-radius:12px;border:1.5px solid var(--line-strong);background:var(--bg);color:var(--ink)}
+  .fld input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 16%,transparent)}
+  .fld label{display:block;font-size:.82rem;font-weight:600;margin-bottom:.4rem;color:var(--ink-soft)}
+  .sheet .btn{margin-top:1rem}
+  .sheet .micro{font-size:.76rem;color:var(--ink-faint);text-align:center;margin-top:.7rem;display:flex;gap:.5em;justify-content:center;flex-wrap:wrap}
+
+  /* skeleton */
+  .skel{position:relative;overflow:hidden;background:color-mix(in srgb,var(--ink) 8%,transparent);border-radius:8px}
+  .skel::after{content:"";position:absolute;inset:0;transform:translateX(-100%);
+    background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--ink) 10%,transparent),transparent);
+    animation:shim 1.2s ease infinite}
+  @keyframes shim{100%{transform:translateX(100%)}}
+</style>
+
+<div class="phone" id="phone">
+  <!-- status bar -->
+  <div class="status">
+    <span>9:41</span>
+    <span class="r" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="22" height="11" viewBox="0 0 22 11" fill="none"><rect x="1" y="1" width="17" height="9" rx="2.5" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="12" height="6" rx="1" fill="currentColor"/><rect x="19" y="4" width="2" height="3" rx="1" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- scrim + menu + sheet live inside the phone -->
+  <div class="scrim" id="scrim"></div>
+
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="menu-top">
+      <button class="iconbtn" id="menuClose" aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <span class="t" style="margin-left:auto;margin-right:auto">Grandeza</span>
+      <span style="width:48px"></span>
+    </div>
+    <nav>
+      <a href="#how" data-nav><span class="mi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v4M12 3a9 9 0 109 9"/></svg></span>How it works<span class="ar">›</span></a>
+      <a href="#controls" data-nav><span class="mi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V5z"/></svg></span>The 16 Controls<span class="ar">›</span></a>
+      <a href="#pricing" data-nav><span class="mi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12h18M3 6h18M3 18h12"/></svg></span>Pricing<span class="ar">›</span></a>
+      <a href="#proof" data-nav><span class="mi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v14H4z"/><path d="M8 20h8"/></svg></span>Reviews<span class="ar">›</span></a>
+      <a href="#faq" data-nav><span class="mi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 113.5 2.3c-.9.4-1 .9-1 1.7M12 17h.01"/></svg></span>FAQ<span class="ar">›</span></a>
+    </nav>
+    <div class="menu-cta">
+      <a class="btn btn-primary" href="tel:+18555550142"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h4l2 5-3 2a11 11 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 011-2z"/></svg>Call (855) 555-0142</a>
+    </div>
+  </div>
+
+
+  <!-- scrollable screen -->
+  <div class="screen" id="screen">
+    <div class="appbar" id="appbar">
+      <a class="brand" href="#top">
+        <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
+          <defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--seal-2)"/><stop offset="1" stop-color="var(--seal-1)"/></linearGradient></defs>
+          <path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/>
+          <path fill="none" stroke="#20180a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/>
+        </svg>Grandeza</a>
+      <span class="spacer"></span>
+      <span class="score-chip" id="scoreChip" aria-live="polite"><span class="skel" style="width:52px;height:14px"></span></span>
+      <button class="iconbtn" id="theme" aria-label="Toggle theme">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v1.5M12 19.5V21M3 12h1.5M19.5 12H21M5.6 5.6l1 1M17.4 17.4l1 1M18.4 5.6l-1 1M6.6 17.4l-1 1"/></svg>
+      </button>
+      <button class="iconbtn" id="menuOpen" aria-label="Open menu" aria-haspopup="dialog">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <span class="eyebrow">TCPA · HVAC &amp; plumbing</span>
+      <h1>Is your intake <em>legally clean?</em></h1>
+      <p>Every text your shop sends is evidence. Grandeza scores your risk in 12 minutes — then hardens it into insurance-ready proof.</p>
+      <div class="hero-gauge">
+        <div class="mini-gauge">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="8"/>
+            <circle id="mg" cx="50" cy="50" r="42" fill="none" stroke="var(--pass)" stroke-width="8" stroke-linecap="round"
+              stroke-dasharray="263.9" stroke-dashoffset="263.9" transform="rotate(-90 50 50)" style="transition:stroke-dashoffset 1.1s var(--ease-emp)"/>
+          </svg>
+          <div class="c"><span class="n tnum" id="mgNum">0</span></div>
+        </div>
+        <div class="g-copy">
+          <span class="band">Protected</span>
+          <b>What good looks like</b>
+          <p>Shops that harden reach 88+. See where you land.</p>
+        </div>
+      </div>
+      <div class="trust-row">
+        <span class="pill"><span class="d"></span>16 controls</span>
+        <span class="pill"><span class="d"></span>Signed audit trail</span>
+        <span class="pill"><span class="d"></span>Carrier-ready</span>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="sect">
+      <span class="eyebrow">The stakes</span>
+      <h2>The math isn't close.</h2>
+      <div class="snap" aria-label="Key figures">
+        <div class="stat"><div class="fig tnum">$1,500<span class="u">+</span></div><p>TCPA damages per text</p></div>
+        <div class="stat"><div class="fig tnum">12<span class="u">min</span></div><p>To score all 16 controls</p></div>
+        <div class="stat"><div class="fig tnum">16<span class="u">×</span></div><p>ROI vs one complaint</p></div>
+        <div class="stat"><div class="fig tnum">0</div><p>Lines of your code touched</p></div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section class="sect content-visibility" id="how">
+      <span class="eyebrow">How it works</span>
+      <h2>Scan. Score. Harden. Prove.</h2>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><div><h3>Scan</h3><p>A 12-minute walkthrough of your live SMS, call &amp; web intake.</p></div></div>
+        <div class="step"><span class="n">2</span><div><h3>Score</h3><p>One 0–100 number, mapped control by control.</p></div></div>
+        <div class="step"><span class="n">3</span><div><h3>Harden</h3><p>Signed consent, audit trail, DNC screening — on your stack.</p></div></div>
+        <div class="step"><span class="n">4</span><div><h3>Prove</h3><p>A printable binder your carrier and lawyer accept.</p></div></div>
+      </div>
+    </section>
+
+    <!-- PRICING (segmented) -->
+    <section class="sect content-visibility" id="pricing">
+      <span class="eyebrow">Two ways in</span>
+      <h2>Pick your door.</h2>
+      <div class="seg" id="seg" data-i="0" role="tablist" aria-label="Plans">
+        <div class="thumb" aria-hidden="true"></div>
+        <button role="tab" aria-selected="true" id="seg0">Hardening</button>
+        <button role="tab" aria-selected="false" id="seg1">Protected Intake</button>
+      </div>
+      <div class="plan" id="plan"><!-- injected --></div>
+    </section>
+
+    <!-- PROOF -->
+    <section class="sect content-visibility" id="proof">
+      <span class="eyebrow">From the field</span>
+      <h2>Operators who stopped guessing.</h2>
+      <div class="tsnap" id="tsnap" aria-label="Reviews">
+        <div class="testi"><div class="stars" aria-hidden="true">★★★★★</div><blockquote>"Our score went <b>38 → 91</b> in a month. At renewal I emailed my carrier the binder and the conversation was over."</blockquote><div class="who"><span class="av">MR</span><div><div class="nm">Marcus R.</div><div class="rl">Owner · 14-truck HVAC</div></div></div></div>
+        <div class="testi"><div class="stars" aria-hidden="true">★★★★★</div><blockquote>"They hardened the <b>exact Twilio setup</b> we already had. Four weeks, no downtime."</blockquote><div class="who"><span class="av">DL</span><div><div class="nm">Dana L.</div><div class="rl">Ops · Plumbing &amp; drain</div></div></div></div>
+        <div class="testi"><div class="stars" aria-hidden="true">★★★★★</div><blockquote>"The free scan alone found <b>three FAILs</b> I had no idea about."</blockquote><div class="who"><span class="av">TW</span><div><div class="nm">Tomás W.</div><div class="rl">Service Mgr · Multi-location</div></div></div></div>
+      </div>
+      <div class="dots" id="dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sect content-visibility" id="faq">
+      <span class="eyebrow">Straight answers</span>
+      <h2>Questions pros ask.</h2>
+      <div class="faq">
+        <details open><summary>Do you replace my system?<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></summary><div class="a">No. We harden the Twilio, CRM and bot you already run. Protected Intake is optional if you'd rather hand it off.</div></details>
+        <details><summary>Is Grandeza a law firm?<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></summary><div class="a">No — compliance engineering. We build the controls and the proof; your attorney gets the binder.</div></details>
+        <details><summary>What does it cost?<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></summary><div class="a">The scan is free. Hardening is $1,500 one-time + Guardian from $149/mo. Your scan comes with a fixed quote.</div></details>
+      </div>
+    </section>
+
+    <footer class="mfoot">
+      <div class="mono" style="letter-spacing:.04em">GRANDEZA.IO</div>
+      <p class="disc">Compliance engineering, not legal advice. Figures representative; testimonials illustrative pending client-approved replacements. © 2026 Grandeza.io</p>
+    </footer>
+  </div>
+
+  <!-- BOTTOM DOCK (thumb zone, persistent) -->
+  <div class="dock">
+    <a class="btn btn-primary" href="/scan">Get my free score →</a>
+    <a class="call" href="tel:+18555550142" aria-label="Call Grandeza">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h4l2 5-3 2a11 11 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 011-2z"/></svg>
+    </a>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var root=document.documentElement;
+
+  /* theme */
+  document.getElementById("theme").addEventListener("click",function(){
+    var c=root.getAttribute("data-theme");if(!c){c=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";}
+    root.setAttribute("data-theme",c==="dark"?"light":"dark");
+  });
+
+  /* appbar condense */
+  var screen=document.getElementById("screen"),appbar=document.getElementById("appbar"),tick=false;
+  screen.addEventListener("scroll",function(){if(!tick){requestAnimationFrame(function(){
+    appbar.classList.toggle("scrolled",screen.scrollTop>6);tick=false;});tick=true;}},{passive:true});
+
+  /* ripple on buttons */
+  document.addEventListener("pointerdown",function(e){
+    var b=e.target.closest(".btn");if(!b||reduce)return;
+    var r=b.getBoundingClientRect(),d=Math.max(r.width,r.height),el=document.createElement("span");
+    el.className="ripple";el.style.width=el.style.height=d+"px";
+    el.style.left=(e.clientX-r.left-d/2)+"px";el.style.top=(e.clientY-r.top-d/2)+"px";
+    b.appendChild(el);setTimeout(function(){el.remove();},560);
+  });
+
+  /* menu */
+  var scrim=document.getElementById("scrim"),menu=document.getElementById("menu");
+  function openMenu(){menu.classList.add("show");scrim.classList.add("show");}
+  function closeAll(){menu.classList.remove("show");scrim.classList.remove("show");}
+  document.getElementById("menuOpen").addEventListener("click",openMenu);
+  document.getElementById("menuClose").addEventListener("click",closeAll);
+  scrim.addEventListener("click",closeAll);
+  document.querySelectorAll("[data-nav]").forEach(function(a){a.addEventListener("click",function(e){
+    e.preventDefault();closeAll();var t=document.querySelector(a.getAttribute("href"));
+    if(t)setTimeout(function(){t.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});},260);});});
+
+  /* esc closes the menu */
+  addEventListener("keydown",function(e){if(e.key==="Escape")closeAll();});
+
+  /* mini gauge + score chip (simulated load = perceived-perf demo) */
+  var mg=document.getElementById("mg"),mgNum=document.getElementById("mgNum"),C=263.9;
+  function paintMg(v){mg.style.strokeDashoffset=String(C*(1-v/100));mgNum.textContent=String(Math.round(v));}
+  function tween(to,dur,upd){if(reduce){upd(to);return;}var s=performance.now();
+    (function f(n){var p=Math.min(1,(n-s)/dur);upd(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f);})(s);}
+  var seen=false,gio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;tween(88,1100,paintMg);}});},{threshold:.5});
+  gio.observe(mg);
+  // score chip resolves after "fetch"
+  setTimeout(function(){var chip=document.getElementById("scoreChip");
+    chip.innerHTML='<span class="d"></span>Avg score 41';},reduce?10:1100);
+
+  /* testimonials dots */
+  var tsnap=document.getElementById("tsnap"),dots=document.getElementById("dots").children,tt=false;
+  tsnap.addEventListener("scroll",function(){if(!tt){requestAnimationFrame(function(){
+    var i=Math.round(tsnap.scrollLeft/(tsnap.scrollWidth/tsnap.children.length));
+    for(var k=0;k<dots.length;k++)dots[k].classList.toggle("on",k===Math.min(i,dots.length-1));tt=false;});tt=true;}},{passive:true});
+
+  /* pricing segmented control */
+  var plans=[
+    {tag:"Door 01 · Most popular",name:"Hardening",for:"Keep your current bot. We make it provably compliant and leave you the audit trail.",
+     big:"$1,500",per:"one-time",sub:"+ from $149/mo · Guardian",items:["4-week remediation of all 16 controls","Signed consent + immutable audit trail","DNC screening &amp; rate limits","Insurance-ready compliance binder"]},
+    {tag:"Door 02 · Turnkey",name:"Protected Intake",for:"Hand us the inbound. Our Maya agent answers calls, SMS &amp; web — compliant from day one.",
+     big:"$2,000",per:"setup",sub:"+ $349/mo · agent + monitoring",items:["Maya intake agent, live in 2–4 weeks","Consent &amp; DNC enforced at the source","Every interaction logged &amp; searchable","All Hardening deliverables included"]}
+  ];
+  var planEl=document.getElementById("plan"),seg=document.getElementById("seg");
+  function renderPlan(i){var p=plans[i];
+    planEl.innerHTML='<span class="ptag">'+p.tag+'</span><div class="pname">'+p.name+'</div>'+
+      '<p class="pfor">'+p.for+'</p><div class="price"><span class="big tnum">'+p.big+'</span><span class="per">'+p.per+'</span></div>'+
+      '<div class="psub">'+p.sub+'</div><ul>'+p.items.map(function(t){return '<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg>'+t+'</li>';}).join("")+'</ul>';
+  }
+  function selectSeg(i){seg.setAttribute("data-i",i);
+    document.getElementById("seg0").setAttribute("aria-selected",String(i===0));
+    document.getElementById("seg1").setAttribute("aria-selected",String(i===1));renderPlan(i);}
+  document.getElementById("seg0").addEventListener("click",function(){selectSeg(0);});
+  document.getElementById("seg1").addEventListener("click",function(){selectSeg(1);});
+  renderPlan(0);
+})();
+</script>

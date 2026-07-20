@@ -1,0 +1,320 @@
+<title>Grandeza — SEO Architecture</title>
+<meta name="description" content="Technical SEO blueprint for Grandeza.io: site architecture, pillar–cluster keyword map, top-10 pages to build, internal-linking model and schema coverage.">
+<style>
+  :root{
+    --font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:"SF Mono","JetBrains Mono",ui-monospace,"Cascadia Code",Menlo,Consolas,monospace;
+    --maxw:1120px;--radius:14px;--radius-sm:9px;--ease:cubic-bezier(.22,.61,.36,1);
+    --brass-bright:#c6a15b;--fail:#c4463a;--warn:#d68a2e;--pass:#2f8f5b;--info:#3a7ca5;--panel-dark:#0b1517;
+  }
+  :root{
+    --bg:#e9edec;--bg-tint:#e0e6e4;--surface:#f5f7f6;--surface-2:#fff;
+    --ink:#0c1618;--ink-soft:#42544f;--ink-faint:#6b7d78;
+    --line:rgba(12,22,24,.12);--line-strong:rgba(12,22,24,.2);
+    --accent:#8a6a2e;--seal-1:#b78f3f;--seal-2:#e0c079;--link:#2e6e6a;
+    --shadow:0 1px 2px rgba(12,22,24,.06),0 12px 34px -18px rgba(12,22,24,.28);color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a1315;--bg-tint:#0d191b;--surface:#10201f;--surface-2:#152826;
+    --ink:#e9efec;--ink-soft:#a7bcb6;--ink-faint:#7d938d;
+    --line:rgba(198,161,91,.16);--line-strong:rgba(198,161,91,.3);
+    --accent:#c9a45e;--seal-1:#c6a15b;--seal-2:#8a6a2e;--link:#5aa9a2;--info:#6fb1d6;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 44px -20px rgba(0,0,0,.7);color-scheme:dark;
+  }}
+  :root[data-theme="light"]{--bg:#e9edec;--bg-tint:#e0e6e4;--surface:#f5f7f6;--surface-2:#fff;
+    --ink:#0c1618;--ink-soft:#42544f;--ink-faint:#6b7d78;--line:rgba(12,22,24,.12);--line-strong:rgba(12,22,24,.2);
+    --accent:#8a6a2e;--seal-1:#b78f3f;--seal-2:#e0c079;--link:#2e6e6a;--info:#3a7ca5;
+    --shadow:0 1px 2px rgba(12,22,24,.06),0 12px 34px -18px rgba(12,22,24,.28);color-scheme:light;}
+  :root[data-theme="dark"]{--bg:#0a1315;--bg-tint:#0d191b;--surface:#10201f;--surface-2:#152826;
+    --ink:#e9efec;--ink-soft:#a7bcb6;--ink-faint:#7d938d;--line:rgba(198,161,91,.16);--line-strong:rgba(198,161,91,.3);
+    --accent:#c9a45e;--seal-1:#c6a15b;--seal-2:#8a6a2e;--link:#5aa9a2;--info:#6fb1d6;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 44px -20px rgba(0,0,0,.7);color-scheme:dark;}
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.12;margin:0;letter-spacing:-.01em;text-wrap:balance}
+  p{margin:0}
+  a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+  :focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:5px}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1.1rem,4vw,2.2rem)}
+  .mono{font-family:var(--font-mono)}.tnum{font-variant-numeric:tabular-nums}
+  .eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+    display:inline-flex;align-items:center;gap:.6em}
+  .eyebrow::before{content:"";width:1.8em;height:1px;background:currentColor;opacity:.6}
+
+  header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 84%,transparent);
+    backdrop-filter:blur(12px) saturate(1.2);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;gap:1rem;height:60px;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1.1rem,4vw,2.2rem)}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:var(--font-display);font-size:1.2rem;font-weight:600;color:var(--ink)}
+  .brand:hover{text-decoration:none}
+  .seal{width:26px;height:26px}
+  .brand small{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.12em;color:var(--ink-faint)}
+  .nav .r{margin-left:auto}
+  .icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:9px;border:1px solid var(--line);
+    background:transparent;color:var(--ink-soft);cursor:pointer}
+  .icon-btn:hover{border-color:var(--line-strong);color:var(--ink)}
+
+  .hero{padding:clamp(2.4rem,6vw,4rem) 0 1.5rem}
+  .hero h1{font-size:clamp(1.9rem,1.5rem + 1.8vw,2.9rem);margin-top:.9rem;max-width:20ch}
+  .hero p{color:var(--ink-soft);font-size:clamp(1.05rem,1rem + .3vw,1.25rem);margin-top:1rem;max-width:62ch}
+
+  section{padding-block:clamp(2rem,4vw,3rem);border-top:1px solid var(--line)}
+  .sec-head{margin-bottom:1.6rem}
+  .sec-head h2{font-size:clamp(1.4rem,1.2rem + .8vw,1.9rem);margin-top:.5rem}
+  .sec-head p{color:var(--ink-soft);margin-top:.5rem;max-width:64ch}
+
+  /* overview tiles */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem}
+  @media (max-width:720px){.tiles{grid-template-columns:1fr 1fr}}
+  .tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem}
+  .tile .k{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+  .tile .v{font-family:var(--font-display);font-size:2rem;font-weight:600;margin-top:.4rem;line-height:1}
+  .tile .s{font-size:.82rem;color:var(--ink-soft);margin-top:.3rem}
+
+  /* architecture tree */
+  .tree{background:var(--panel-dark);color:#cde0db;border-radius:var(--radius);padding:1.4rem 1.5rem;overflow-x:auto;
+    font-family:var(--font-mono);font-size:.86rem;line-height:1.85;border:1px solid rgba(198,161,91,.2)}
+  .tree .p{color:var(--brass-bright);font-weight:600}
+  .tree .m{color:#7fd0a3}
+  .tree .c{color:#cde0db}
+  .tree .n{color:#7d938d}
+  .tree .badge{font-size:.7rem;color:#0b1517;background:var(--brass-bright);border-radius:4px;padding:0 .4em;margin-left:.4em}
+
+  /* pillar cluster cards */
+  .pillars{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media (max-width:820px){.pillars{grid-template-columns:1fr}}
+  .pil{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem;position:relative;overflow:hidden}
+  .pil::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--seal-1),var(--seal-2))}
+  .pil h3{font-size:1.15rem}
+  .pil .hub{font-family:var(--font-mono);font-size:.74rem;color:var(--accent);margin-top:.2rem}
+  .kw{display:flex;align-items:center;gap:.6rem;padding:.55rem 0;border-top:1px solid var(--line);font-size:.9rem}
+  .kw:first-of-type{margin-top:.8rem}
+  .kw .t{flex:1}
+  .badge{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+    padding:.2em .5em;border-radius:5px;white-space:nowrap}
+  .b-comm{background:color-mix(in srgb,var(--pass) 18%,transparent);color:var(--pass)}
+  .b-info{background:color-mix(in srgb,var(--info) 20%,transparent);color:var(--info)}
+  .b-trans{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}
+  .b-tech{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}
+  .legend{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}
+
+  /* top 10 table */
+  .t10{width:100%;border-collapse:collapse;font-size:.88rem}
+  .t10 th,.t10 td{text-align:left;padding:.7rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+  .t10 th{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+  .t10 .rk{font-family:var(--font-mono);font-weight:600;color:var(--accent)}
+  .t10 .pg{font-family:var(--font-mono);font-size:.82rem;color:var(--ink)}
+  .t10 tr:hover td{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+  .wrapx{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+  .wrapx .t10 th,.wrapx .t10 td{white-space:nowrap}
+  .wrapx .t10 td.kwc{white-space:normal;min-width:180px}
+
+  /* internal-link flow */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;align-items:stretch;position:relative}
+  @media (max-width:820px){.flow{grid-template-columns:1fr}}
+  .node{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:1rem;text-align:center;position:relative}
+  .node .lab{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+  .node .nm{font-weight:600;margin-top:.3rem;font-size:.95rem}
+  .node .ex{font-size:.78rem;color:var(--ink-soft);margin-top:.2rem}
+  .node.gold{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
+  .node .arrow{position:absolute;right:-.7rem;top:50%;transform:translateY(-50%);color:var(--accent);z-index:2}
+  @media (max-width:820px){.node .arrow{right:50%;top:auto;bottom:-1.1rem;transform:translateX(50%) rotate(90deg)}}
+  .flow-note{font-size:.85rem;color:var(--ink-soft);margin-top:1.1rem}
+
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:1.2rem}
+  @media (max-width:720px){.rules{grid-template-columns:1fr}}
+  .rule{display:flex;gap:.7rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:.9rem 1rem;font-size:.9rem;color:var(--ink-soft)}
+  .rule svg{flex-shrink:0;color:var(--pass);margin-top:.1em}
+
+  /* schema chips */
+  .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+  .chip{font-family:var(--font-mono);font-size:.76rem;background:var(--surface);border:1px solid var(--line);
+    border-radius:999px;padding:.4rem .8rem;color:var(--ink-soft);display:inline-flex;gap:.5em;align-items:center}
+  .chip b{color:var(--ink);font-weight:600}
+  .chip .d{width:7px;height:7px;border-radius:50%;background:var(--pass)}
+
+  footer{border-top:1px solid var(--line);padding-block:2rem;color:var(--ink-faint);font-size:.82rem}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+</style>
+
+<header>
+  <nav class="nav">
+    <a class="brand" href="#top">
+      <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
+        <defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--seal-2)"/><stop offset="1" stop-color="var(--seal-1)"/></linearGradient></defs>
+        <path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/>
+        <path fill="none" stroke="#20180a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/>
+      </svg>Grandeza <small>/ SEO</small>
+    </a>
+    <div class="r">
+      <button class="icon-btn" id="theme" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="top" class="wrap">
+  <div class="hero">
+    <span class="eyebrow">Technical SEO blueprint</span>
+    <h1>Own the intersection of TCPA and the trades.</h1>
+    <p>A niche-authority strategy: two pillar hubs, high-intent clusters, and every page routing to the free scan. Below — the architecture, the keyword map, the ten pages to build first, and how internal links funnel authority to conversion.</p>
+  </div>
+
+  <section>
+    <div class="tiles">
+      <div class="tile reveal"><div class="k">Model</div><div class="v">Hub</div><div class="s">Pillar–cluster topic authority</div></div>
+      <div class="tile reveal"><div class="k">Pillar hubs</div><div class="v tnum">2</div><div class="s">Compliance · 16-Control framework</div></div>
+      <div class="tile reveal"><div class="k">Priority pages</div><div class="v tnum">10</div><div class="s">Ranked by traffic × intent × winnability</div></div>
+      <div class="tile reveal"><div class="k">North star</div><div class="v">Scan</div><div class="s">Organic → free-scan starts</div></div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section>
+    <div class="sec-head"><span class="eyebrow">01 · Site structure</span><h2>Flat, hub-and-spoke — everything ≤3 clicks from home</h2>
+      <p>Short, keyword-bearing, hyphenated URLs. One canonical per page. No dates, no parameters indexed.</p></div>
+    <div class="tree" role="img" aria-label="Site architecture tree">
+<span class="n">/</span> <span class="c">Home — brand + free-scan hub</span>
+├─ <span class="m">/scan</span> <span class="n">Free Grandeza Score</span> <span class="badge">CONVERSION</span>
+├─ <span class="m">/pricing</span>   ├─ <span class="c">/product/{hardening · protected-intake · guardian}</span>
+│
+├─ <span class="p">◆ /tcpa-compliance-hvac-plumbing</span> <span class="n">PILLAR 1</span>
+│    ├─ /tcpa-penalties          ├─ /tcpa-sms-consent
+│    ├─ /a2p-10dlc-registration  ├─ /dnc-compliance-contractors
+│    └─ /appointment-reminder-compliance
+│
+├─ <span class="p">◆ /the-16-controls</span> <span class="n">PILLAR 2</span>
+│    └─ /the-16-controls/{consent · audit-trail · rate-limiting · dnc · …}
+│
+├─ /ai-intake-compliance <span class="n">cross-pillar</span>
+├─ <span class="c">/solutions/{hvac · plumbing}</span> <span class="n">vertical LPs</span>
+└─ <span class="c">/resources/{tcpa-101 · glossary · blog}</span>  ·  /about  /contact  /legal
+    </div>
+  </section>
+
+  <!-- KEYWORD CLUSTERS -->
+  <section>
+    <div class="sec-head"><span class="eyebrow">02 · Keyword clusters</span><h2>Problem language contractors actually type</h2>
+      <p>One primary keyword per page; no two pages chasing the same intent (anti-cannibalization).</p></div>
+    <div class="pillars">
+      <div class="pil reveal">
+        <h3>Pillar 1 · TCPA / SMS compliance</h3>
+        <div class="hub">◆ /tcpa-compliance-hvac-plumbing</div>
+        <div class="kw"><span class="t">tcpa compliance for hvac / plumbers</span><span class="badge b-comm">Commercial</span></div>
+        <div class="kw"><span class="t">tcpa penalties / fines per text</span><span class="badge b-info">Info</span></div>
+        <div class="kw"><span class="t">tcpa sms consent · express written consent</span><span class="badge b-info">Info</span></div>
+        <div class="kw"><span class="t">is my business tcpa compliant</span><span class="badge b-trans">Transactional</span></div>
+        <div class="kw"><span class="t">tcpa compliance checklist 2026</span><span class="badge b-info">Info</span></div>
+      </div>
+      <div class="pil reveal">
+        <h3>Pillar 2 · Automated / AI intake</h3>
+        <div class="hub">◆ /the-16-controls · /ai-intake-compliance</div>
+        <div class="kw"><span class="t">a2p 10dlc registration (hvac)</span><span class="badge b-tech">Technical</span></div>
+        <div class="kw"><span class="t">ai receptionist / chatbot compliance</span><span class="badge b-info">Info</span></div>
+        <div class="kw"><span class="t">ai phone agent legal &amp; compliant</span><span class="badge b-info">Info</span></div>
+        <div class="kw"><span class="t">business texting laws</span><span class="badge b-info">Info</span></div>
+        <div class="kw"><span class="t">tcpa compliance software</span><span class="badge b-comm">Commercial</span></div>
+      </div>
+      <div class="pil reveal">
+        <h3>Cluster · Do-Not-Call &amp; use-cases</h3>
+        <div class="hub">/dnc-compliance-contractors · /appointment-reminder-compliance</div>
+        <div class="kw"><span class="t">dnc compliance for contractors</span><span class="badge b-info">Info</span></div>
+        <div class="kw"><span class="t">how to scrub a dnc list</span><span class="badge b-tech">Technical</span></div>
+        <div class="kw"><span class="t">sms appointment reminder compliance</span><span class="badge b-info">Info</span></div>
+        <div class="kw"><span class="t">service reminder text laws</span><span class="badge b-info">Info</span></div>
+      </div>
+      <div class="pil reveal">
+        <h3>Vertical &amp; risk (high-converting)</h3>
+        <div class="hub">/solutions/hvac · /solutions/plumbing · /tcpa-penalties</div>
+        <div class="kw"><span class="t">tcpa compliance for hvac contractors</span><span class="badge b-comm">Commercial</span></div>
+        <div class="kw"><span class="t">hvac answering service compliance</span><span class="badge b-comm">Commercial</span></div>
+        <div class="kw"><span class="t">contractor tcpa lawsuit / defense cost</span><span class="badge b-info">Info</span></div>
+        <div class="kw"><span class="t">grandeza · grandeza reviews</span><span class="badge b-trans">Branded</span></div>
+      </div>
+    </div>
+    <div class="legend">
+      <span class="badge b-comm">Commercial</span><span class="badge b-info">Informational</span>
+      <span class="badge b-trans">Transactional</span><span class="badge b-tech">Technical</span>
+    </div>
+  </section>
+
+  <!-- TOP 10 -->
+  <section>
+    <div class="sec-head"><span class="eyebrow">03 · Build order</span><h2>Top 10 pages for maximum organic traffic</h2>
+      <p>Ranked by traffic potential × purchase intent × how winnable the SERP is for a focused niche site.</p></div>
+    <div class="wrapx">
+      <table class="t10">
+        <thead><tr><th>#</th><th>Page</th><th>Primary keyword</th><th>Intent</th><th>Format</th></tr></thead>
+        <tbody>
+          <tr><td class="rk">01</td><td class="pg">/tcpa-compliance-hvac-plumbing</td><td class="kwc">tcpa compliance for hvac &amp; plumbing</td><td><span class="badge b-comm">Commercial</span></td><td>Pillar guide</td></tr>
+          <tr><td class="rk">02</td><td class="pg">/scan</td><td class="kwc">free tcpa compliance check</td><td><span class="badge b-trans">Transactional</span></td><td>Interactive tool ★</td></tr>
+          <tr><td class="rk">03</td><td class="pg">/tcpa-penalties</td><td class="kwc">tcpa penalties per text</td><td><span class="badge b-info">Info</span></td><td>Guide + calculator</td></tr>
+          <tr><td class="rk">04</td><td class="pg">/tcpa-sms-consent</td><td class="kwc">tcpa sms consent requirements</td><td><span class="badge b-info">Info</span></td><td>HowTo guide</td></tr>
+          <tr><td class="rk">05</td><td class="pg">/a2p-10dlc-registration</td><td class="kwc">a2p 10dlc registration hvac</td><td><span class="badge b-tech">Technical</span></td><td>Step-by-step</td></tr>
+          <tr><td class="rk">06</td><td class="pg">/the-16-controls</td><td class="kwc">tcpa compliance framework</td><td><span class="badge b-comm">Commercial</span></td><td>Pillar + 16 leaves</td></tr>
+          <tr><td class="rk">07</td><td class="pg">/ai-intake-compliance</td><td class="kwc">ai receptionist / chatbot compliance</td><td><span class="badge b-info">Info</span></td><td>Guide</td></tr>
+          <tr><td class="rk">08</td><td class="pg">/dnc-compliance-contractors</td><td class="kwc">do not call compliance contractors</td><td><span class="badge b-info">Info</span></td><td>Guide + checklist</td></tr>
+          <tr><td class="rk">09</td><td class="pg">/solutions/hvac (+ /plumbing)</td><td class="kwc">tcpa compliance for hvac</td><td><span class="badge b-comm">Commercial</span></td><td>Vertical LP</td></tr>
+          <tr><td class="rk">10</td><td class="pg">/appointment-reminder-compliance</td><td class="kwc">sms appointment reminder compliance</td><td><span class="badge b-info">Info</span></td><td>Use-case guide</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="flow-note">★ <b>Link magnet:</b> a free assessment tool earns backlinks. #5 and #7 target high-intent, low-competition queries competitors ignore; #3 carries the emotional "what could this cost me" search.</p>
+  </section>
+
+  <!-- INTERNAL LINKING -->
+  <section>
+    <div class="sec-head"><span class="eyebrow">04 · Internal linking</span><h2>Funnel authority toward the conversion</h2>
+      <p>The biggest lever for a small site: concentrate earned authority and channel it to <span class="mono">/scan</span>.</p></div>
+    <div class="flow">
+      <div class="node reveal"><div class="lab">Earns links</div><div class="nm">Home + Tool</div><div class="ex">Brand + free scan</div><span class="arrow" aria-hidden="true">→</span></div>
+      <div class="node reveal"><div class="lab">Authority</div><div class="nm">Pillar hubs</div><div class="ex">Link down to every cluster</div><span class="arrow" aria-hidden="true">→</span></div>
+      <div class="node reveal"><div class="lab">Intent</div><div class="nm">Cluster pages</div><div class="ex">Link up + lateral + to scan</div><span class="arrow" aria-hidden="true">→</span></div>
+      <div class="node gold reveal"><div class="lab">Convert</div><div class="nm">/scan</div><div class="ex">Every page points here</div></div>
+    </div>
+    <div class="rules">
+      <div class="rule"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg>Bidirectional pillar ↔ cluster with descriptive anchor text.</div>
+      <div class="rule"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg>Every informational page links to <span class="mono">/scan</span> in-body + CTA.</div>
+      <div class="rule"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg>Vertical LPs ↔ Pillar 1 and /pricing.</div>
+      <div class="rule"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-11"/></svg>Breadcrumbs everywhere; zero orphan pages.</div>
+    </div>
+  </section>
+
+  <!-- METADATA + SCHEMA -->
+  <section>
+    <div class="sec-head"><span class="eyebrow">05 · Metadata &amp; schema</span><h2>Standards + structured data coverage</h2>
+      <p>Titles ≤60 chars keyword-first; descriptions 140–155 chars; self-referencing canonical; OG/Twitter on every page. Drop-in JSON-LD ships in <span class="mono">assets/schema/</span>.</p></div>
+    <div class="chips">
+      <span class="chip"><span class="d"></span><b>Organization</b> + WebSite · site-wide</span>
+      <span class="chip"><span class="d"></span><b>Service</b> + Offer · /product, /pricing</span>
+      <span class="chip"><span class="d"></span><b>FAQPage</b> · pillars, landing</span>
+      <span class="chip"><span class="d"></span><b>HowTo</b> · guides</span>
+      <span class="chip"><span class="d"></span><b>BreadcrumbList</b> · deep pages</span>
+      <span class="chip"><span class="d"></span><b>Article</b> · blog/clusters</span>
+      <span class="chip" style="opacity:.7"><span class="d" style="background:var(--warn)"></span><b>Review / AggregateRating</b> · only when genuine</span>
+    </div>
+    <p class="flow-note" style="margin-top:1.3rem"><b>Integrity guardrail:</b> never emit Review/AggregateRating markup for testimonials that aren't real, verifiable reviews — it breaks Google policy and risks a manual action. Validate every template in the Rich Results Test before shipping.</p>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="mono" style="letter-spacing:.04em">GRANDEZA SEO ARCHITECTURE · v1.0</div>
+  <p style="margin-top:.5rem">Full write-up in <span class="mono">docs/seo-strategy.md</span> · assets: <span class="mono">robots.txt</span>, <span class="mono">sitemap.xml</span>, <span class="mono">assets/schema/*.jsonld</span>.</p>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  document.getElementById("theme").addEventListener("click",function(){
+    var c=root.getAttribute("data-theme");if(!c){c=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";}
+    root.setAttribute("data-theme",c==="dark"?"light":"dark");
+  });
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.14});
+  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+})();
+</script>

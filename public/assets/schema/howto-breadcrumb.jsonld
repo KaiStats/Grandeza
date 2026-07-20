@@ -1,0 +1,27 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HowTo",
+      "@id": "https://grandeza.io/tcpa-sms-consent#howto",
+      "name": "How to capture TCPA-compliant SMS consent for a service business",
+      "description": "Four steps to capture and store provable, TCPA-compliant SMS consent for HVAC and plumbing customers.",
+      "totalTime": "P2W",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Capture consent at intake", "text": "Add a clear opt-in checkbox to your web form, voice script or SMS reply that names what the customer is agreeing to receive." },
+        { "@type": "HowToStep", "position": 2, "name": "Sign the consent token", "text": "Cryptographically sign the customer ID, timestamp and exact consent wording so the record cannot be altered." },
+        { "@type": "HowToStep", "position": 3, "name": "Verify before every send", "text": "Check for a valid signed consent record before sending any message, and block the send if none exists." },
+        { "@type": "HowToStep", "position": 4, "name": "Deliver proof on demand", "text": "Store consent in a searchable audit trail so you can produce timestamped proof in seconds if challenged." }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://grandeza.io/tcpa-sms-consent#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://grandeza.io/" },
+        { "@type": "ListItem", "position": 2, "name": "TCPA Compliance for HVAC & Plumbing", "item": "https://grandeza.io/tcpa-compliance-hvac-plumbing" },
+        { "@type": "ListItem", "position": 3, "name": "TCPA SMS Consent Requirements" }
+      ]
+    }
+  ]
+}

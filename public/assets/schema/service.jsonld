@@ -1,0 +1,31 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://grandeza.io/product/hardening#service",
+  "name": "Grandeza Hardening — TCPA compliance for HVAC & plumbing intake",
+  "serviceType": "TCPA / SMS compliance engineering",
+  "provider": { "@id": "https://grandeza.io/#organization" },
+  "areaServed": { "@type": "Country", "name": "United States" },
+  "audience": {
+    "@type": "BusinessAudience",
+    "name": "HVAC and plumbing contractors using SMS, chatbot or AI phone intake"
+  },
+  "description": "A 4-week engagement that hardens your existing SMS, call and web intake against TCPA violations — signed consent, immutable audit trail, Do-Not-Call screening and rate limits — delivered as an insurance-ready compliance binder.",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "1500",
+    "description": "One-time hardening engagement. Guardian monitoring from $149/mo.",
+    "availability": "https://schema.org/InStock",
+    "url": "https://grandeza.io/pricing"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Grandeza plans",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Hardening", "price": "1500", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Protected Intake", "price": "2000", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Guardian monitoring", "price": "149", "priceCurrency": "USD", "description": "per month" }
+    ]
+  }
+}
