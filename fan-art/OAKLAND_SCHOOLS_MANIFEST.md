@@ -33,23 +33,28 @@ Fan art tribute artwork for Oakland Athletic League high schools. These are **or
 
 ## Not Generated (Credit Limit Reached)
 
-### ❌ McClymonds High Warriors
+### ✅ McClymonds High Warriors
 - **School Colors:** Orange & Black
 - **Mascot:** Warriors
-- **Status:** Not Generated (Workspace out of credits)
-- **Description:** Stylized warrior figure with shield and spear, strong bold artistic style
+- **Status:** Generated
+- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_041411_d38f45e0-a9ea-4942-831c-f56bb8d0fe63.png
+- **Description:** Stylized warrior figure with shield and spear, strong bold artistic style. Original fan art design, clearly not official, celebrates school spirit and athletic pride.
+- **Format:** 2496 x 1664 px (3:2 aspect ratio)
+- **Generated:** 2026-07-21 04:14:11 UTC
 
-### ❌ Fremont High Tigers
+### ⏳ Fremont High Tigers
 - **School Colors:** Green & Gold
 - **Mascot:** Tigers
-- **Status:** Not Generated (Workspace out of credits)
-- **Description:** Stylized fierce tiger head in dynamic action pose, athletic energy
+- **Status:** Processing
+- **Job ID:** 9117db98-3148-48cf-847b-0162c7f12b24
+- **Description:** Stylized fierce tiger head in dynamic action pose, athletic energy and prowess
 
-### ❌ Oakland Technical High Bulldogs
+### ⏳ Oakland Technical High Bulldogs
 - **School Colors:** Purple & Gold
 - **Mascot:** Bulldogs
-- **Status:** Not Generated (Workspace out of credits)
-- **Description:** Stylized powerful bulldog mascot in confident stance
+- **Status:** Processing
+- **Job ID:** b448cf26-9f5d-4de5-9eb2-14f5b1b33fb8
+- **Description:** Stylized powerful bulldog mascot in confident stance, strong bold artistic interpretation
 
 ## Generation Details
 
