@@ -42,19 +42,23 @@ Fan art tribute artwork for Oakland Athletic League high schools. These are **or
 - **Format:** 2496 x 1664 px (3:2 aspect ratio)
 - **Generated:** 2026-07-21 04:14:11 UTC
 
-### ⏳ Fremont High Tigers
+### ✅ Fremont High Tigers
 - **School Colors:** Green & Gold
 - **Mascot:** Tigers
-- **Status:** Processing
-- **Job ID:** 9117db98-3148-48cf-847b-0162c7f12b24
-- **Description:** Stylized fierce tiger head in dynamic action pose, athletic energy and prowess
+- **Status:** Generated
+- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_043221_9117db98-3148-48cf-847b-0162c7f12b24.png
+- **Description:** Stylized fierce tiger head in dynamic action pose, athletic energy and prowess. Original fan artwork, celebrates school spirit, appeals to alumni and fans.
+- **Format:** 2496 x 1664 px (3:2 aspect ratio)
+- **Generated:** 2026-07-21 04:32:21 UTC
 
-### ⏳ Oakland Technical High Bulldogs
+### ✅ Oakland Technical High Bulldogs
 - **School Colors:** Purple & Gold
 - **Mascot:** Bulldogs
-- **Status:** Processing
-- **Job ID:** b448cf26-9f5d-4de5-9eb2-14f5b1b33fb8
-- **Description:** Stylized powerful bulldog mascot in confident stance, strong bold artistic interpretation
+- **Status:** Generated
+- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_043222_b448cf26-9f5d-4de5-9eb2-14f5b1b33fb8.png
+- **Description:** Stylized powerful bulldog mascot in confident stance, purple and gold color scheme, strong bold artistic interpretation. Original fan art design, school pride artwork for alumni and fans.
+- **Format:** 2496 x 1664 px (3:2 aspect ratio)
+- **Generated:** 2026-07-21 04:32:22 UTC
 
 ## Generation Details
 
