@@ -37,10 +37,10 @@ Fan art tribute artwork for Oakland Athletic League high schools. These are **or
 - **School Colors:** Orange & Black
 - **Mascot:** Warriors
 - **Status:** Generated
-- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_045836_6aadd238-30a9-4432-9b8e-f03f3ab9924d.png
-- **Description:** Stylized warrior figure with shield and spear, generic feathered headdress, strong bold artistic style. Original fan art design, clearly not official, celebrates school spirit and athletic pride.
+- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_050217_def6f3ac-9860-4c9b-8cb6-0889d7ab5504.png
+- **Description:** Stylized warrior figure with shield and spear, generic Native American feathered headdress, strong bold athletic style. Original fan art design, clearly not official, celebrates school spirit and athletic pride.
 - **Format:** 2496 x 1664 px (3:2 aspect ratio)
-- **Generated:** 2026-07-21 04:58:36 UTC
+- **Generated:** 2026-07-21 05:02:17 UTC
 
 ### ✅ Fremont High Tigers
 - **School Colors:** Green & Gold
