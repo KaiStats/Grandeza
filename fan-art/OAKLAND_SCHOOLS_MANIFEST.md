@@ -8,10 +8,10 @@ Fan art tribute artwork for Oakland Athletic League high schools. These are **or
 - **School Colors:** Royal Blue & White
 - **Mascot:** Wildcats
 - **Status:** Generated
-- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_041409_1c420092-37c5-459d-aee8-2503e140c8c4.png
-- **Description:** Stylized fierce wildcat head in dynamic pose, athletic energy, school pride. Original artwork style, clearly fan art, not official logo.
+- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_134005_72b130cc-4b3d-4e26-a031-87be5797d913.png
+- **Description:** Stylized fierce wildcat head in dynamic pose with bold "OAKLAND HIGH" and "WILDCATS" text. Athletic energy and school pride. Original artwork style, clearly fan art, not official logo.
 - **Format:** 2496 x 1664 px (3:2 aspect ratio)
-- **Generated:** 2026-07-21 04:14:09 UTC
+- **Generated:** 2026-07-21 13:40:05 UTC
 
 ### ✅ Skyline High Titans
 - **School Colors:** Red & White
