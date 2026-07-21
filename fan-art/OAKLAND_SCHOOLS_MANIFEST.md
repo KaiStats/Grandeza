@@ -26,10 +26,10 @@ Fan art tribute artwork for Oakland Athletic League high schools. These are **or
 - **School Colors:** Purple & White
 - **Mascot:** Knights
 - **Status:** Generated
-- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_041412_e6d59d12-07c5-4efd-bbe2-54c6108f123a.png
-- **Description:** Stylized armored knight figure in regal purple and white color scheme, noble and powerful composition. Original fan art style.
+- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_143143_ff263f43-37f0-478c-b425-baa59cf45f6c.png
+- **Description:** Stylized armored knight figure in regal purple and white color scheme with "Castleers" in ornate Old English lettering on the sword blade. Noble and powerful composition. Original fan art style.
 - **Format:** 2496 x 1664 px (3:2 aspect ratio)
-- **Generated:** 2026-07-21 04:14:12 UTC
+- **Generated:** 2026-07-21 14:31:43 UTC
 
 ## Not Generated (Credit Limit Reached)
 
