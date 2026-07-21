@@ -46,10 +46,10 @@ Fan art tribute artwork for Oakland Athletic League high schools. These are **or
 - **School Colors:** Green & Gold
 - **Mascot:** Tigers
 - **Status:** Generated
-- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_145000_2b415862-0893-4178-93f1-f0f98df9e3eb.png
-- **Description:** Fierce tiger head in dynamic lunging attack pose with both paws clearly visible, vivid green and gold colors, intense expression with visible teeth and detailed facial features. Original fan artwork, celebrates athletic prowess and school spirit, appeals to alumni and fans.
+- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_145656_a350c339-9a23-4b6e-9e07-62fd15bd6748.png
+- **Description:** Authentic fierce tiger with real tiger anatomy, powerful muscular body, snarling/roaring in aggressive attack pose with both front paws extended. Vivid green and gold colors, intense expression, dynamic athletic energy. Original fan artwork celebrating school spirit, appeals to alumni and fans.
 - **Format:** 2496 x 1664 px (3:2 aspect ratio)
-- **Generated:** 2026-07-21 14:50:00 UTC
+- **Generated:** 2026-07-21 14:56:56 UTC
 
 ### ✅ Oakland Technical High Bulldogs
 - **School Colors:** Purple & Gold
