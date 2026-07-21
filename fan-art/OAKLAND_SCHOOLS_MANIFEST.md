@@ -17,10 +17,10 @@ Fan art tribute artwork for Oakland Athletic League high schools. These are **or
 - **School Colors:** Red & White
 - **Mascot:** Titans
 - **Status:** Generated
-- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_043220_571d8914-79bc-4e2d-96db-d0f8defbc759.png
-- **Description:** Stylized warrior figure with shield and spear, strong bold artistic style. Original fan art design, celebrates school spirit and athletic pride.
+- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_044949_8a021d4a-da93-4b65-94fd-5e24ede71d40.png
+- **Description:** Stylized warrior figure with shield and spear in red and white color scheme, dynamic composition. Original fan art design, celebrates school spirit and athletic pride.
 - **Format:** 2496 x 1664 px (3:2 aspect ratio)
-- **Generated:** 2026-07-21 04:32:20 UTC
+- **Generated:** 2026-07-21 04:49:49 UTC
 
 ### ✅ Castlemont High Knights
 - **School Colors:** Purple & White
