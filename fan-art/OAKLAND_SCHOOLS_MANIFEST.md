@@ -31,16 +31,16 @@ Fan art tribute artwork for Oakland Athletic League high schools. These are **or
 - **Format:** 2496 x 1664 px (3:2 aspect ratio)
 - **Generated:** 2026-07-21 15:20:43 UTC
 
-## Not Generated (Credit Limit Reached)
+## Additional Generated Artwork
 
 ### ✅ McClymonds High Warriors
 - **School Colors:** Orange & Black
 - **Mascot:** Warriors
 - **Status:** Generated
-- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_050217_def6f3ac-9860-4c9b-8cb6-0889d7ab5504.png
-- **Description:** Stylized warrior figure with shield and spear, generic Native American feathered headdress, strong bold athletic style. Original fan art design, clearly not official, celebrates school spirit and athletic pride.
+- **URL:** https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260721_161656_85923c00-7a9e-47fc-a519-a8694972ef04.png
+- **Description:** GOD MODE extreme intensity. Extremely fierce, savage aggressive warrior in extreme dynamic power pose. Powerful warrior figure with muscular athletic body, snarling/roaring with maximum intensity, wielding massive shield and spear ready for battle. Dynamic action pose with dominant power stance. Vivid enhanced orange and black colors with maximum saturation and impact. Detailed armor texture with dynamic lighting and shadows. Ferocious expression, dominant predatory energy, intense athletic prowess and strength. Bold vibrant "MCCLYMONDS HIGH" and "WARRIORS" text. Professional ultimate aggressive warrior design pushing visual limits.
 - **Format:** 2496 x 1664 px (3:2 aspect ratio)
-- **Generated:** 2026-07-21 05:02:17 UTC
+- **Generated:** 2026-07-21 16:16:56 UTC
 
 ### ✅ Fremont High Tigers
 - **School Colors:** Green & Gold
