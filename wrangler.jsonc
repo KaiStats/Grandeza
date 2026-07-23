@@ -3,6 +3,11 @@
   // Serves the built marketing site in /public. `npx wrangler deploy` reads this.
   "name": "grandeza",
   "compatibility_date": "2026-07-20",
+  // Bind the live domains to this worker so `wrangler deploy` keeps them attached.
+  "routes": [
+    { "pattern": "grandeza.io", "custom_domain": true },
+    { "pattern": "www.grandeza.io", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./public",
     // Clean URLs: /about serves public/about.html
