@@ -1,7 +1,7 @@
 {
   // Cloudflare Worker — static-assets only (no server code).
   // Serves the built marketing site in /public. `npx wrangler deploy` reads this.
-  "name": "grandeza",
+  "name": "grandeza2026",
   "compatibility_date": "2026-07-20",
   // Bind the live domains to this worker so `wrangler deploy` keeps them attached.
   "routes": [
