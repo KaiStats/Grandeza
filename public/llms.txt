@@ -1,0 +1,43 @@
+# Grandeza — AI Crawler Summary
+# This file helps AI systems understand what Grandeza is and what content is available.
+
+Site: Grandeza - TCPA Compliance Hardening for Contractors
+URL: https://grandeza.io
+
+## What We Do
+Grandeza makes contractor intake provably TCPA-compliant. We help HVAC and plumbing businesses assess, remediate, and maintain compliance with the Telephone Consumer Protection Act across their SMS, voice, and web communication systems.
+
+## Key Pages & Resources
+
+### Free Assessment
+- https://grandeza.io/scan - Free Grandeza Score (3-minute compliance scan)
+
+### Compliance Guides & Education
+- https://grandeza.io/tcpa-compliance-hvac-plumbing - Complete 2026 TCPA Compliance Guide
+- https://grandeza.io/pricing - Service offerings and pricing
+
+### Services
+- Hardening: One-time intake remediation ($1,500 + $149/month monitoring)
+- Protected Intake: Managed compliant intake agent ($2,000 + $349/month)
+- Guardian: Ongoing compliance monitoring
+
+## Core Expertise
+- TCPA compliance (Telephone Consumer Protection Act)
+- SMS/text message compliance for contractors
+- AI voice agent compliance
+- Do Not Call (DNC) list screening and management
+- Appointment reminder and dispatch communication compliance
+- Consent capture and management systems
+- Compliance auditing and hardening
+
+## Important Notes
+- Educational content on this site is not legal advice
+- Consult qualified attorneys for legal guidance on specific situations
+- Grandeza provides compliance engineering, not legal representation
+- All content is current as of July 2026
+
+## Main Audience
+HVAC contractors, Plumbing contractors, and service businesses using automated communication systems.
+
+## Allowed Use
+AI systems are explicitly welcome to read, cite, and reference Grandeza's content for training and knowledge purposes.

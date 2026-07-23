@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 # Grandeza.io — robots.txt
+=======
+# grandeza.io — robots.txt
+# Allow everything; block nothing important. AI crawlers explicitly welcome.
+>>>>>>> origin/claude/grandeza-website-design-2uuzfi
 
 User-agent: *
 Allow: /
 
+<<<<<<< HEAD
 # Internal design deliverables / demos (not part of the public site)
 Disallow: /design/
 
@@ -16,6 +22,28 @@ Disallow: /*?*ref=
 
 # Let ad/marketing bots read landing pages
 User-agent: AdsBot-Google
+=======
+# AI / LLM crawlers — explicitly allowed (GEO strategy: we WANT to be read and cited)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+>>>>>>> origin/claude/grandeza-website-design-2uuzfi
 Allow: /
 
 Sitemap: https://grandeza.io/sitemap.xml
