@@ -18,6 +18,14 @@
 <script type="speculationrules">
 {"prefetch":[{"source":"list","urls":["/scan"]}]}
 </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F4KBCCR6WT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F4KBCCR6WT');
+</script>
 <style>
   /* ============================================================
      GRANDEZA — Certificate-of-Standing meets Control-Panel
@@ -526,7 +534,7 @@
         <h1>Your intake bot is talking to customers. <em>Can you prove it's legal?</em></h1>
         <p class="hero-sub">Grandeza hardens the AI, SMS and voice intake you already run — turning invisible TCPA exposure into a scored, provable compliance record your insurer and your lawyer will actually accept.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary btn-lg" href="/scan">Get your free Grandeza Score <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-primary btn-lg" href="/scan" onclick="gtag('event', 'scan_start');">Get your free Grandeza Score <span class="arrow" aria-hidden="true">→</span></a>
           <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
         </div>
         <p class="hero-note"><b>No code access needed.</b>&nbsp;A 3-minute scan of your current setup — 16 controls, one score.</p>
@@ -740,7 +748,7 @@
         <h2>Find out what your intake would score.</h2>
         <p>Twelve minutes. Sixteen controls. One number that tells you exactly where you stand — free.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary btn-lg" href="/scan">Get your free Grandeza Score <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-primary btn-lg" href="/scan" onclick="gtag('event', 'scan_start');">Get your free Grandeza Score <span class="arrow" aria-hidden="true">→</span></a>
           <a class="btn btn-ghost btn-lg" href="#pricing">Compare the two doors</a>
         </div>
       </div>
