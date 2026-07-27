@@ -329,7 +329,9 @@
   /* Process (real sequence -> numbers earned) */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
   @media(max-width:760px){.steps{grid-template-columns:1fr}}
-  .step{position:relative;border:1px solid var(--line);border-radius:var(--radius-sm);padding:26px 24px;background:linear-gradient(180deg,var(--panel),var(--ink-2))}
+  .step{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius-sm);padding:26px 24px;background:linear-gradient(180deg,var(--panel),var(--ink-2))}
+  .step-visual{margin:-26px -24px 20px;aspect-ratio:3/2;overflow:hidden;border-bottom:1px solid var(--line);background:#0d191b}
+  .step-visual img{width:100%;height:100%;object-fit:cover;display:block}
   .step .n{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.14em;color:var(--brass);border:1px solid var(--line-2);border-radius:7px;padding:4px 9px;display:inline-block}
   .step h3{font-size:1.24rem;margin:16px 0 8px}
   .step p{color:var(--soft);font-size:.96rem}
