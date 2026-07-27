@@ -119,219 +119,549 @@
 }
 </script>
 <style>
-  :root{--navy:#0B1F3A;--blue:#2E86AB;--gold:#B8860B;--white:#FFFFFF;--ink:#1a2433;--muted:#5a6675;--line:#e4e8ee;}
+  /* ============================================================
+     GRANDEZA — /scan  ·  "The Audit Console"
+     Committed dark world (deliberate): entering the scan should
+     feel like stepping into the instrument. Built on Grandeza's
+     real tokens — ink ground, certified-brass accent of proof,
+     verdigris "live" glow, serif x mono = legal doc x terminal.
+     Self-contained. No external fonts/images. Reduced-motion safe.
+     ============================================================ */
+  :root{
+    --font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+    --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:"SF Mono","JetBrains Mono",ui-monospace,"Cascadia Code",Menlo,Consolas,monospace;
+
+    --ink:#0a1315;          /* deep slate-teal ground */
+    --ink-2:#0d191b;
+    --panel:#10201f;
+    --panel-2:#152826;
+    --line:rgba(198,161,91,.16);
+    --line-2:rgba(198,161,91,.30);
+    --grid:rgba(198,161,91,.045);
+
+    --paper:#e9efec;
+    --soft:#a7bcb6;
+    --faint:#7d938d;
+
+    --brass:#c6a15b;
+    --brass-bright:#e0c079;
+    --brass-deep:#b78f3f;
+    --verd:#5aa9a2;         /* live / verified glow */
+    --pass:#3aa76a;
+    --warn:#d68a2e;
+    --fail:#c4463a;
+
+    --maxw:1120px;
+    --radius:16px;
+    --radius-sm:10px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+    color-scheme:dark;
+  }
+
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-  section{padding:56px 0}
-  header{background:var(--navy);padding:16px 0}
-  .nav{display:flex;align-items:center;justify-content:space-between}
-  .logo{color:var(--white);font-weight:800;font-size:1.25rem;letter-spacing:.02em;text-decoration:none}
-  .logo span{color:var(--gold)}
-  .nav-cta{display:none;background:var(--gold);color:var(--navy);font-weight:700;text-decoration:none;padding:10px 18px;border-radius:6px;font-size:.9rem}
-  @media(min-width:640px){.nav-cta{display:inline-block}}
-  .hero{background:var(--navy);color:var(--white);padding:64px 0 72px;text-align:left}
-  .hero .kicker{color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;margin-bottom:16px}
-  h1{font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.15;font-weight:800;max-width:22ch}
-  .hero .sub{margin-top:20px;font-size:1.15rem;color:#c6d2e2;max-width:56ch}
-  .hero .sub strong{color:var(--white)}
-  .btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:800;font-size:1.05rem;text-decoration:none;padding:16px 32px;border-radius:8px;margin-top:28px;transition:transform .12s ease, box-shadow .12s ease;}
-  .btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.35)}
-  .btn-sub{display:block;margin-top:12px;font-size:.85rem;color:#8fa3bd}
-  .hero-stats{display:flex;flex-wrap:wrap;gap:28px;margin-top:44px;border-top:1px solid rgba(255,255,255,.15);padding-top:28px}
-  .stat b{display:block;font-size:1.5rem;color:var(--gold)}
-  .stat small{color:#a9b8cc;font-size:.85rem;max-width:20ch;display:block}
-  h2{font-size:clamp(1.5rem,3.5vw,2rem);font-weight:800;color:var(--navy);margin-bottom:12px}
-  .lead{color:var(--muted);max-width:64ch;margin-bottom:32px}
-  .steps{display:grid;gap:20px}
-  @media(min-width:720px){.steps{grid-template-columns:repeat(3,1fr)}}
-  .step{border:1px solid var(--line);border-radius:10px;padding:24px;background:var(--white)}
-  .step .num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--blue);color:var(--white);font-weight:800;margin-bottom:14px}
-  .step h3{color:var(--navy);font-size:1.1rem;margin-bottom:8px}
-  .step p{color:var(--muted);font-size:.95rem}
-  .alt{background:#f5f7fa}
-  .controls{display:grid;gap:20px}
-  @media(min-width:720px){.controls{grid-template-columns:repeat(2,1fr)}}
-  .control{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:10px;padding:24px}
-  .control h3{color:var(--navy);font-size:1.05rem;margin-bottom:8px}
-  .control p{color:var(--muted);font-size:.95rem}
-  .control .tag{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:10px}
-  .stakes{background:var(--navy);color:var(--white)}
-  .stakes h2{color:var(--white)}
-  .stakes p{color:#c6d2e2;max-width:64ch}
-  .stakes .big{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800;color:var(--gold);margin:20px 0}
-  .stakes ul{margin:20px 0 0 20px;color:#c6d2e2}
-  .stakes li{margin-bottom:10px}
-  .stakes li b{color:var(--white)}
-  .src{font-size:.78rem;color:#7d8fa8;margin-top:20px}
-  .trust{display:grid;gap:20px}
-  @media(min-width:720px){.trust{grid-template-columns:repeat(3,1fr)}}
-  .trust .card{border:1px solid var(--line);border-radius:10px;padding:24px;text-align:left}
-  .trust .card h3{color:var(--navy);font-size:1.05rem;margin-bottom:8px}
-  .trust .card p{color:var(--muted);font-size:.95rem}
-  .trust .score{font-size:2.2rem;font-weight:800;color:var(--gold)}
-  details{border:1px solid var(--line);border-radius:8px;margin-bottom:12px;background:var(--white)}
-  summary{cursor:pointer;padding:18px 20px;font-weight:700;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font-body);
+    color:var(--paper);
+    background:var(--ink);
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  /* Ambient ground: hairline brass grid + soft radial glows */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60% 50% at 78% 6%, rgba(90,169,162,.10), transparent 60%),
+      radial-gradient(55% 45% at 8% 92%, rgba(198,161,91,.08), transparent 60%),
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:auto,auto,44px 44px,44px 44px;
+  }
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 22px;position:relative;z-index:1}
+  section{padding:clamp(56px,8vw,104px) 0;position:relative;z-index:1}
+
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;letter-spacing:-.012em;text-wrap:balance;line-height:1.08}
+
+  /* ---- Eyebrow / mono label ---- */
+  .eyebrow{
+    font-family:var(--font-mono);font-size:.72rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.22em;color:var(--brass);
+    display:inline-flex;align-items:center;gap:.6em;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--brass),transparent)}
+
+  /* ---- Buttons ---- */
+  .btn{
+    display:inline-flex;align-items:center;gap:.6em;
+    font-family:var(--font-body);font-weight:700;font-size:1.02rem;
+    color:#1a1206;text-decoration:none;
+    background:linear-gradient(180deg,var(--brass-bright),var(--brass-deep));
+    padding:15px 28px;border-radius:11px;
+    box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 14px 30px -12px rgba(198,161,91,.55);
+    transition:transform .16s var(--ease),box-shadow .16s var(--ease),filter .16s var(--ease);
+    position:relative;isolation:isolate;
+  }
+  .btn .arw{transition:transform .18s var(--ease)}
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.05);box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 20px 40px -12px rgba(198,161,91,.7)}
+  .btn:hover .arw{transform:translateX(4px)}
+  .btn:focus-visible{outline:2px solid var(--verd);outline-offset:3px}
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:.5em;
+    font-family:var(--font-mono);font-size:.82rem;letter-spacing:.04em;font-weight:600;
+    color:var(--paper);text-decoration:none;
+    padding:12px 20px;border:1px solid var(--line-2);border-radius:10px;background:rgba(255,255,255,.02);
+    transition:border-color .16s,background .16s,color .16s;
+  }
+  .btn-ghost:hover{border-color:var(--brass);color:var(--brass-bright);background:rgba(198,161,91,.06)}
+  .btn-ghost:focus-visible{outline:2px solid var(--verd);outline-offset:2px}
+  .cta-micro{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.06em;color:var(--faint);margin-top:14px}
+  .cta-micro b{color:var(--verd);font-weight:600}
+
+  /* ============ HEADER ============ */
+  header.site{
+    position:sticky;top:0;z-index:40;
+    background:linear-gradient(180deg,rgba(10,19,21,.94),rgba(10,19,21,.72));
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brandlock{display:flex;align-items:center;gap:11px;text-decoration:none}
+  .brandlock .mark{width:30px;height:30px;flex:0 0 auto}
+  .brandlock .word{font-family:var(--font-display);font-weight:600;font-size:1.22rem;letter-spacing:.01em;color:var(--paper)}
+  .brandlock .word i{font-style:normal;color:var(--brass)}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .nav .btn{padding:10px 18px;font-size:.9rem;border-radius:9px}
+  @media(max-width:560px){.nav .btn{display:none}}
+
+  /* ============ HERO ============ */
+  .hero{padding-top:clamp(40px,6vw,74px)}
+  .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(30px,4vw,60px);align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:38px}}
+  .hero h1{font-size:clamp(2.35rem,1.5rem+3.4vw,4.15rem);margin:20px 0 0}
+  .hero h1 .hl{
+    color:var(--brass-bright);
+    background:linear-gradient(180deg,var(--brass-bright),var(--brass-deep));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .hero .sub{margin-top:22px;font-size:clamp(1.05rem,.98rem+.4vw,1.24rem);color:var(--soft);max-width:52ch}
+  .hero .sub b{color:var(--paper);font-weight:600}
+  .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:30px}
+  .hero-stats{
+    display:grid;grid-template-columns:repeat(3,auto);gap:26px;margin-top:38px;
+    padding-top:26px;border-top:1px solid var(--line);width:fit-content;max-width:100%;
+  }
+  @media(max-width:520px){.hero-stats{grid-template-columns:1fr 1fr;gap:20px 26px}}
+  .stat b{display:block;font-family:var(--font-mono);font-size:1.5rem;font-weight:600;color:var(--brass-bright);letter-spacing:-.01em}
+  .stat small{display:block;color:var(--faint);font-size:.8rem;max-width:19ch;margin-top:4px;line-height:1.4}
+
+  /* ---- The Console (hero instrument) ---- */
+  .console{
+    position:relative;border:1px solid var(--line-2);border-radius:var(--radius);
+    background:
+      linear-gradient(180deg,rgba(21,40,38,.9),rgba(13,25,27,.92));
+    box-shadow:0 40px 90px -40px rgba(0,0,0,.85),0 0 0 1px rgba(198,161,91,.04) inset;
+    overflow:hidden;
+  }
+  .console-bar{
+    display:flex;align-items:center;gap:10px;height:38px;padding:0 14px;
+    border-bottom:1px solid var(--line);background:rgba(10,19,21,.6);
+    font-family:var(--font-mono);font-size:.68rem;letter-spacing:.16em;color:var(--faint);text-transform:uppercase;
+  }
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--verd);box-shadow:0 0 0 0 rgba(90,169,162,.6);animation:pulse 2.4s var(--ease) infinite}
+  .console-bar .spacer{flex:1}
+  .console-body{position:relative;padding:24px 22px 22px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+  @media(max-width:420px){.console-body{grid-template-columns:1fr;justify-items:center;text-align:center}}
+
+  /* Seal + gauge instrument */
+  .instrument{position:relative;width:168px;height:168px;flex:0 0 auto}
+  .instrument svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .gauge-track{fill:none;stroke:rgba(198,161,91,.14);stroke-width:6}
+  .gauge-val{fill:none;stroke:url(#brassg);stroke-width:6;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center}
+  .seal-ring{fill:none;stroke:var(--brass);stroke-width:1.4;opacity:.9}
+  .seal-star{fill:rgba(198,161,91,.08);stroke:url(#brassg);stroke-width:1.4;stroke-linejoin:round}
+  .seal-check{fill:none;stroke:var(--verd);stroke-width:5.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(90,169,162,.55))}
+  .score-num{font-family:var(--font-mono);font-weight:600;fill:var(--paper);font-size:38px;letter-spacing:-1px}
+  .score-den{font-family:var(--font-mono);fill:var(--faint);font-size:12px;letter-spacing:1px}
+
+  /* Streaming readout */
+  .readout{font-family:var(--font-mono);font-size:.76rem;min-width:0;width:100%}
+  .readout .rhead{display:flex;justify-content:space-between;color:var(--faint);letter-spacing:.12em;text-transform:uppercase;font-size:.64rem;border-bottom:1px dashed var(--line);padding-bottom:8px;margin-bottom:9px}
+  .rline{display:flex;align-items:center;gap:9px;padding:3px 0;opacity:0;transform:translateY(4px);animation:rin .4s var(--ease) forwards}
+  .rline .code{color:var(--faint);width:26px;flex:0 0 auto}
+  .rline .name{color:var(--soft);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rline .st{font-size:.62rem;letter-spacing:.1em;padding:1px 7px;border-radius:99px;flex:0 0 auto}
+  .st.pass{color:var(--pass);background:rgba(58,167,106,.12)}
+  .st.warn{color:var(--warn);background:rgba(214,138,46,.13)}
+  .st.fail{color:var(--fail);background:rgba(196,70,58,.14)}
+  .rfoot{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;color:var(--faint);font-size:.66rem;letter-spacing:.08em}
+  .rfoot .verdict{color:var(--fail);font-weight:600}
+  /* scan-line sweeping the console */
+  .scanbar{position:absolute;left:0;right:0;height:60px;top:-60px;pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(90,169,162,.10),transparent);
+    animation:sweep 4.6s linear infinite}
+
+  /* ============ SECTION SCAFFOLD ============ */
+  .shead{max-width:62ch;margin-bottom:clamp(30px,4vw,50px)}
+  .shead h2{font-size:clamp(1.7rem,1.2rem+1.7vw,2.6rem);margin-top:14px}
+  .shead .lead{color:var(--soft);margin-top:16px;font-size:1.06rem;max-width:60ch}
+
+  /* Process (real sequence -> numbers earned) */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{position:relative;border:1px solid var(--line);border-radius:var(--radius-sm);padding:26px 24px;background:linear-gradient(180deg,var(--panel),var(--ink-2))}
+  .step .n{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.14em;color:var(--brass);border:1px solid var(--line-2);border-radius:7px;padding:4px 9px;display:inline-block}
+  .step h3{font-size:1.24rem;margin:16px 0 8px}
+  .step p{color:var(--soft);font-size:.96rem}
+  .step::after{content:"";position:absolute;left:24px;right:24px;bottom:0;height:2px;background:linear-gradient(90deg,var(--brass),transparent);opacity:.5}
+
+  /* Controls grid (control-panel) */
+  .panelband{background:linear-gradient(180deg,var(--ink-2),var(--ink));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .controls{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:760px){.controls{grid-template-columns:1fr}}
+  .control{
+    position:relative;border:1px solid var(--line);border-radius:var(--radius-sm);
+    padding:22px 22px 22px 26px;background:rgba(21,40,38,.5);overflow:hidden;
+    transition:border-color .18s,transform .18s var(--ease);
+  }
+  .control::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--brass-bright),var(--brass-deep))}
+  .control:hover{border-color:var(--line-2);transform:translateY(-2px)}
+  .control .tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);display:flex;align-items:center;gap:8px}
+  .control h3{font-size:1.14rem;margin:12px 0 8px}
+  .control p{color:var(--soft);font-size:.94rem}
+
+  /* Stakes */
+  .stakes{background:radial-gradient(80% 120% at 15% 0%,rgba(196,70,58,.12),transparent 60%),var(--ink)}
+  .bigfig{font-family:var(--font-mono);font-weight:600;font-size:clamp(1.7rem,1.1rem+2.4vw,2.7rem);color:var(--brass-bright);margin:6px 0 4px;letter-spacing:-.01em}
+  .stakes .lead{color:var(--soft);max-width:64ch}
+  .stakelist{list-style:none;margin:26px 0 0;display:grid;gap:14px;max-width:66ch}
+  .stakelist li{position:relative;padding-left:30px;color:var(--soft)}
+  .stakelist li b{color:var(--paper);font-weight:600}
+  .stakelist li::before{content:"";position:absolute;left:6px;top:.55em;width:8px;height:8px;border-radius:2px;background:var(--fail);box-shadow:0 0 10px rgba(196,70,58,.6)}
+  .src{font-family:var(--font-mono);font-size:.7rem;color:var(--faint);letter-spacing:.04em;margin-top:22px}
+
+  /* Trust */
+  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:760px){.trust{grid-template-columns:1fr}}
+  .tcard{border:1px solid var(--line);border-radius:var(--radius-sm);padding:26px 24px;background:linear-gradient(180deg,var(--panel),var(--ink-2))}
+  .tcard h3{font-size:1.12rem;margin-bottom:9px}
+  .tcard p{color:var(--soft);font-size:.94rem}
+  .tcard.score-card{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;background:linear-gradient(180deg,#152a28,#0e1c1d);border-color:var(--line-2)}
+  .avg{font-family:var(--font-mono);font-weight:600;font-size:3rem;color:var(--fail);line-height:1;letter-spacing:-1px}
+  .avg span{font-size:1.1rem;color:var(--faint)}
+  .barmeter{width:100%;height:7px;border-radius:99px;background:rgba(255,255,255,.06);margin:14px 0 10px;overflow:hidden}
+  .barmeter i{display:block;height:100%;width:43%;border-radius:99px;background:linear-gradient(90deg,var(--fail),var(--warn))}
+
+  /* FAQ */
+  .faq{max-width:820px}
+  details{border:1px solid var(--line);border-radius:var(--radius-sm);margin-bottom:12px;background:rgba(21,40,38,.4);overflow:hidden}
+  details[open]{border-color:var(--line-2)}
+  summary{cursor:pointer;padding:18px 20px;font-family:var(--font-display);font-weight:600;font-size:1.06rem;color:var(--paper);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:14px}
   summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";color:var(--blue);font-size:1.3rem;font-weight:400;margin-left:12px}
-  details[open] summary::after{content:"\2013"}
-  details p{padding:0 20px 18px;color:var(--muted)}
-  .final{background:var(--navy);color:var(--white);text-align:center;padding:72px 0}
-  .final h2{color:var(--white)}
-  .final p{color:#c6d2e2;max-width:52ch;margin:0 auto}
-  footer{background:#08172c;color:#7d8fa8;font-size:.85rem;padding:28px 0;text-align:center}
-  footer a{color:#a9b8cc;text-decoration:none}
+  summary::after{content:"+";font-family:var(--font-mono);color:var(--brass);font-size:1.3rem;transition:transform .2s var(--ease)}
+  details[open] summary::after{content:"\2212"}
+  summary:focus-visible{outline:2px solid var(--verd);outline-offset:-2px}
+  details .a{padding:0 20px 18px;color:var(--soft);font-size:.96rem}
+
+  /* Final CTA */
+  .final{position:relative;text-align:center;background:radial-gradient(70% 120% at 50% 0%,rgba(198,161,91,.10),transparent 60%),var(--ink-2);border-top:1px solid var(--line)}
+  .final h2{font-size:clamp(1.9rem,1.3rem+2.2vw,3.1rem)}
+  .final .lead{color:var(--soft);max-width:54ch;margin:18px auto 0}
+  .final .btn{margin-top:30px}
+  .final .watermark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,90%);opacity:.05;pointer-events:none}
+
+  /* Footer */
+  footer.site{border-top:1px solid var(--line);background:var(--ink-2);padding:34px 0}
+  footer.site p{color:var(--faint);font-size:.84rem;max-width:74ch}
+  footer.site .row1{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  footer.site a{color:var(--soft);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  footer.site a:hover{border-color:var(--brass)}
+  .disc{margin-top:8px;font-size:.78rem;color:var(--faint)}
+
+  /* Motion */
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(90,169,162,.5)}70%{box-shadow:0 0 0 8px rgba(90,169,162,0)}100%{box-shadow:0 0 0 0 rgba(90,169,162,0)}}
+  @keyframes rin{to{opacity:1;transform:translateY(0)}}
+  @keyframes sweep{0%{top:-60px}100%{top:100%}}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto}
+    .rline{opacity:1;transform:none}
+    .scanbar{display:none}
+    .reveal{opacity:1;transform:none}
+  }
 </style>
 </head>
 <body>
-<header>
+
+<header class="site">
   <div class="wrap nav">
-    <a class="logo" href="https://grandeza.io">GRAND<span>EZA</span></a>
-    <a class="nav-cta" href="/scan/start">Start my free scan</a>
+    <a class="brandlock" href="https://grandeza.io" aria-label="Grandeza home">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#gseal"/></svg>
+      <span class="word">Grand<i>eza</i></span>
+    </a>
+    <div class="nav-right">
+      <a class="btn" href="/scan/start" onclick="gtag('event','scan_start');">Start free scan <span class="arw" aria-hidden="true">&rarr;</span></a>
+    </div>
   </div>
 </header>
+
+<!-- Reusable seal symbol (16-point heraldic seal, built by JS into #gseal) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="brassg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e0c079"/><stop offset="1" stop-color="#b78f3f"/>
+    </linearGradient>
+    <symbol id="gseal" viewBox="0 0 100 100"></symbol>
+  </defs>
+</svg>
+
+<!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="wrap">
-    <p class="kicker">Free TCPA Risk Assessment for HVAC &amp; Plumbing Shops</p>
-    <h1>Free TCPA Compliance Check: Find Out If Your Intake Is Legal</h1>
-    <p class="sub">Your intake bot is talking to customers. Your booking system is texting them. <strong>Can you prove it's legal?</strong> The free Grandeza Score grades your entire customer-communication intake against 16 TCPA compliance controls &mdash; in 3 minutes, with zero code access.</p>
-    <a class="btn" href="/scan/start">Start my free scan</a>
-    <span class="btn-sub">Free. 3 minutes. No credit card. No developer needed.</span>
-    <div class="hero-stats">
-      <div class="stat"><b>$500&ndash;$1,500</b><small>statutory damages per illegal message or call</small></div>
-      <div class="stat"><b>2,628</b><small>TCPA lawsuits filed in 2025 &mdash; up 60% over 2024</small></div>
-      <div class="stat"><b>3 min</b><small>to know your risk score. A deposition takes 7 hours.</small></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Free TCPA Risk Assessment &middot; HVAC &amp; Plumbing</span>
+      <h1>Find out if your intake is <span class="hl">actually legal.</span></h1>
+      <p class="sub">Your AI receptionist is answering calls. Your booking system is texting customers. <b>Can you prove any of it is compliant?</b> The free Grandeza Score audits your entire intake against 16 TCPA controls &mdash; in 3 minutes, with zero code access.</p>
+      <div class="hero-actions">
+        <a class="btn" href="/scan/start" onclick="gtag('event','scan_start');">Start my free scan <span class="arw" aria-hidden="true">&rarr;</span></a>
+        <a class="btn-ghost" href="#how-it-works">See how it works</a>
+      </div>
+      <p class="cta-micro">Free &middot; <b>3-minute</b> scan &middot; No credit card &middot; No developer needed</p>
+      <div class="hero-stats">
+        <div class="stat"><b>$500&ndash;1,500</b><small>statutory damages per illegal message or call</small></div>
+        <div class="stat"><b>2,628</b><small>TCPA suits filed in 2025 &mdash; up 60% YoY</small></div>
+        <div class="stat"><b>3&nbsp;min</b><small>to your score. A deposition takes 7 hours.</small></div>
+      </div>
+    </div>
+
+    <!-- The Audit Console -->
+    <div class="console" role="img" aria-label="Sample audit console: an intake scored 43 out of 100, with TCPA outbound and recording-consent controls failing.">
+      <div class="console-bar">
+        <span class="live-dot" aria-hidden="true"></span> GRANDEZA&nbsp;AUDIT&nbsp;ENGINE
+        <span class="spacer"></span>
+        <span>SAMPLE&nbsp;OUTPUT</span>
+      </div>
+      <div class="console-body">
+        <div class="scanbar" aria-hidden="true"></div>
+        <div class="instrument" aria-hidden="true">
+          <svg viewBox="0 0 168 168">
+            <circle class="gauge-track" cx="84" cy="84" r="78"/>
+            <circle id="gaugeVal" class="gauge-val" cx="84" cy="84" r="78"/>
+          </svg>
+          <svg viewBox="0 0 168 168" id="sealHost"></svg>
+          <svg viewBox="0 0 168 168">
+            <text class="score-num" x="84" y="90" text-anchor="middle" id="scoreNum">0</text>
+            <text class="score-den" x="84" y="108" text-anchor="middle">/ 100</text>
+          </svg>
+        </div>
+        <div class="readout" id="readout" aria-hidden="true">
+          <div class="rhead"><span>Control</span><span>Status</span></div>
+          <div id="rlines"></div>
+          <div class="rfoot"><span>16 CONTROLS AUDITED</span><span class="verdict">RED-FLAGGED</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- ============ HOW IT WORKS ============ -->
 <section id="how-it-works">
   <div class="wrap">
-    <h2>How the TCPA compliance test works</h2>
-    <p class="lead">No software to install. No developer to schedule. If you know what tools your shop uses to call and text customers, you can finish this before your coffee gets cold.</p>
+    <div class="shead reveal">
+      <span class="eyebrow">The process</span>
+      <h2>Three minutes, start to score</h2>
+      <p class="lead">No software to install. No developer to schedule. If you know what tools your shop uses to call and text customers, you'll finish before your coffee gets cold.</p>
+    </div>
     <div class="steps">
-      <div class="step">
-        <span class="num">1</span>
-        <h3>Run the 3-minute scan</h3>
-        <p>Answer guided questions about how your shop captures consent, sends texts, and handles calls &mdash; including any AI phone agent or voice assistant answering for you.</p>
-      </div>
-      <div class="step">
-        <span class="num">2</span>
-        <h3>Get your 0&ndash;100 Grandeza Score</h3>
-        <p>Your intake is graded against 16 compliance controls drawn from the TCPA, FCC rules, and the live class-action landscape. One number tells you where you stand.</p>
-      </div>
-      <div class="step">
-        <span class="num">3</span>
-        <h3>Get your fix list</h3>
-        <p>A plain-English punch list of every gap that exposes you to statutory damages, ordered by risk. Fix it yourself, hand it to your vendor, or let us handle it.</p>
-      </div>
+      <div class="step reveal"><span class="n">STEP 01</span><h3>Run the scan</h3><p>Answer guided questions about how your shop captures consent, sends texts, and handles calls &mdash; including any AI phone agent answering for you.</p></div>
+      <div class="step reveal"><span class="n">STEP 02</span><h3>Get your 0&ndash;100 score</h3><p>Your intake is graded against 16 controls drawn from the TCPA, FCC rules, and the live class-action landscape. One number tells you where you stand.</p></div>
+      <div class="step reveal"><span class="n">STEP 03</span><h3>Get your fix list</h3><p>A plain-English punch list of every gap that exposes you to statutory damages, ordered by risk. Fix it yourself, hand it to your vendor, or let us handle it.</p></div>
     </div>
   </div>
 </section>
-<section class="alt" id="what-we-check">
+
+<!-- ============ WHAT WE CHECK ============ -->
+<section class="panelband" id="what-we-check">
   <div class="wrap">
-    <h2>Am I TCPA compliant? Here's what the scan actually checks</h2>
-    <p class="lead">The 16 controls fall into four groups. Miss any one of them and you're carrying uninsured legal risk on every message your systems send.</p>
+    <div class="shead reveal">
+      <span class="eyebrow">16 controls &middot; 4 systems</span>
+      <h2>&ldquo;Am I TCPA compliant?&rdquo; Here's what the scan actually checks</h2>
+      <p class="lead">The 16 controls fall into four groups. Miss any one and you're carrying uninsured legal risk on every message your systems send.</p>
+    </div>
     <div class="controls">
-      <div class="control">
-        <span class="tag">Controls 1&ndash;4</span>
-        <h3>Consent capture</h3>
-        <p>Do you have prior express written consent for marketing texts &mdash; and can you produce it? We check how consent is worded, where it's collected, whether it covers AI and prerecorded voice, and whether it would survive discovery.</p>
-      </div>
-      <div class="control">
-        <span class="tag">Controls 5&ndash;8</span>
-        <h3>DNC &amp; suppression</h3>
-        <p>Are you screening against the National Do Not Call Registry? Maintaining your own internal DNC list? Honoring opt-outs immediately across every channel? One "STOP" that keeps getting texts is a plaintiff's easiest case.</p>
-      </div>
-      <div class="control">
-        <span class="tag">Controls 9&ndash;12</span>
-        <h3>Message conduct &amp; quiet hours</h3>
-        <p>Are your reminders and follow-ups firing before 8am or after 9pm in the customer's local time zone? We also check AI voice disclosure &mdash; under the TCPA, your AI agent counts as an "artificial voice."</p>
-      </div>
-      <div class="control">
-        <span class="tag">Controls 13&ndash;16</span>
-        <h3>Records &amp; audit trail</h3>
-        <p>When a demand letter arrives, can you produce consent records, timestamps, opt-out logs, and message history for any customer within hours? In TCPA litigation, the shop that can't document consent has already lost.</p>
-      </div>
+      <div class="control reveal"><span class="tag">Controls 01&ndash;04 &middot; Consent</span><h3>Consent capture</h3><p>Do you have prior express written consent for marketing texts &mdash; and can you produce it? We check how consent is worded, where it's collected, whether it covers AI and prerecorded voice, and whether it would survive discovery.</p></div>
+      <div class="control reveal"><span class="tag">Controls 05&ndash;08 &middot; Suppression</span><h3>DNC &amp; suppression</h3><p>Are you screening against the National Do Not Call Registry? Maintaining your own internal DNC list? Honoring opt-outs immediately across every channel? One &ldquo;STOP&rdquo; that keeps getting texts is a plaintiff's easiest case.</p></div>
+      <div class="control reveal"><span class="tag">Controls 09&ndash;12 &middot; Conduct</span><h3>Message conduct &amp; quiet hours</h3><p>Are your reminders and follow-ups firing before 8am or after 9pm in the customer's local time zone? We also check AI voice disclosure &mdash; under the TCPA, your AI agent counts as an &ldquo;artificial voice.&rdquo;</p></div>
+      <div class="control reveal"><span class="tag">Controls 13&ndash;16 &middot; Records</span><h3>Records &amp; audit trail</h3><p>When a demand letter arrives, can you produce consent records, timestamps, opt-out logs, and message history for any customer within hours? In TCPA litigation, the shop that can't document consent has already lost.</p></div>
     </div>
   </div>
 </section>
-<section class="stakes">
+
+<!-- ============ STAKES ============ -->
+<section class="stakes" id="stakes">
   <div class="wrap">
-    <h2>What one bad text campaign actually costs</h2>
-    <p class="big">$500 to $1,500 per message. Multiplied by every message you sent.</p>
-    <p>TCPA statutory damages don't care about your intent, and there's no cap. A 2,000-message appointment-reminder campaign sent during quiet hours isn't a slap on the wrist &mdash; it's a potential seven-figure exposure. That's why plaintiffs' firms filed 2,628 TCPA lawsuits in 2025, up 60% over 2024.</p>
-    <ul>
+    <div class="shead reveal" style="max-width:none">
+      <span class="eyebrow" style="color:var(--fail)"><span style="width:26px;height:1px;background:linear-gradient(90deg,var(--fail),transparent);display:inline-block"></span>The exposure</span>
+      <h2>What one bad text campaign actually costs</h2>
+      <p class="bigfig">$500 to $1,500 per message &times; every message you sent.</p>
+      <p class="lead">TCPA statutory damages don't care about your intent, and there's no cap. A 2,000-message appointment-reminder campaign sent during quiet hours isn't a slap on the wrist &mdash; it's potential seven-figure exposure. That's why plaintiffs' firms filed 2,628 TCPA lawsuits in 2025, up 60% over 2024.</p>
+    </div>
+    <ul class="stakelist reveal">
       <li><b>The scan takes 3 minutes.</b> A deposition takes about seven hours &mdash; and that's after months of discovery, motion practice, and legal bills.</li>
       <li><b>You don't get warnings.</b> The first notice most contractors receive is a demand letter or a class-action complaint.</li>
-      <li><b>Your AI receptionist raises the stakes.</b> AI voice agents are "artificial voice" under the TCPA. If yours calls or answers without the right consent and disclosures, every call is countable.</li>
+      <li><b>Your AI receptionist raises the stakes.</b> AI voice agents are &ldquo;artificial voice&rdquo; under the TCPA. If yours calls or answers without the right consent and disclosures, every call is countable.</li>
     </ul>
     <p class="src">Litigation figures: CompliancePoint TCPA Litigation Trends 2025.</p>
-    <a class="btn" href="/scan/start">Start my free scan</a>
+    <div style="margin-top:30px"><a class="btn" href="/scan/start" onclick="gtag('event','scan_start');">Start my free scan <span class="arw" aria-hidden="true">&rarr;</span></a></div>
   </div>
 </section>
+
+<!-- ============ TRUST ============ -->
 <section id="trust">
   <div class="wrap">
-    <h2>Built by compliance people. Written for contractors.</h2>
-    <p class="lead">No legalese, no scare-quotes, no 40-page PDF you'll never read. Just your score and what to do about it.</p>
+    <div class="shead reveal">
+      <span class="eyebrow">Why trust the number</span>
+      <h2>Built by compliance people. Written for contractors.</h2>
+      <p class="lead">No legalese, no scare-quotes, no 40-page PDF you'll never read. Just your score and what to do about it.</p>
+    </div>
     <div class="trust">
-      <div class="card">
-        <h3>Attorney-reviewed methodology</h3>
-        <p>All 16 controls are drawn from the TCPA statute, current FCC rules, and active litigation patterns, and the methodology is reviewed by TCPA counsel.</p>
-      </div>
-      <div class="card">
-        <h3>Zero code access needed</h3>
-        <p>We never touch your systems to score them. The scan works from how your intake is configured and operated &mdash; not from your source code or your CRM logins.</p>
-      </div>
-      <div class="card">
-        <h3>Most shops fail their first scan</h3>
-        <p><span class="score">43/100</span><br>The average first-time score. Most contractors have never audited their intake &mdash; which is exactly why plaintiffs' firms target the trades.</p>
+      <div class="tcard reveal"><h3>Attorney-reviewed methodology</h3><p>All 16 controls are drawn from the TCPA statute, current FCC rules, and active litigation patterns &mdash; and the methodology is reviewed by TCPA counsel.</p></div>
+      <div class="tcard reveal"><h3>Zero code access needed</h3><p>We never touch your systems to score them. The scan works from how your intake is configured and operated &mdash; not from your source code or your CRM logins.</p></div>
+      <div class="tcard score-card reveal">
+        <div class="avg">43<span>/100</span></div>
+        <div class="barmeter" aria-hidden="true"><i></i></div>
+        <h3 style="margin:2px 0 6px">Most shops fail their first scan</h3>
+        <p>The average first-time score. Most contractors have never audited their intake &mdash; which is exactly why plaintiffs' firms target the trades.</p>
       </div>
     </div>
   </div>
 </section>
-<section class="alt" id="faq">
+
+<!-- ============ FAQ ============ -->
+<section class="panelband" id="faq">
   <div class="wrap">
-    <h2>Free TCPA compliance check: FAQ</h2>
-    <details>
-      <summary>Is the TCPA compliance check really free?</summary>
-      <p>Yes. The Grandeza Score is completely free. No credit card, no sales call required to see your results. We make money when shops hire us to fix what the scan finds &mdash; not from the scan itself.</p>
-    </details>
-    <details>
-      <summary>How long does the scan take?</summary>
-      <p>About 3 minutes. It's a guided walkthrough of how your shop captures consent, sends texts, and handles calls. Compare that to a deposition, which runs about seven hours.</p>
-    </details>
-    <details>
-      <summary>Do I need technical access or a developer?</summary>
-      <p>No. The scan requires zero code access. If you know what tools your shop uses to talk to customers &mdash; your phone system, your texting platform, your AI receptionist &mdash; you have everything you need.</p>
-    </details>
-    <details>
-      <summary>What happens after I get my score?</summary>
-      <p>You get your 0&ndash;100 Grandeza Score and a prioritized fix list immediately. What you do next is up to you: fix the gaps yourself, hand the list to your own vendor, or have Grandeza harden your intake for you. There's no obligation.</p>
-    </details>
-    <details>
-      <summary>Is my data private?</summary>
-      <p>Yes. Your answers and your score are confidential. We never sell your data, never share your results with third parties, and never use your responses for anything except generating your report.</p>
-    </details>
-    <details>
-      <summary>Who is the Grandeza Score for?</summary>
-      <p>HVAC and plumbing contractors who text customers, run AI phone agents or voice assistants, or use automated booking and reminder systems. If a machine ever talks or texts on your company's behalf, this scan is for you.</p>
-    </details>
+    <div class="shead reveal"><span class="eyebrow">Questions</span><h2>Free TCPA compliance check: FAQ</h2></div>
+    <div class="faq">
+      <details class="reveal"><summary>Is the TCPA compliance check really free?</summary><div class="a">Yes. The Grandeza Score is completely free. No credit card, no sales call required to see your results. We make money when shops hire us to fix what the scan finds &mdash; not from the scan itself.</div></details>
+      <details class="reveal"><summary>How long does the scan take?</summary><div class="a">About 3 minutes. It's a guided walkthrough of how your shop captures consent, sends texts, and handles calls. Compare that to a deposition, which runs about seven hours.</div></details>
+      <details class="reveal"><summary>Do I need technical access or a developer?</summary><div class="a">No. The scan requires zero code access. If you know what tools your shop uses to talk to customers &mdash; your phone system, your texting platform, your AI receptionist &mdash; you have everything you need.</div></details>
+      <details class="reveal"><summary>What happens after I get my score?</summary><div class="a">You get your 0&ndash;100 Grandeza Score and a prioritized fix list immediately. What you do next is up to you: fix the gaps yourself, hand the list to your own vendor, or have Grandeza harden your intake for you. There's no obligation.</div></details>
+      <details class="reveal"><summary>Is my data private?</summary><div class="a">Yes. Your answers and your score are confidential. We never sell your data, never share your results with third parties, and never use your responses for anything except generating your report.</div></details>
+      <details class="reveal"><summary>Who is the Grandeza Score for?</summary><div class="a">HVAC and plumbing contractors who text customers, run AI phone agents or voice assistants, or use automated booking and reminder systems. If a machine ever talks or texts on your company's behalf, this scan is for you.</div></details>
+    </div>
   </div>
 </section>
+
+<!-- ============ FINAL CTA ============ -->
 <section class="final" id="start">
+  <svg class="watermark" viewBox="0 0 100 100" aria-hidden="true"><use href="#gseal"/></svg>
   <div class="wrap">
-    <h2>3 minutes now, or 7 hours in a deposition later</h2>
-    <p>Every day your intake runs unchecked, it's sending messages you may not be able to defend. Find out where you stand &mdash; free, private, and in plain English.</p>
-    <a class="btn" href="/scan/start">Start my free scan</a>
-    <span class="btn-sub">Free TCPA risk assessment &bull; 16 controls &bull; 0&ndash;100 score &bull; No code access</span>
+    <div class="reveal">
+      <span class="eyebrow" style="justify-content:center">Last step</span>
+      <h2 style="margin-top:14px">3 minutes now, or 7 hours in a deposition later</h2>
+      <p class="lead">Every day your intake runs unchecked, it's sending messages you may not be able to defend. Find out where you stand &mdash; free, private, and in plain English.</p>
+      <a class="btn" href="/scan/start" onclick="gtag('event','scan_start');">Start my free scan <span class="arw" aria-hidden="true">&rarr;</span></a>
+      <p class="cta-micro" style="text-align:center">Free TCPA risk assessment &middot; 16 controls &middot; 0&ndash;100 score &middot; No code access</p>
+    </div>
   </div>
 </section>
-<footer>
+
+<footer class="site">
   <div class="wrap">
-    <p>&copy; 2026 Grandeza &bull; TCPA compliance for HVAC &amp; plumbing contractors &bull; <a href="https://grandeza.io">grandeza.io</a></p>
-    <p style="margin-top:8px;max-width:72ch;margin-left:auto;margin-right:auto">Grandeza provides compliance tooling and diagnostics, not legal advice. For legal advice about your specific situation, consult a TCPA attorney.</p>
+    <p class="row1"><svg class="mark" width="22" height="22" viewBox="0 0 100 100" aria-hidden="true"><use href="#gseal"/></svg> <span>&copy; 2026 Grandeza &middot; TCPA compliance for HVAC &amp; plumbing contractors &middot; <a href="https://grandeza.io">grandeza.io</a></span></p>
+    <p class="disc">Grandeza provides compliance tooling and diagnostics, not legal advice. For legal advice about your specific situation, consult a TCPA attorney.</p>
   </div>
 </footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- Build the 16-point heraldic seal into the reusable symbol + hero host --- */
+  function sealPaths(){
+    var cx=50, cy=50, pts=16, outer=42, inner=34, star='';
+    for(var i=0;i<pts*2;i++){
+      var r=(i%2===0)?outer:inner;
+      var a=(Math.PI/pts)*i - Math.PI/2;
+      star += (i===0?'M':'L') + (cx+r*Math.cos(a)).toFixed(2) + ' ' + (cy+r*Math.sin(a)).toFixed(2) + ' ';
+    }
+    star += 'Z';
+    return '<path class="seal-star" d="'+star+'"/>'+
+           '<circle class="seal-ring" cx="50" cy="50" r="27"/>'+
+           '<path class="seal-check" d="M39 51 L47 59 L63 41"/>';
+  }
+  var seal = sealPaths();
+  var sym = document.getElementById('gseal'); if(sym) sym.innerHTML = seal;
+
+  /* Hero instrument: scaled seal (168 viewBox) with animated checkmark */
+  var host = document.getElementById('sealHost');
+  if(host){
+    host.innerHTML = '<g transform="translate(84,84) scale(1.28) translate(-50,-50)">'+seal+'</g>';
+    var chk = host.querySelector('.seal-check');
+    if(chk && !reduce){
+      var len = chk.getTotalLength();
+      chk.style.strokeDasharray = len; chk.style.strokeDashoffset = len;
+      chk.style.animation = 'draw 1s var(--ease) .9s forwards';
+    }
+  }
+
+  /* Gauge sweep to 43 + count-up */
+  var target=43, R=78, C=2*Math.PI*R;
+  var gv=document.getElementById('gaugeVal');
+  if(gv){
+    gv.style.strokeDasharray=C;
+    gv.style.strokeDashoffset=C;
+    var pct=target/100;
+    if(reduce){ gv.style.strokeDashoffset = C*(1-pct); }
+    else{
+      gv.style.transition='stroke-dashoffset 1.4s var(--ease) .3s';
+      requestAnimationFrame(function(){ setTimeout(function(){ gv.style.strokeDashoffset = C*(1-pct); },60); });
+    }
+  }
+  var sn=document.getElementById('scoreNum');
+  if(sn){
+    if(reduce){ sn.textContent=target; }
+    else{
+      var start=null;
+      function tick(t){ if(!start)start=t; var p=Math.min((t-start)/1500,1); sn.textContent=Math.round(p*target); if(p<1)requestAnimationFrame(tick); }
+      setTimeout(function(){ requestAnimationFrame(tick); },300);
+    }
+  }
+
+  /* Streaming control readout (sample audit → 43, red-flagged) */
+  var controls=[
+    ['01','AI DISCLOSURE','fail','FAIL'],
+    ['02','CONSENT LANGUAGE','warn','PARTIAL'],
+    ['03','TCPA OUTBOUND','fail','FAIL'],
+    ['05','DNC SCREENING','pass','PASS'],
+    ['06','OPT-OUT / STOP','pass','PASS'],
+    ['09','RECORDING CONSENT','fail','FAIL'],
+    ['10','QUIET HOURS','warn','PARTIAL'],
+    ['14','AUDIT TRAIL','pass','PASS']
+  ];
+  var box=document.getElementById('rlines');
+  if(box){
+    controls.forEach(function(c,i){
+      var d=document.createElement('div');
+      d.className='rline';
+      d.style.animationDelay=(reduce?0:(0.25+i*0.14))+'s';
+      d.innerHTML='<span class="code">'+c[0]+'</span><span class="name">'+c[1]+'</span><span class="st '+c[2]+'">'+c[3]+'</span>';
+      box.appendChild(d);
+    });
+  }
+
+  /* Scroll reveal */
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+    els.forEach(function(e){io.observe(e);});
+  } else { els.forEach(function(e){e.classList.add('in');}); }
+})();
+</script>
 </body>
 </html>
