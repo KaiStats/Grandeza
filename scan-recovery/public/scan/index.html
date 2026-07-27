@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Cpath%20d%3D%27M50.00%205.00%20L57.22%2013.71%20L67.22%208.43%20L70.56%2019.24%20L81.82%2018.18%20L80.76%2029.44%20L91.57%2032.78%20L86.29%2042.78%20L95.00%2050.00%20L86.29%2057.22%20L91.57%2067.22%20L80.76%2070.56%20L81.82%2081.82%20L70.56%2080.76%20L67.22%2091.57%20L57.22%2086.29%20L50.00%2095.00%20L42.78%2086.29%20L32.78%2091.57%20L29.44%2080.76%20L18.18%2081.82%20L19.24%2070.56%20L8.43%2067.22%20L13.71%2057.22%20L5.00%2050.00%20L13.71%2042.78%20L8.43%2032.78%20L19.24%2029.44%20L18.18%2018.18%20L29.44%2019.24%20L32.78%208.43%20L42.78%2013.71%20Z%27%20fill%3D%27none%27%20stroke%3D%27%23c6a15b%27%20stroke-width%3D%272.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3Ccircle%20cx%3D%2750%27%20cy%3D%2750%27%20r%3D%2722%27%20fill%3D%27none%27%20stroke%3D%27%23c6a15b%27%20stroke-width%3D%277.5%27%20stroke-linecap%3D%27round%27%20stroke-dasharray%3D%27103%2035%27%20transform%3D%27rotate%2824%2050%2050%29%27%2F%3E%3Cpath%20d%3D%27M40%2051%20L47.5%2059%20L63%2040%27%20fill%3D%27none%27%20stroke%3D%27%235aa9a2%27%20stroke-width%3D%277.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E">
 <title>Free TCPA Compliance Check for HVAC &amp; Plumbing | Grandeza</title>
 <meta name="description" content="Free TCPA compliance check for contractors. A 3-minute scan grades your AI phone, SMS &amp; voice intake against 16 controls. Get your 0-100 risk score now.">
 <link rel="canonical" href="https://grandeza.io/free-tcpa-compliance-check">
@@ -17,6 +18,11 @@
 <meta property="og:description" content="Your intake bot is talking to customers. Can you prove it's legal? Run the free 3-minute Grandeza Score and find out.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://grandeza.io/free-tcpa-compliance-check">
+<meta property="og:image" content="https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260727_175200_b8816050-4050-4d91-850a-f09391107bd3.png">
+<meta property="og:image:width" content="1376">
+<meta property="og:image:height" content="768">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260727_175200_b8816050-4050-4d91-850a-f09391107bd3.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -280,9 +286,10 @@
   .instrument svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
   .gauge-track{fill:none;stroke:rgba(198,161,91,.14);stroke-width:6}
   .gauge-val{fill:none;stroke:url(#brassg);stroke-width:6;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center}
-  .seal-ring{fill:none;stroke:var(--brass);stroke-width:1.4;opacity:.9}
-  .seal-star{fill:rgba(198,161,91,.08);stroke:url(#brassg);stroke-width:1.4;stroke-linejoin:round}
-  .seal-check{fill:none;stroke:var(--verd);stroke-width:5.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(90,169,162,.55))}
+  .seal-star{fill:rgba(198,161,91,.05);stroke:url(#brassg);stroke-width:2.4;stroke-linejoin:round}
+  .seal-guide{fill:none;stroke:rgba(198,161,91,.4);stroke-width:1}
+  .seal-gring{fill:none;stroke:url(#brassg);stroke-width:7;stroke-linecap:round;stroke-dasharray:103 35}
+  .seal-check{fill:none;stroke:var(--verd);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(90,169,162,.5))}
   .score-num{font-family:var(--font-mono);font-weight:600;fill:var(--paper);font-size:38px;letter-spacing:-1px}
   .score-den{font-family:var(--font-mono);fill:var(--faint);font-size:12px;letter-spacing:1px}
 
@@ -366,7 +373,12 @@
   details .a{padding:0 20px 18px;color:var(--soft);font-size:.96rem}
 
   /* Final CTA */
-  .final{position:relative;text-align:center;background:radial-gradient(70% 120% at 50% 0%,rgba(198,161,91,.10),transparent 60%),var(--ink-2);border-top:1px solid var(--line)}
+  .final{position:relative;text-align:center;border-top:1px solid var(--line);
+    background:
+      radial-gradient(70% 120% at 50% 0%,rgba(198,161,91,.14),transparent 60%),
+      linear-gradient(rgba(10,19,21,.83),rgba(10,19,21,.93)),
+      url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260727_175200_b8816050-4050-4d91-850a-f09391107bd3.png") center/cover no-repeat,
+      var(--ink-2);}
   .final h2{font-size:clamp(1.9rem,1.3rem+2.2vw,3.1rem)}
   .final .lead{color:var(--soft);max-width:54ch;margin:18px auto 0}
   .final .btn{margin-top:30px}
@@ -584,16 +596,17 @@
 
   /* --- Build the 16-point heraldic seal into the reusable symbol + hero host --- */
   function sealPaths(){
-    var cx=50, cy=50, pts=16, outer=42, inner=34, star='';
+    var cx=50, cy=50, pts=16, outer=45, inner=37, s='';
     for(var i=0;i<pts*2;i++){
       var r=(i%2===0)?outer:inner;
       var a=(Math.PI/pts)*i - Math.PI/2;
-      star += (i===0?'M':'L') + (cx+r*Math.cos(a)).toFixed(2) + ' ' + (cy+r*Math.sin(a)).toFixed(2) + ' ';
+      s += (i===0?'M':'L') + (cx+r*Math.cos(a)).toFixed(2) + ' ' + (cy+r*Math.sin(a)).toFixed(2) + ' ';
     }
-    star += 'Z';
-    return '<path class="seal-star" d="'+star+'"/>'+
-           '<circle class="seal-ring" cx="50" cy="50" r="27"/>'+
-           '<path class="seal-check" d="M39 51 L47 59 L63 41"/>';
+    s += 'Z';
+    return '<path class="seal-star" d="'+s+'"/>'+
+           '<circle class="seal-guide" cx="50" cy="50" r="30.5"/>'+
+           '<circle class="seal-gring" cx="50" cy="50" r="22" transform="rotate(24 50 50)"/>'+
+           '<path class="seal-check" d="M40 51 L47.5 59 L63 40"/>';
   }
   var seal = sealPaths();
   var sym = document.getElementById('gseal'); if(sym) sym.innerHTML = seal;
