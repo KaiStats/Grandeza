@@ -61,6 +61,85 @@
   --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 44px -20px rgba(0,0,0,.7);
   --shadow-lift:0 2px 8px rgba(0,0,0,.5),0 32px 70px -24px rgba(0,0,0,.8);color-scheme:dark;
 }
+/* ---------- Imagery ----------------------------------------------------------
+   Higgsfield plates + the /scan character library. Every reference is a CSS
+   background-image over a brand gradient, so a blocked or expired URL degrades
+   to the gradient instead of a broken-image icon (same pattern as the site).
+   Production: self-host under /img and repoint these five properties only.   */
+:root{
+  --img-cover:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260728_180524_4f7c1da5-2ac4-45de-aaa2-be3047b6f495.png");
+  --img-strata:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260728_180530_59c8f303-a0a2-4941-86f6-a6ea83cf3af6.png");
+  --img-seal:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260728_180527_f20181a0-e2fc-4ec3-b48f-a15c7b36da0d.png");
+  --img-tech:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_154736_22a16854-9d83-4216-826b-3fe610a46a47.png");
+  --img-dispatch:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_155705_7b6c3688-524e-4e8c-ab92-24c2bb6da4d3.png");
+  --img-homeowner:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_155707_83e897cd-2825-4e4a-9c4e-de918eb3bf5a.png");
+  --img-plumber:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_154737_468934e6-06de-490f-ba99-0738a3554f6a.png");
+}
+.plate{position:relative;isolation:isolate;overflow:hidden}
+.plate::before{content:"";position:absolute;inset:0;z-index:-1;
+  background-color:var(--panel-dark);
+  background-image:linear-gradient(100deg,rgba(11,21,23,.94) 34%,rgba(11,21,23,.58) 66%,rgba(11,21,23,.42)),var(--img-cover);
+  background-size:cover;background-position:center right}
+.plate-strata{position:relative;height:96px;background-color:var(--panel-dark);
+  background-image:linear-gradient(90deg,rgba(11,21,23,.7),rgba(11,21,23,.25),rgba(11,21,23,.7)),var(--img-strata);
+  background-size:cover;background-position:center;border-block:1px solid var(--line)}
+.figure-img{border-radius:var(--radius);overflow:hidden;background-color:var(--panel-dark);
+  background-size:cover;background-position:center;min-height:220px;border:1px solid var(--line);
+  display:flex;align-items:flex-end;padding:1.1rem}
+.figure-img.tech{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.15)),var(--img-tech)}
+.figure-img.dispatch{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.15)),var(--img-dispatch)}
+.figure-img.homeowner{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.15)),var(--img-homeowner)}
+.figure-img.plumber{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.15)),var(--img-plumber)}
+.figure-img .cap{color:#e9efec;font-family:var(--font-mono);font-size:.74rem;letter-spacing:.1em;
+  text-transform:uppercase;text-shadow:0 1px 12px rgba(0,0,0,.9)}
+.plate .eyebrow{color:var(--seal-2)}
+.plate h1,.plate h2,.plate p,.plate dt,.plate dd{color:#e9efec}
+.plate .docmeta{background:rgba(233,239,236,.045);border-color:rgba(198,161,91,.28)}
+.plate .docmeta div{border-color:rgba(198,161,91,.22)}
+.plate .docmeta dt{color:#a7bcb6}
+
+/* ---------- Charts ---------- */
+.chart-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.4rem 1.5rem;position:relative}
+.chart-head{margin-bottom:1.1rem}
+.chart-head h3{font-size:1.06rem}
+.chart-head p{color:var(--ink-soft);font-size:.9rem;margin-top:.4rem;max-width:64ch}
+.chart-note{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-faint);margin-top:.9rem;
+  padding-top:.8rem;border-top:1px solid var(--line)}
+.chart svg{width:100%;height:auto;overflow:visible}
+.ax{stroke:var(--line);stroke-width:1;fill:none}          /* hairline, solid, recessive */
+.axlab{font-family:var(--font-mono);font-size:9px;fill:var(--ink-faint);font-variant-numeric:tabular-nums}
+.marklab{font-family:var(--font-mono);font-size:9.5px;fill:var(--ink-soft);font-variant-numeric:tabular-nums}
+.marklab.strong{fill:var(--ink);font-weight:600}
+.markname{font-family:var(--font-body);font-size:10.5px;fill:var(--ink)}
+.chart .bar-mark{transition:opacity .15s}
+.chart g.row:hover .bar-mark{opacity:.78}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-mono);
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.legend i{width:11px;height:11px;border-radius:3px;display:block}
+.tip{position:absolute;pointer-events:none;opacity:0;transform:translate(-50%,-118%);
+  background:var(--ink);color:var(--bg);border-radius:8px;padding:.5rem .7rem;font-size:.78rem;
+  line-height:1.45;white-space:nowrap;z-index:5;transition:opacity .12s;box-shadow:var(--shadow-lift)}
+.tip b{font-family:var(--font-mono);display:block;font-size:.72rem;letter-spacing:.08em;opacity:.75}
+.tip.on{opacity:1}
+/* control grid */
+.cgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
+@media (max-width:820px){.cgrid{grid-template-columns:repeat(5,1fr)}}
+.cell{border-radius:8px;padding:.55rem .4rem;text-align:center;border:1px solid transparent;cursor:default;
+  transition:transform .15s var(--ease)}
+.cell:hover{transform:translateY(-2px)}
+.cell .cc{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.04em;display:block;opacity:.85}
+.cell .cs{font-family:var(--font-mono);font-size:1.02rem;font-weight:600;display:block;margin-top:.15rem;
+  font-variant-numeric:tabular-nums}
+.cell .cl{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.09em;display:block;margin-top:.1rem;opacity:.9}
+.cell.FAIL{background:color-mix(in srgb,var(--fail) 15%,var(--surface-2));border-color:color-mix(in srgb,var(--fail) 42%,transparent);color:var(--fail)}
+.cell.PARTIAL{background:color-mix(in srgb,var(--warn) 15%,var(--surface-2));border-color:color-mix(in srgb,var(--warn) 42%,transparent);color:var(--warn)}
+.cell.PASS{background:color-mix(in srgb,var(--pass) 15%,var(--surface-2));border-color:color-mix(in srgb,var(--pass) 42%,transparent);color:var(--pass)}
+.cell.ovl{box-shadow:inset 0 -3px 0 var(--partner)}
+/* timeline */
+.tl-legend{margin-top:.6rem}
+
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
@@ -324,8 +403,14 @@ pre .good{color:var(--pass)}
   .tablewrap{overflow:visible;border:1px solid #bbb}
   table.controls{min-width:0;font-size:8.6pt}
   table.controls th{position:static}
-  tr,.finding,.card,.week,.turn{break-inside:avoid}
+  tr,.finding,.card,.week,.turn,.chart-card,.cell{break-inside:avoid}
   h2,h3{break-after:avoid}
+  /* keep the cover legible on white paper; drop the decorative bands */
+  .plate::before{background-image:linear-gradient(100deg,rgba(11,21,23,.97),rgba(11,21,23,.9)),var(--img-cover)}
+  .plate-strata{display:none}
+  .figure-img{min-height:150px}
+  .tip{display:none!important}
+  .chart svg{max-height:none}
   a{color:#111;text-decoration:none}
   .reveal{opacity:1!important;transform:none!important}
   .bar i{transition:none}
@@ -365,16 +450,15 @@ pre .good{color:var(--pass)}
 <main>
 
   <!-- ================= MASTHEAD ================= -->
-  <section class="masthead"><div class="wrap">
-    <span class="eyebrow">Compliance readout · 16-control framework + voice-AI overlay</span>
-    <h1>An AI that books the job can also <em>make the case.</em></h1>
-    <p class="lede">This is what a Grandeza readout looks like for an HVAC shop running a Newo AI receptionist:
-      one score, twenty scored controls, one annotated call, and a four-week path from High Risk to Protected.
-      Nothing here asks anyone to rip out the agent — the agent is the good part. What's missing is the
-      record that proves it behaved.</p>
+  <section class="masthead plate"><div class="wrap">
+    <span class="eyebrow">Grandeza Scan · readout</span>
+    <h1>It books the job. <em>Can it prove how?</em></h1>
+    <p class="lede">The Scan reads any chatbot, voice agent or automated intake system and returns one
+      number, twenty scored controls and the evidence behind each. Run here against an HVAC shop's
+      receptionist. Nothing asks anyone to rip it out — it's the good part. What's missing is the record.</p>
 
     <dl class="docmeta">
-      <div><dt>Reference</dt><dd class="mono">GZ-RO-2026-0728-NEWO</dd></div>
+      <div><dt>Reference</dt><dd class="mono">GZ-SCAN-2026-0728-NEWO</dd></div>
       <div><dt>Prepared for</dt><dd>Newo.ai — partnership review</dd></div>
       <div><dt>Subject</dt><dd>Cardinal Heating &amp; Air <span class="mono" style="color:var(--ink-faint);font-size:.8rem">(composite)</span></dd></div>
       <div><dt>Issued</dt><dd class="mono tnum">2026-07-28</dd></div>
@@ -384,6 +468,30 @@ pre .good{color:var(--pass)}
       <div><dt>Classification</dt><dd>Sample · shareable · not legal advice</dd></div>
     </dl>
   </div></section>
+
+  <!-- ================= WHAT THE SCAN READS ================= -->
+  <section style="padding-block:clamp(2rem,4vw,3rem)"><div class="wrap">
+    <div class="grid g2" style="align-items:center;gap:clamp(1.4rem,4vw,2.6rem)">
+      <div>
+        <span class="eyebrow">The calling card</span>
+        <h2 style="font-size:var(--step-2);margin-top:.7rem">The Scan doesn't care whose agent it is.</h2>
+        <p class="lede" style="font-size:var(--step-0)">Voice agent, SMS bot, web chat widget, an in-house
+          model wired to a CRM — if it talks to customers and can send, the Scan reads it the same way:
+          what it says, what it captures, what it sends, and what survives to prove it. Twelve minutes,
+          no integration, no code access.</p>
+        <div class="tallies" style="margin-top:1.2rem">
+          <span class="tally">Voice agents</span><span class="tally">SMS &amp; chat bots</span>
+          <span class="tally">Web chat widgets</span><span class="tally">Outbound dialers</span>
+          <span class="tally">In-house LLM intake</span>
+        </div>
+        <div class="cta-row" style="justify-content:flex-start;margin-top:1.4rem">
+          <a class="btn btn-primary" href="/scan">Run a free Scan <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="figure-img plumber" aria-hidden="true"><span class="cap">Twelve minutes · no integration</span></div>
+    </div>
+  </div></section>
+  <div class="plate-strata" aria-hidden="true"></div>
 
   <!-- ================= SCORE ================= -->
   <section class="score-band" id="score"><div class="wrap">
@@ -433,6 +541,22 @@ pre .good{color:var(--pass)}
           bands: 0–44 High Risk · 45–69 At Risk · 70–84 Hardened · 85–100 Protected
         </p>
       </div>
+    </div>
+  </div></section>
+
+  <!-- ================= WHERE THE POINTS WENT ================= -->
+  <section id="loss"><div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Where the 59 points went</span>
+      <h2>Four controls are half the gap.</h2>
+      <p>Every control's weight times how far it falls short. This is the whole remediation argument in
+        one picture — the work isn't spread across twenty controls, it's concentrated in a handful.</p>
+    </div>
+    <div class="chart-card">
+      <div class="legend" id="wfLegend"></div>
+      <div class="chart" id="wfChart"></div>
+      <div class="tip" id="wfTip"></div>
+      <p class="chart-note" id="wfNote"></p>
     </div>
   </div></section>
 
@@ -518,6 +642,20 @@ pre .good{color:var(--pass)}
       <p>This is the ordinary case, not the edge case: a December no-heat call at 9:48pm, booked perfectly by
         the AI, followed 19 days later by a routine reactivation dial. Every annotation below points at a control
         in the table. Nothing in this sequence is unusual, which is exactly the problem.</p>
+    </div>
+
+    <div class="grid g2" style="gap:1rem;margin-bottom:1.4rem;align-items:stretch">
+      <div class="chart-card" style="margin:0">
+        <div class="chart-head">
+          <h3>How one booking becomes a file</h3>
+          <p>Twenty-two days, six events, one customer. Each marker is a control decision the system made
+            without being asked.</p>
+        </div>
+        <div class="chart" id="tlChart"></div>
+        <div class="tip" id="tlTip"></div>
+        <div class="legend tl-legend" id="tlLegend"></div>
+      </div>
+      <div class="figure-img tech" aria-hidden="true"><span class="cap">9:48pm · 41° in the house · nobody awake but the agent</span></div>
     </div>
 
     <div class="call-meta">
@@ -657,6 +795,16 @@ pre .good{color:var(--pass)}
         dials on its own. They're the ones that fail hardest, and they're the ones no CRM checklist covers.</p>
     </div>
 
+    <div class="chart-card" style="margin-bottom:1.2rem">
+      <div class="chart-head">
+        <h3>All twenty at a glance</h3>
+        <p>Score and status for every control. The four with a violet underline are the voice-AI overlay.</p>
+      </div>
+      <div class="cgrid" id="cgrid"></div>
+      <div class="tip" id="gridTip"></div>
+      <p class="chart-note">Status is printed in every cell — the grid never asks you to read colour alone.</p>
+    </div>
+
     <div class="filters">
       <button class="filter-btn" data-filter="all" aria-pressed="true">All 20</button>
       <button class="filter-btn" data-filter="FAIL" aria-pressed="false">Fail only</button>
@@ -691,6 +839,17 @@ pre .good{color:var(--pass)}
       <p>Statutory exposure, not a loss prediction. These are the numbers a plaintiff's demand letter computes
         from the shop's own logs — shown here with every input visible so you can argue with them.
         Volumes are modeled on a 22-tech, two-market operator.</p>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:1.2rem">
+      <div class="chart-head">
+        <h3>Statutory ceiling vs. what a file actually settles for</h3>
+        <p>Same axis, same dollars. The distance between the bars and the band is the argument for fixing
+          this while nobody is counting.</p>
+      </div>
+      <div class="chart" id="expChart"></div>
+      <div class="tip" id="expTip"></div>
+      <p class="chart-note">Ceilings are what the statute permits, not a prediction of loss.</p>
     </div>
 
     <div class="expo">
@@ -844,6 +1003,16 @@ on schedule(<b>"quarterly_reactivation"</b>):
     <div class="sec-head" style="margin-top:clamp(2.4rem,5vw,3.4rem)">
       <span class="eyebrow">Four weeks</span>
       <h2>From 41 to 88 without pausing intake for a day.</h2>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:1.2rem">
+      <div class="chart-head">
+        <h3>41 to 88, by week</h3>
+        <p>Bands are the Grandeza risk tiers. The steep part is week 3 — the overlay controls are cheap to
+          build and carry the most weight.</p>
+      </div>
+      <div class="chart" id="slopeChart"></div>
+      <div class="tip" id="slopeTip"></div>
     </div>
 
     <div class="weeks">
@@ -1189,6 +1358,254 @@ on schedule(<b>"quarterly_reactivation"</b>):
     setTimeout(function(){requestAnimationFrame(step)},delay);
   }
 
+  /* ======================= CHARTS =======================
+     All five render from CONTROLS. Status palette validated: amber↔green sit in
+     the 6–8 CVD floor band and amber is under 3:1 on light, so every status mark
+     here carries a printed label — colour is never the only channel.          */
+  var SVGNS="http://www.w3.org/2000/svg";
+  function el(n,a){var e=document.createElementNS(SVGNS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+  function statusColor(s){return s==="FAIL"?"var(--fail)":s==="PARTIAL"?"var(--warn)":"var(--pass)"}
+  function money(v){return v>=1e6?"$"+(v/1e6).toFixed(2)+"M":"$"+Math.round(v/1000)+"k"}
+
+  function legend(node,items){
+    if(!node) return;
+    node.innerHTML=items.map(function(i){
+      return '<span><i style="background:'+i.c+'"></i>'+i.t+'</span>';
+    }).join("");
+  }
+
+  /* tooltip helper — hover enhances, never gates: every value is also printed */
+  function wireTip(host,tip){
+    return function(target,html){
+      target.addEventListener("mouseenter",function(ev){
+        tip.innerHTML=html; tip.classList.add("on");
+        var hb=host.getBoundingClientRect(), tb=target.getBoundingClientRect();
+        tip.style.left=(tb.left-hb.left+tb.width/2)+"px";
+        tip.style.top=(tb.top-hb.top)+"px";
+      });
+      target.addEventListener("mouseleave",function(){tip.classList.remove("on")});
+    };
+  }
+
+  /* ---------- 1. Point-loss waterfall ---------- */
+  function drawWaterfall(){
+    var host=document.getElementById("wfChart"); if(!host) return;
+    /* the two longest names would run into the control-id gutter — label them short */
+    var SHORT={"Recording & Monitoring Consent":"Recording Consent",
+               "Calling Window & Time-Zone Guard":"Calling Window Guard",
+               "In-Conversation Revocation":"Revocation Capture"};
+    var rows=CONTROLS.map(function(c){
+      return {id:c.id,name:SHORT[c.name]||c.name,full:c.name,
+              lost:c.w*(100-c.now)/100,st:status(c.now),ov:c.ov,w:c.w,now:c.now};
+    }).sort(function(a,b){return b.lost-a.lost});
+    var total=rows.reduce(function(s,r){return s+r.lost},0);
+    var top4=rows.slice(0,4).reduce(function(s,r){return s+r.lost},0);
+
+    var W=1000,rowH=25,padL=210,padR=64,padT=8,H=padT+rows.length*rowH+22;
+    var max=rows[0].lost, sx=(W-padL-padR)/max;
+    var svg=el("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":
+      "Weighted score loss by control. Largest: "+rows[0].name+" at "+rows[0].lost.toFixed(1)+" points."});
+
+    /* x gridlines — hairline, solid, recessive */
+    for(var g=0;g<=Math.ceil(max);g+=2){
+      var gx=padL+g*sx;
+      svg.appendChild(el("path",{d:"M"+gx+" "+padT+"V"+(padT+rows.length*rowH),class:"ax"}));
+      var t=el("text",{x:gx,y:H-6,class:"axlab","text-anchor":"middle"}); t.textContent=g; svg.appendChild(t);
+    }
+    var xl=el("text",{x:padL,y:H-6,class:"axlab","text-anchor":"start"});
+    xl.textContent=""; svg.appendChild(xl);
+
+    var tip=wireTip(host.parentNode,document.getElementById("wfTip"));
+    rows.forEach(function(r,i){
+      var y=padT+i*rowH, bh=13, w=Math.max(1.5,r.lost*sx);
+      var g2=el("g",{class:"row"});
+      var nm=el("text",{x:padL-10,y:y+bh/2+4,class:"markname","text-anchor":"end"});
+      nm.textContent=r.name; g2.appendChild(nm);
+      var cid=el("text",{x:6,y:y+bh/2+4,class:"axlab"}); cid.textContent=r.id; g2.appendChild(cid);
+      /* 4px rounded data-end, square at the baseline */
+      var bar=el("rect",{x:padL,y:y,width:w,height:bh,rx:4,fill:statusColor(r.st),class:"bar-mark"});
+      if(w>8){bar.setAttribute("rx",4)}
+      g2.appendChild(bar);
+      /* square the baseline end */
+      g2.appendChild(el("rect",{x:padL,y:y,width:Math.min(4,w),height:bh,fill:statusColor(r.st),class:"bar-mark"}));
+      /* label the top five only — direct labels work because they are sparing */
+      if(i<5){
+        var v=el("text",{x:padL+w+8,y:y+bh/2+4,class:"marklab strong"});
+        v.textContent="−"+r.lost.toFixed(1); g2.appendChild(v);
+      }
+      var hit=el("rect",{x:0,y:y-5,width:W,height:rowH,fill:"transparent"});
+      g2.appendChild(hit);
+      svg.appendChild(g2);
+      tip(hit,"<b>"+r.id+" · "+r.st+"</b>"+r.full+"<br>weight "+r.w+" × "+(100-r.now)+" short = −"+r.lost.toFixed(1)+" pts");
+    });
+    host.appendChild(svg);
+
+    legend(document.getElementById("wfLegend"),[
+      {c:"var(--fail)",t:"Fail"},{c:"var(--warn)",t:"Partial"},{c:"var(--pass)",t:"Pass"}]);
+    document.getElementById("wfNote").textContent=
+      "Total loss "+total.toFixed(1)+" points from a possible 100. The top four — "+
+      rows.slice(0,4).map(function(r){return r.id}).join(", ")+" — account for "+
+      Math.round(top4/total*100)+"% of it.";
+  }
+
+  /* ---------- 2. Incident timeline ---------- */
+  var EVENTS=[
+    {d:0,   t:"21:48", lab:"Call answered",        st:"FAIL",   note:"No AI or recording disclosure"},
+    {d:0,   t:"21:50", lab:"Consent captured",     st:"PARTIAL",note:"Oral yes, no signed artifact"},
+    {d:0,   t:"21:53", lab:"Service SMS",          st:"PASS",   note:"Correct basis, correct message"},
+    {d:0,   t:"21:53", lab:"Marketing SMS",        st:"FAIL",   note:"No prior express written consent"},
+    {d:3,   t:"08:12", lab:"Revocation spoken",    st:"FAIL",   note:"Acknowledged, never recorded"},
+    {d:22,  t:"20:12", lab:"Reactivation dial",    st:"FAIL",   note:"DNC + revoked + wrong window"}
+  ];
+  function drawTimeline(){
+    var host=document.getElementById("tlChart"); if(!host) return;
+    var W=560,H=250,padL=20,padR=20,axY=196;
+    var maxD=22, sx=(W-padL-padR)/maxD;
+    var svg=el("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":
+      "Timeline of six events across 22 days, five of which breach a control."});
+    svg.appendChild(el("path",{d:"M"+padL+" "+axY+"H"+(W-padR),class:"ax"}));
+    [0,3,22].forEach(function(d){
+      var x=padL+d*sx;
+      var t=el("text",{x:x,y:axY+18,class:"axlab","text-anchor":d===22?"end":"start"});
+      t.textContent=d===0?"day 0":"day "+d; svg.appendChild(t);
+    });
+    var tip=wireTip(host.parentNode,document.getElementById("tlTip"));
+    /* one lane per event: same-day events stack, and later events clear the
+       day-0 labels that would otherwise run underneath their markers */
+    var lanes=[0,1,2,3,4,5];
+    EVENTS.forEach(function(e,i){
+      var x=padL+e.d*sx, lane=lanes[i], y=axY-24-lane*28;
+      var col=statusColor(e.st);
+      svg.appendChild(el("path",{d:"M"+x+" "+axY+"V"+(y+7),stroke:"var(--line-strong)","stroke-width":1,fill:"none"}));
+      /* marker ≥8px with a 2px surface ring */
+      svg.appendChild(el("circle",{cx:x,cy:y,r:5.5,fill:col,stroke:"var(--surface)","stroke-width":2}));
+      var anchor=(x>W-170)?"end":"start", tx=(anchor==="end")?x-10:x+10;
+      var lb=el("text",{x:tx,y:y-6,class:"markname","text-anchor":anchor}); lb.textContent=e.lab;
+      var tm=el("text",{x:tx,y:y+6,class:"axlab","text-anchor":anchor}); tm.textContent=e.t+" · "+e.st;
+      svg.appendChild(lb); svg.appendChild(tm);
+      var hit=el("circle",{cx:x,cy:y,r:16,fill:"transparent"}); svg.appendChild(hit);
+      tip(hit,"<b>"+e.t+" · "+e.st+"</b>"+e.lab+"<br>"+e.note);
+    });
+    host.appendChild(svg);
+    legend(document.getElementById("tlLegend"),[
+      {c:"var(--fail)",t:"Breach"},{c:"var(--warn)",t:"Partial"},{c:"var(--pass)",t:"Clean"}]);
+  }
+
+  /* ---------- 3. Control grid ---------- */
+  function drawGrid(){
+    var host=document.getElementById("cgrid"); if(!host) return;
+    var tip=wireTip(host.parentNode,document.getElementById("gridTip"));
+    CONTROLS.forEach(function(c){
+      var st=status(c.now);
+      var d=document.createElement("div");
+      d.className="cell "+st+(c.ov?" ovl":"");
+      /* PARTIAL and PASS both start with P — spell them apart, or the label
+         channel collapses and the cell is colour-only again */
+      var tag={FAIL:"FAIL",PARTIAL:"PART",PASS:"PASS"}[st];
+      d.innerHTML='<span class="cc">'+c.id.replace("CTRL-","C").replace("VA-","VA")+'</span>'+
+                  '<span class="cs">'+c.now+'</span><span class="cl">'+tag+'</span>';
+      host.appendChild(d);
+      tip(d,"<b>"+c.id+" · "+st+"</b>"+c.name+"<br>scores "+c.now+", target "+c.tgt);
+    });
+  }
+
+  /* ---------- 4. Remediation slope ---------- */
+  var WEEKS=[{w:0,s:41,l:"As scanned"},{w:1,s:48,l:"Audit"},{w:2,s:63,l:"Consent + evidence"},
+             {w:3,s:79,l:"Overlay"},{w:4,s:88,l:"Prove"}];
+  var BANDS=[{lo:0,hi:45,t:"High Risk",c:"var(--fail)"},{lo:45,hi:70,t:"At Risk",c:"var(--warn)"},
+             {lo:70,hi:85,t:"Hardened",c:"var(--pass)"},{lo:85,hi:100,t:"Protected",c:"var(--pass)"}];
+  function drawSlope(){
+    var host=document.getElementById("slopeChart"); if(!host) return;
+    var W=900,H=260,padL=40,padR=96,padT=14,padB=32;
+    var sx=(W-padL-padR)/4, sy=(H-padT-padB)/100;
+    var Y=function(v){return H-padB-v*sy};
+    var svg=el("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":
+      "Score rising from 41 as scanned to 88 after four weeks of hardening."});
+    BANDS.forEach(function(b){
+      svg.appendChild(el("rect",{x:padL,y:Y(b.hi),width:W-padL-padR,height:(b.hi-b.lo)*sy,
+        fill:b.c,opacity:.055}));
+      var t=el("text",{x:W-padR+8,y:(Y(b.lo)+Y(b.hi))/2+3,class:"axlab"}); t.textContent=b.t; svg.appendChild(t);
+    });
+    [0,25,50,75,100].forEach(function(v){
+      svg.appendChild(el("path",{d:"M"+padL+" "+Y(v)+"H"+(W-padR),class:"ax"}));
+      var t=el("text",{x:padL-8,y:Y(v)+3,class:"axlab","text-anchor":"end"}); t.textContent=v; svg.appendChild(t);
+    });
+    var pts=WEEKS.map(function(p){return [padL+p.w*sx,Y(p.s)]});
+    /* area wash at ~10%, then the 2px line */
+    var area="M"+pts[0][0]+" "+(H-padB)+"L"+pts.map(function(p){return p[0]+" "+p[1]}).join("L")+
+             "L"+pts[pts.length-1][0]+" "+(H-padB)+"Z";
+    svg.appendChild(el("path",{d:area,fill:"var(--pass)",opacity:.07}));
+    svg.appendChild(el("path",{d:"M"+pts.map(function(p){return p[0]+" "+p[1]}).join("L"),
+      fill:"none",stroke:"var(--pass)","stroke-width":2,"stroke-linejoin":"round","stroke-linecap":"round"}));
+    var tip=wireTip(host.parentNode,document.getElementById("slopeTip"));
+    WEEKS.forEach(function(p,i){
+      var x=pts[i][0],y=pts[i][1];
+      svg.appendChild(el("circle",{cx:x,cy:y,r:4.5,fill:i===0?"var(--fail)":"var(--pass)",
+        stroke:"var(--surface)","stroke-width":2}));
+      var wl=el("text",{x:x,y:H-padB+18,class:"axlab","text-anchor":"middle"});
+      wl.textContent=p.w===0?"scan":"wk "+p.w; svg.appendChild(wl);
+      /* label the two endpoints only */
+      if(i===0||i===WEEKS.length-1){
+        var v=el("text",{x:i===0?x+12:x-4,y:y-12,class:"marklab strong","text-anchor":i===0?"start":"end"});
+        v.textContent=p.s; svg.appendChild(v);
+      }
+      var hit=el("circle",{cx:x,cy:y,r:16,fill:"transparent"}); svg.appendChild(hit);
+      tip(hit,"<b>"+(p.w===0?"At scan":"After week "+p.w)+"</b>"+p.l+" → score "+p.s);
+    });
+    host.appendChild(svg);
+  }
+
+  /* ---------- 5. Exposure comparison ---------- */
+  var EXPO=[
+    {lab:"Undisclosed recording",   sub:"VA-02 · $5,000 × 246", v:1230000},
+    {lab:"Reactivation campaign",   sub:"CTRL-04/05 · $500 × 596", v:298000},
+    {lab:"Contact after revocation",sub:"VA-03 · $500 × 270", v:135000}
+  ];
+  function drawExposure(){
+    var host=document.getElementById("expChart"); if(!host) return;
+    var W=1000,H=210,padL=210,padR=90,padT=10,rowH=42;
+    var max=1300000, sx=(W-padL-padR)/max;
+    var svg=el("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":
+      "Three statutory exposure lines totalling 1.66 million, against a realistic settlement band of 45 to 180 thousand."});
+    [0,500000,1000000].forEach(function(v){
+      var x=padL+v*sx;
+      svg.appendChild(el("path",{d:"M"+x+" "+padT+"V"+(padT+3*rowH+34),class:"ax"}));
+      var t=el("text",{x:x,y:H-6,class:"axlab","text-anchor":"middle"});
+      t.textContent=v===0?"$0":money(v); svg.appendChild(t);
+    });
+    var tip=wireTip(host.parentNode,document.getElementById("expTip"));
+    EXPO.forEach(function(e,i){
+      var y=padT+i*rowH, bh=18, w=e.v*sx;
+      var g2=el("g",{class:"row"});
+      var nm=el("text",{x:padL-12,y:y+bh/2+4,class:"markname","text-anchor":"end"});
+      nm.textContent=e.lab; g2.appendChild(nm);
+      var sb=el("text",{x:padL-12,y:y+bh/2+16,class:"axlab","text-anchor":"end"});
+      sb.textContent=e.sub; g2.appendChild(sb);
+      g2.appendChild(el("rect",{x:padL,y:y,width:w,height:bh,rx:4,fill:"var(--fail)",class:"bar-mark"}));
+      g2.appendChild(el("rect",{x:padL,y:y,width:4,height:bh,fill:"var(--fail)",class:"bar-mark"}));
+      var v=el("text",{x:padL+w+8,y:y+bh/2+4,class:"marklab strong"}); v.textContent=money(e.v);
+      g2.appendChild(v);
+      var hit=el("rect",{x:0,y:y-6,width:W,height:rowH,fill:"transparent"}); g2.appendChild(hit);
+      svg.appendChild(g2);
+      tip(hit,"<b>"+e.sub+"</b>"+e.lab+"<br>statutory ceiling "+money(e.v)+" per quarter");
+    });
+    /* the realistic band, same axis, same units */
+    var by=padT+3*rowH+4, x1=padL+45000*sx, x2=padL+180000*sx;
+    svg.appendChild(el("rect",{x:x1,y:by,width:Math.max(3,x2-x1),height:14,rx:4,fill:"var(--warn)"}));
+    var bl=el("text",{x:padL-12,y:by+11,class:"markname","text-anchor":"end"});
+    bl.textContent="Realistic settlement"; svg.appendChild(bl);
+    var bv=el("text",{x:x2+10,y:by+11,class:"marklab strong"}); bv.textContent="$45k – $180k";
+    svg.appendChild(bv);
+    host.appendChild(svg);
+  }
+
+  var chartsDone=false;
+  function drawCharts(){
+    if(chartsDone) return; chartsDone=true;
+    try{drawWaterfall();drawTimeline();drawGrid();drawSlope();drawExposure()}
+    catch(err){/* a chart must never take the document down */}
+  }
+
   var gaugesDone=false;
   function runGauges(){
     if(gaugesDone) return; gaugesDone=true;
@@ -1200,6 +1617,8 @@ on schedule(<b>"quarterly_reactivation"</b>):
       });
     },400);
   }
+
+  drawCharts();
 
   if("IntersectionObserver" in window){
     var io=new IntersectionObserver(function(es){

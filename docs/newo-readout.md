@@ -15,9 +15,15 @@ is about whether Newo wants it in the channel, not whether we can produce one.
 
 | Section | What it does |
 |---|---|
-| Masthead + doc meta | Reads as an issued document: reference number, scope, framework, basis, classification |
+| Masthead + doc meta | Cover plate (guilloche security engraving) with reference number, scope, framework, basis, classification |
+| The calling card | The Scan reads **any** chatbot, voice agent, chat widget, dialer or in-house LLM intake — this run just happens to be a voice agent. CTA to `/scan` |
 | Score band | Two 270° gauges — **41 High Risk → 88 Protected** — computed live from the control data |
+| **Point-loss waterfall** | Every control's weight × shortfall, sorted. The standout chart: four controls are 48% of the 59-point gap |
 | Executive readout | Five findings, ordered by how fast each becomes a demand letter |
+| **Incident timeline** | Six events over 22 days, one customer — each marker a control decision made unasked |
+| **Control grid** | All 20 scored in one glance, status printed in every cell |
+| **Exposure chart** | Statutory ceilings vs. the realistic settlement band, on one shared dollar axis |
+| **Remediation slope** | 41 → 88 by week over the Grandeza risk bands |
 | The call | Annotated transcript: a 9:48pm no-heat call, the follow-up, and the reactivation dial 19 days later. Each annotation points at a control |
 | Controls | All 20 scored, filterable (All / Fail / Partial / Pass / overlay), with finding + fix per row |
 | Exposure | Four models with every input visible, plus a realistic settlement band next to the statutory ceiling |
@@ -60,6 +66,38 @@ the commercial argument — they only exist because the receptionist is a model:
 
 VA-03 is the finding to lead with on the call. It is cheap to fix, impossible to argue with,
 and the transcript that proves the shop heard the revocation is produced by the platform itself.
+
+## 3b. Charts and imagery
+
+**All five charts are inline SVG rendered from `CONTROLS`** — no chart library, nothing hardcoded.
+Change a control score and the waterfall re-sorts, the grid re-colors and the note recomputes its
+"top four = N%" claim. The charts follow the house data-viz rules: hairline solid gridlines, ≤24px
+marks with 4px rounded data-ends, ≥8px markers with a 2px surface ring, selective direct labels
+(top five on the waterfall, endpoints only on the slope), one axis, never two.
+
+**The status palette was validated, not eyeballed**, and it came back with two warnings that shaped
+the design:
+
+- amber↔green sit at ΔE 7.5 under protanopia — inside the 6–8 floor band, legal *only* with
+  secondary encoding;
+- amber is 2.72:1 against the light surface — below 3:1, so visible labels are required.
+
+So **no mark anywhere encodes status by color alone.** Every waterfall bar, grid cell and timeline
+marker carries its status in text. (The grid originally printed `status.charAt(0)`, which rendered
+both PARTIAL and PASS as "P" — that collapsed the label channel and is fixed to FAIL/PART/PASS.)
+
+**Imagery** is wired through seven CSS custom properties in `:root` — `--img-cover`, `--img-strata`,
+`--img-seal`, `--img-tech`, `--img-dispatch`, `--img-homeowner`, `--img-plumber`. Three are the
+Higgsfield brand plates generated for this document (guilloche security engraving, archival paper
+strata, blank 16-point seal medallion, all prompted in the exact Grandeza palette); four are the
+existing `/scan` character library documented in `social-assets.md`. Every one is a
+`background-image` layered over a brand gradient, so a blocked or expired URL degrades silently to
+the gradient rather than showing a broken-image icon. To self-host later, repoint those seven
+properties and change nothing else.
+
+> **Note:** the sandbox this was built in blocks the Higgsfield CDN, so the images could not be
+> visually confirmed here — only that they degrade cleanly. Check them once on a deployed host.
+> If any plate is the wrong crop, swap the URL in the matching custom property.
 
 ## 4. Honesty constraints (do not remove)
 
