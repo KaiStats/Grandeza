@@ -104,7 +104,7 @@ Quick context: I just finished a compliance audit for a Las Vegas HVAC shop (sim
 
 After implementing Grandeza's Scan (free tool), they found 3 controls they were missing. Fixed them in under a week.
 
-If you want to run the same scan on Bob's 24-Hour, it's free, takes 5 minutes, gives you a compliance score and shows where your chatbot could create problems.
+If you want to run the same scan on Bob's 24-Hour, it's free, takes 3 minutes, gives you a compliance score and shows where your chatbot could create problems.
 
 Grandeza Scan: grandeza.com/scan
 

@@ -82,7 +82,7 @@ truck hood. **Plain, specific, calm, on their side.** Never a law firm; never fe
 | Say | Not |
 |---|---|
 | "Prove it. Here's the signed record." | "Trust us, you're covered." |
-| "A 12-minute scan of your shop." | "Comprehensive compliance assessment solution." |
+| "A 3-minute scan of your shop." | "Comprehensive compliance assessment solution." |
 | "Your crew, your shop, your call." | "SMBs / users / stakeholders." |
 | "One text can cost you five figures." | "Are you TERRIFIED of lawsuits?!" |
 | "We harden what you already run." | "Rip out your stack and start over." |
@@ -114,7 +114,7 @@ pressure; contractions ok; no exclamation-mark hype; the word "shop/operator/cre
   - *Ops Manager* → "Turnkey, no downtime, one searchable log."
   - *Cost-focused* → "One complaint ≈ $50k. Grandeza ≈ $3.3k/yr. A 16× hedge."
 - **Proof points:** 16-control framework · signed consent + immutable audit trail · DNC
-  screening · insurance-ready binder · free 12-minute scan · works on your existing Twilio/CRM.
+  screening · insurance-ready binder · free 3-minute scan · works on your existing Twilio/CRM.
 
 ---
 
