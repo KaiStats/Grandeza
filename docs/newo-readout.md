@@ -16,7 +16,7 @@ is about whether Newo wants it in the channel, not whether we can produce one.
 | Section | What it does |
 |---|---|
 | Masthead + doc meta | Cover plate (guilloche security engraving) with reference number, scope, framework, basis, classification |
-| The calling card | The Scan reads **any** chatbot, voice agent, chat widget, dialer or in-house LLM intake — this run just happens to be a voice agent. CTA to `/scan` |
+| Stat line | 3 min · 20 controls · 0 code access · any agent, bot or dialer |
 | Score band | Two 270° gauges — **41 High Risk → 88 Protected** — computed live from the control data |
 | **Point-loss waterfall** | Every control's weight × shortfall, sorted. The standout chart: four controls are 48% of the 59-point gap |
 | Executive readout | Five findings, ordered by how fast each becomes a demand letter |
@@ -86,18 +86,13 @@ So **no mark anywhere encodes status by color alone.** Every waterfall bar, grid
 marker carries its status in text. (The grid originally printed `status.charAt(0)`, which rendered
 both PARTIAL and PASS as "P" — that collapsed the label channel and is fixed to FAIL/PART/PASS.)
 
-**Imagery** is wired through seven CSS custom properties in `:root` — `--img-cover`, `--img-strata`,
-`--img-seal`, `--img-tech`, `--img-dispatch`, `--img-homeowner`, `--img-plumber`. Three are the
-Higgsfield brand plates generated for this document (guilloche security engraving, archival paper
-strata, blank 16-point seal medallion, all prompted in the exact Grandeza palette); four are the
-existing `/scan` character library documented in `social-assets.md`. Every one is a
-`background-image` layered over a brand gradient, so a blocked or expired URL degrades silently to
-the gradient rather than showing a broken-image icon. To self-host later, repoint those seven
-properties and change nothing else.
+**Imagery is deliberately almost absent.** The document carries exactly one image — the intaglio
+guilloche cover plate behind the masthead, wired as `--img-cover`. Portraits and character strips were
+removed: in a document whose entire claim is *evidence*, stock people compete with the data and read as
+brochure. The charts, the gauges, the control grid and the annotated transcript are the visual system.
 
-> **Note:** the sandbox this was built in blocks the Higgsfield CDN, so the images could not be
-> visually confirmed here — only that they degrade cleanly. Check them once on a deployed host.
-> If any plate is the wrong crop, swap the URL in the matching custom property.
+To self-host the cover later, repoint that one property. It is a `background-image` over a brand
+gradient, so a blocked or expired URL degrades to the gradient rather than a broken-image icon.
 
 ## 4. Honesty constraints (do not remove)
 

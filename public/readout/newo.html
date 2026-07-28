@@ -62,55 +62,28 @@
   --shadow-lift:0 2px 8px rgba(0,0,0,.5),0 32px 70px -24px rgba(0,0,0,.8);color-scheme:dark;
 }
 /* ---------- Imagery ----------------------------------------------------------
-   Higgsfield plates + the /scan character library. Every reference is a CSS
-   background-image over a brand gradient, so a blocked or expired URL degrades
-   to the gradient instead of a broken-image icon (same pattern as the site).
-   Production: self-host under /img and repoint these five properties only.   */
+   One image in the whole document: the intaglio cover plate behind the
+   masthead. It is a CSS background over a brand gradient, so a blocked or
+   expired URL degrades to the gradient rather than a broken-image icon.
+   Production: self-host it and repoint this one property.                    */
 :root{
   --img-cover:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260728_180524_4f7c1da5-2ac4-45de-aaa2-be3047b6f495.png");
-  --img-strata:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260728_180530_59c8f303-a0a2-4941-86f6-a6ea83cf3af6.png");
-  --img-seal:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260728_180527_f20181a0-e2fc-4ec3-b48f-a15c7b36da0d.png");
-  /* The Grandeza Scan characters — the six-portrait set. Order here is the order
-     they appear down the page; swap two URLs to re-cast a section. */
-  --img-c1:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035628_c97a8f61-fdf0-4f52-b912-71214dbe5676.png");
-  --img-c2:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035111_c663336e-2d2e-4ed1-a8af-1c4b6aac6345.png");
-  --img-c3:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035640_3116aa99-a434-48ce-a51a-34b25a5bfb33.png");
-  --img-c4:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035637_d26fdf64-1846-4439-8bd6-b3b47350fe24.png");
-  --img-c5:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035634_1d6c1e2b-f2a8-4d4f-af59-def9621a99f2.png");
-  --img-c6:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035632_247f5ac5-3940-41f1-95ff-8d89905c260f.png");
 }
 .plate{position:relative;isolation:isolate;overflow:hidden}
 .plate::before{content:"";position:absolute;inset:0;z-index:-1;
   background-color:var(--panel-dark);
   background-image:linear-gradient(100deg,rgba(11,21,23,.94) 34%,rgba(11,21,23,.58) 66%,rgba(11,21,23,.42)),var(--img-cover);
   background-size:cover;background-position:center right}
-.plate-strata{position:relative;height:96px;background-color:var(--panel-dark);
-  background-image:linear-gradient(90deg,rgba(11,21,23,.7),rgba(11,21,23,.25),rgba(11,21,23,.7)),var(--img-strata);
-  background-size:cover;background-position:center;border-block:1px solid var(--line)}
-.figure-img{border-radius:var(--radius);overflow:hidden;background-color:var(--panel-dark);
-  background-size:cover;background-position:center;min-height:220px;border:1px solid var(--line);
-  display:flex;align-items:flex-end;padding:1.1rem}
-.figure-img.c1{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c1)}
-.figure-img.c2{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c2)}
-.figure-img.c3{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c3)}
-.figure-img.c4{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c4)}
-.figure-img.c5{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c5)}
-.figure-img.c6{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c6)}
-.figure-img .cap{color:#e9efec;font-family:var(--font-mono);font-size:.74rem;letter-spacing:.1em;
-  text-transform:uppercase;text-shadow:0 1px 12px rgba(0,0,0,.9)}
-/* the six-up character strip */
-.cast{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem}
-@media (max-width:900px){.cast{grid-template-columns:repeat(3,1fr)}}
-.cast figure{margin:0}
-.cast .port{aspect-ratio:3/4;border-radius:var(--radius-sm);border:1px solid var(--line);
-  background-color:var(--panel-dark);background-size:cover;background-position:center top;
-  transition:transform .2s var(--ease),border-color .2s}
-.cast figure:hover .port{transform:translateY(-3px);border-color:var(--accent)}
-.cast .port.c1{background-image:var(--img-c1)}.cast .port.c2{background-image:var(--img-c2)}
-.cast .port.c3{background-image:var(--img-c3)}.cast .port.c4{background-image:var(--img-c4)}
-.cast .port.c5{background-image:var(--img-c5)}.cast .port.c6{background-image:var(--img-c6)}
-.cast figcaption{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-faint);margin-top:.45rem;text-align:center;line-height:1.35}
+.statline{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.statline div{padding:1rem 1.2rem;border-right:1px solid var(--line)}
+.statline div:last-child{border-right:0}
+.statline b{display:block;font-family:var(--font-mono);font-size:1.5rem;font-weight:600;letter-spacing:-.02em}
+.statline span{display:block;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-faint);margin-top:.25rem}
+@media (max-width:700px){.statline{grid-template-columns:1fr 1fr}
+  .statline div:nth-child(2n){border-right:0}
+  .statline div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 .plate .eyebrow{color:var(--seal-2)}
 .plate h1,.plate h2,.plate p,.plate dt,.plate dd{color:#e9efec}
 .plate .docmeta{background:rgba(233,239,236,.045);border-color:rgba(198,161,91,.28)}
@@ -446,7 +419,6 @@ pre .good{color:var(--pass)}
   .weeks{grid-template-columns:repeat(4,1fr)!important}
   .ask{grid-template-columns:repeat(3,1fr)!important}
   .cgrid{grid-template-columns:repeat(10,1fr)!important}
-  .cast{grid-template-columns:repeat(6,1fr)!important;break-inside:avoid}
   .docmeta{grid-template-columns:repeat(4,1fr)!important}
   .docmeta div{border-bottom:1px solid #ccc!important}
   pre{font-size:7pt}
@@ -463,8 +435,6 @@ pre .good{color:var(--pass)}
   h2,h3{break-after:avoid}
   /* keep the cover legible on white paper; drop the decorative bands */
   .plate::before{background-image:linear-gradient(100deg,rgba(11,21,23,.97),rgba(11,21,23,.9)),var(--img-cover)}
-  .plate-strata{display:none}
-  .figure-img{min-height:150px}
   .tip{display:none!important}
   .chart svg{max-height:none}
   a{color:#111;text-decoration:none}
@@ -495,11 +465,10 @@ pre .good{color:var(--pass)}
   <div class="wrap">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
     <p><strong>Sample readout</strong><br>
-      Built by Grandeza from Newo's public product documentation and Grandeza's HVAC engagement patterns.
-      <b>Cardinal Heating &amp; Air is a composite operator</b> — the shop, the call and the numbers are illustrative,
-      modeled on the deployment pattern Newo describes for HVAC, not drawn from any real Newo customer's data.
-      This document was not authored, reviewed or endorsed by Newo.ai. Swap in a named tenant and a 3-minute scan
-      and every figure on this page becomes measured instead of modeled.</p>
+      <b>Cardinal Heating &amp; Air is a composite operator</b> — the shop, the call and the numbers are
+      illustrative, modeled from Newo's public product documentation and Grandeza's HVAC engagement patterns,
+      not from any real customer's data. Not authored, reviewed or endorsed by Newo.ai. A named tenant and a
+      3-minute Scan turns every figure here from modeled into measured.</p>
   </div>
 </div>
 
@@ -509,9 +478,8 @@ pre .good{color:var(--pass)}
   <section class="masthead plate"><div class="wrap">
     <span class="eyebrow">Grandeza Scan · readout</span>
     <h1>It books the job. <em>Can it prove how?</em></h1>
-    <p class="lede">The Scan reads any chatbot, voice agent or automated intake system and returns one
-      number, twenty scored controls and the evidence behind each. Run here against an HVAC shop's
-      receptionist. Nothing asks anyone to rip it out — it's the good part. What's missing is the record.</p>
+    <p class="lede">One number, twenty scored controls, and the evidence behind each — for any chatbot,
+      voice agent or automated intake system. Run here against an HVAC shop's receptionist.</p>
 
     <dl class="docmeta">
       <div><dt>Reference</dt><dd class="mono">GZ-SCAN-2026-0728-NEWO</dd></div>
@@ -526,42 +494,14 @@ pre .good{color:var(--pass)}
   </div></section>
 
   <!-- ================= WHAT THE SCAN READS ================= -->
-  <section style="padding-block:clamp(2rem,4vw,3rem)"><div class="wrap">
-    <div class="grid g2" style="align-items:center;gap:clamp(1.4rem,4vw,2.6rem)">
-      <div>
-        <span class="eyebrow">The calling card</span>
-        <h2 style="font-size:var(--step-2);margin-top:.7rem">The Scan doesn't care whose agent it is.</h2>
-        <p class="lede" style="font-size:var(--step-0)">Voice agent, SMS bot, web chat widget, an in-house
-          model wired to a CRM — if it talks to customers and can send, the Scan reads it the same way:
-          what it says, what it captures, what it sends, and what survives to prove it. Three minutes,
-          no integration, no code access.</p>
-        <div class="tallies" style="margin-top:1.2rem">
-          <span class="tally">Voice agents</span><span class="tally">SMS &amp; chat bots</span>
-          <span class="tally">Web chat widgets</span><span class="tally">Outbound dialers</span>
-          <span class="tally">In-house LLM intake</span>
-        </div>
-        <div class="cta-row" style="justify-content:flex-start;margin-top:1.4rem">
-          <a class="btn btn-primary" href="/scan">Run a free Scan <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-      <div class="figure-img c2" aria-hidden="true"><span class="cap">Three minutes · no integration</span></div>
-    </div>
-
-    <div style="margin-top:clamp(1.8rem,4vw,2.6rem)">
-      <p class="kicker" style="margin-bottom:.9rem">Who the Scan is for</p>
-      <div class="cast">
-        <figure><div class="port c1"></div><figcaption>Owner</figcaption></figure>
-        <figure><div class="port c2"></div><figcaption>Dispatch</figcaption></figure>
-        <figure><div class="port c3"></div><figcaption>Field tech</figcaption></figure>
-        <figure><div class="port c4"></div><figcaption>Office manager</figcaption></figure>
-        <figure><div class="port c5"></div><figcaption>Marketing</figcaption></figure>
-        <figure><div class="port c6"></div><figcaption>Counsel</figcaption></figure>
-      </div>
-      <p class="chart-note" style="border:0;padding-top:.7rem">One person who knows the workflow can finish
-        it. Everyone else just needs the number it returns.</p>
+  <section style="padding-block:clamp(1.6rem,3vw,2.2rem)"><div class="wrap">
+    <div class="statline">
+      <div><b>3 min</b><span>to run</span></div>
+      <div><b>20</b><span>controls scored</span></div>
+      <div><b>0</b><span>code access</span></div>
+      <div><b>Any</b><span>agent, bot or dialer</span></div>
     </div>
   </div></section>
-  <div class="plate-strata" aria-hidden="true"></div>
 
   <!-- ================= SCORE ================= -->
   <section class="score-band" id="score"><div class="wrap">
@@ -595,11 +535,9 @@ pre .good{color:var(--pass)}
       <div class="score-read">
         <span class="eyebrow">The number</span>
         <h2>The agent is doing its job. The evidence isn't.</h2>
-        <p>Cardinal's Newo deployment answers every call, books at 2am, writes back to Housecall&nbsp;Pro and
-          never forgets a follow-up. Every control that's about <em>running</em> the intake scores well.
-          Every control that's about <em>proving</em> the intake scores badly — and the four voice-AI controls
-          that didn't exist before agents started dialing score worst of all.</p>
-        <p>Eight controls fail outright. Three of the eight are one-line changes to the flow template.</p>
+        <p>Every control about <em>running</em> the intake scores well. Every control about <em>proving</em> it
+          scores badly — and the four voice-AI controls score worst of all.</p>
+        <p>Eight fail outright. Three of the eight are one-line changes to the flow template.</p>
         <div class="tallies">
           <span class="tally f"><b id="tFail">0</b> FAIL</span>
           <span class="tally w"><b id="tPart">0</b> PARTIAL</span>
@@ -619,8 +557,7 @@ pre .good{color:var(--pass)}
     <div class="sec-head">
       <span class="eyebrow">Where the 59 points went</span>
       <h2>Four controls are half the gap.</h2>
-      <p>Every control's weight times how far it falls short. This is the whole remediation argument in
-        one picture — the work isn't spread across twenty controls, it's concentrated in a handful.</p>
+      <p>Each control's weight times how far it falls short.</p>
     </div>
     <div class="chart-card">
       <div class="legend" id="wfLegend"></div>
@@ -635,8 +572,7 @@ pre .good{color:var(--pass)}
     <div class="sec-head">
       <span class="eyebrow">Executive readout</span>
       <h2>Five findings, in the order a plaintiff's lawyer would find them.</h2>
-      <p>Ranked by how quickly each one turns into a demand letter — not by how hard it is to fix.
-        Three of these are platform-level: they live in the flow template, not in the shop.</p>
+      <p>Ranked by how fast each becomes a demand letter. Three live in the flow template, not the shop.</p>
     </div>
 
     <div class="findings">
@@ -644,11 +580,9 @@ pre .good{color:var(--pass)}
         <div class="finding-n">01</div>
         <div>
           <h3>A spoken "stop calling me" goes nowhere.</h3>
-          <p>In a 500-call transcript sample, 11 callers revoked consent out loud — "take me off the list,"
-            "quit texting me about that." The agent acknowledged all 11 warmly and wrote none of them to a
-            suppression list. Revocation is valid <em>in any reasonable manner</em>, and telling the AI counts.
-            Continued contact after a revocation the record shows you heard is the cleanest TCPA claim there is:
-            the transcript is the plaintiff's exhibit, and you produced it.</p>
+          <p>11 of 500 sampled calls contained a spoken opt-out. The agent acknowledged all 11 and wrote
+            none to a suppression list. Revocation is valid in any reasonable manner — telling the agent
+            counts. The transcript proving you heard it is the plaintiff's exhibit, and you produced it.</p>
           <div class="refs"><span class="chip f">VA-03 FAIL</span><span class="chip f">CTRL-04 FAIL</span><span class="chip">FCC revocation rules · eff. 2025-04-11</span></div>
         </div>
       </article>
@@ -657,10 +591,9 @@ pre .good{color:var(--pass)}
         <div class="finding-n">02</div>
         <div>
           <h3>Service consent is being spent on marketing.</h3>
-          <p>"Is this a good number to text you?" earns an informational text about tomorrow's 7–9am window.
-            It does not earn the Comfort Club offer sent 40 seconds later. Marketing to a wireless number needs
-            prior express <em>written</em> consent with the required disclosures — a spoken yes on a service call
-            isn't it. One booking flow produces both messages, so the violation scales with the shop's best month.</p>
+          <p>A spoken yes to a booking text does not carry the membership offer sent 40 seconds later.
+            Marketing to a wireless number needs prior express <em>written</em> consent. One flow sends both,
+            so the violation scales with the shop's best month.</p>
           <div class="refs"><span class="chip f">CTRL-05 FAIL</span><span class="chip w">CTRL-01 PARTIAL</span><span class="chip">47 C.F.R. §64.1200(f)(9)</span></div>
         </div>
       </article>
@@ -669,11 +602,10 @@ pre .good{color:var(--pass)}
         <div class="finding-n">03</div>
         <div>
           <h3>The outbound AI voice is a regulated artifact.</h3>
-          <p>Since February 2024 the FCC has treated an AI-generated voice as an "artificial voice" under the TCPA.
-            That puts every outbound reactivation call in the consent-required column — and California has required
-            since January 2025 that an artificial voice be disclosed at the start of the call.
-            Cardinal's quarterly reactivation list is built from a CRM query with no DNC scrub, no suppression join
-            and no time-zone guard, then dialed by an AI voice that never says it's one.</p>
+          <p>Since February 2024 the FCC treats an AI-generated voice as an "artificial voice" under the
+            TCPA, which puts every outbound reactivation call in the consent-required column. The quarterly
+            list is a raw CRM query — no DNC scrub, no suppression join, no time-zone guard — dialed by a
+            voice that never says it's synthetic.</p>
           <div class="refs"><span class="chip f">VA-01 PARTIAL→FAIL in CA</span><span class="chip f">VA-04 FAIL</span><span class="chip f">CTRL-04 FAIL</span><span class="chip">FCC 24-17 · AB 2905</span></div>
         </div>
       </article>
@@ -682,10 +614,9 @@ pre .good{color:var(--pass)}
         <div class="finding-n">04</div>
         <div>
           <h3>Every call is recorded. Nobody is told.</h3>
-          <p>The agent transcribes and retains audio by design — that's how it books accurately. But the shop
-            takes calls from all-party-consent states, and there's no recording disclosure anywhere in the
-            greeting. California's wiretap statute carries $5,000 per violation with a private right of action,
-            and it's currently one of the most heavily litigated theories against conversational AI.</p>
+          <p>The agent retains audio by design — that's how it books accurately. The shop takes calls from
+            all-party-consent states with no recording disclosure in the greeting. California's wiretap statute
+            carries $5,000 per violation and a private right of action.</p>
           <div class="refs"><span class="chip f">VA-02 FAIL</span><span class="chip w">CTRL-06 PARTIAL</span><span class="chip">Cal. Penal Code §§632.7, 637.2</span></div>
         </div>
       </article>
@@ -694,10 +625,9 @@ pre .good{color:var(--pass)}
         <div class="finding-n">05</div>
         <div>
           <h3>There's a record of everything and evidence of nothing.</h3>
-          <p>Transcripts sit in the agent platform, jobs in Housecall Pro, messages at the carrier, and none of
-            them are joined by a consent identifier or tamper-evident. When a demand letter arrives with a
-            four-year lookback, the shop can produce a lot of text and prove none of it. Same facts, two outcomes:
-            a defensible file closes at nuisance value; an undocumented one gets certified.</p>
+          <p>Transcripts in the platform, jobs in Housecall Pro, messages at the carrier — none joined by a
+            consent ID, none tamper-evident. Against a four-year lookback the shop can produce a lot of text
+            and prove none of it. A defensible file closes at nuisance value; an undocumented one gets certified.</p>
           <div class="refs"><span class="chip w">CTRL-02 PARTIAL</span><span class="chip f">CTRL-15 FAIL</span><span class="chip f">CTRL-16 FAIL</span><span class="chip">28 U.S.C. §1658 · 4-yr SOL</span></div>
         </div>
       </article>
@@ -709,23 +639,17 @@ pre .good{color:var(--pass)}
     <div class="sec-head">
       <span class="eyebrow">The use case · no-heat call, after hours</span>
       <h2>One 4-minute call, one follow-up, one campaign — and the whole file.</h2>
-      <p>This is the ordinary case, not the edge case: a December no-heat call at 9:48pm, booked perfectly by
-        the AI, followed 19 days later by a routine reactivation dial. Every annotation below points at a control
-        in the table. Nothing in this sequence is unusual, which is exactly the problem.</p>
+      <p>The ordinary case, not the edge case — and nothing in it is unusual, which is the problem.</p>
     </div>
 
-    <div class="grid g2" style="gap:1rem;margin-bottom:1.4rem;align-items:stretch">
-      <div class="chart-card" style="margin:0">
-        <div class="chart-head">
-          <h3>How one booking becomes a file</h3>
-          <p>Twenty-two days, six events, one customer. Each marker is a control decision the system made
-            without being asked.</p>
-        </div>
-        <div class="chart" id="tlChart"></div>
-        <div class="tip" id="tlTip"></div>
-        <div class="legend tl-legend" id="tlLegend"></div>
+    <div class="chart-card" style="margin-bottom:1.2rem">
+      <div class="chart-head">
+        <h3>How one booking becomes a file</h3>
+        <p>Twenty-two days, six events, one customer.</p>
       </div>
-      <div class="figure-img c1" aria-hidden="true"><span class="cap">9:48pm · 41° in the house · nobody awake but the agent</span></div>
+      <div class="chart" id="tlChart"></div>
+      <div class="tip" id="tlTip"></div>
+      <div class="legend tl-legend" id="tlLegend"></div>
     </div>
 
     <div class="call-meta">
@@ -747,10 +671,8 @@ pre .good{color:var(--pass)}
         <div class="who"><b>Dana</b>21:48:03</div>
         <div class="said">"Thanks for calling Cardinal Heating and Air, this is Dana — how can I help you tonight?"
           <div class="ann"><span class="ann-h">VA-01 · VA-02 — Fail at second three</span>
-            No AI identity disclosure and no recording notice. The call is being transcribed and retained from
-            this word forward. In California an artificial voice must be disclosed at the beginning of the call;
-            in all-party states the recording must be disclosed before it starts. Both fixes are one sentence in
-            the greeting, and neither costs the booking — disclosure at the top tests fine against conversion.</div>
+            No AI disclosure, no recording notice — and the call is being transcribed from this word forward.
+            Both fixes are one sentence in the greeting.</div>
         </div>
       </div>
 
@@ -763,8 +685,8 @@ pre .good{color:var(--pass)}
         <div class="who"><b>Dana</b>21:48:15</div>
         <div class="said">"That's not okay with a little one — let's get someone out. Can I grab the service address?"
           <div class="ann p"><span class="ann-h">CTRL-08 · Pass — this is the part that works</span>
-            Empathy, qualification and triage inside four seconds, at 9:48pm, with no human awake. Every hardening
-            recommendation in this readout is designed to leave this exchange exactly as it is.</div>
+            Empathy, qualification and triage in four seconds at 9:48pm with no human awake. Every fix here
+            leaves this exchange exactly as it is.</div>
         </div>
       </div>
 
@@ -777,10 +699,8 @@ pre .good{color:var(--pass)}
         <div class="who cust"><b>Caller</b>21:50:49</div>
         <div class="said">"This one's fine."
           <div class="ann w"><span class="ann-h">CTRL-01 — Partial · captured, not proven</span>
-            Oral consent to a service text is in the transcript and is sufficient for the informational message.
-            What's missing is the artifact: no signed consent token, no retention of the exact wording the caller
-            agreed to, and no consent ID bound to the messages that follow. In four years this is a sentence in a
-            log file, not evidence.</div>
+            Sufficient for the informational text. What's missing is the artifact — no signed token, no retained
+            wording, no consent ID bound to what follows. In four years this is a log line, not evidence.</div>
         </div>
       </div>
 
@@ -789,10 +709,8 @@ pre .good{color:var(--pass)}
         <div class="said">"Perfect. I'll text the confirmation now — and I'll send you our Comfort Club offer too,
           it takes the diagnostic fee off tonight's visit."
           <div class="ann"><span class="ann-h">CTRL-05 — Fail · the consent boundary is crossed here</span>
-            The membership offer is telemarketing. Texting it to a wireless number requires prior express written
-            consent with the required disclosures, obtained before the send. "This one's fine" was a yes to a
-            service confirmation. The agent isn't misbehaving — it's doing exactly what the flow asks. The flow
-            asks for one consent and spends two.</div>
+            The offer is telemarketing and needs prior express written consent before the send. The agent isn't
+            misbehaving — the flow asks for one consent and spends two.</div>
         </div>
       </div>
 
@@ -801,7 +719,7 @@ pre .good{color:var(--pass)}
         <div class="said">Cardinal Heating &amp; Air: you're booked for Sat 7–9am. Reply STOP to opt out.
           <span class="ts">→ informational · consent adequate · logged at carrier only</span>
           <div class="ann p"><span class="ann-h">Clean</span>
-            Correct message, correct basis. It just isn't tied to a consent record that survives the platform.</div>
+            Correct message, correct basis — just not tied to a record that survives the platform.</div>
         </div>
       </div>
 
@@ -810,9 +728,8 @@ pre .good{color:var(--pass)}
         <div class="said">Save $89 tonight — join Cardinal Comfort Club and we waive the diagnostic. Tap to enroll: crd.nl/cc
           <span class="ts">→ marketing · no prior express written consent on file</span>
           <div class="ann"><span class="ann-h">CTRL-05 · CTRL-02 — Fail</span>
-            One second after a compliant message, an uncompliant one. Statutory damages attach per message,
-            and the two sends are indistinguishable in the logs — same thread, same sender, no purpose tag,
-            no consent basis recorded against either.</div>
+            One second after a compliant message. Damages attach per message, and the two are indistinguishable
+            in the logs — no purpose tag, no consent basis on either.</div>
         </div>
       </div>
 
@@ -827,10 +744,9 @@ pre .good{color:var(--pass)}
         <div class="who"><b>Dana</b>08:12:09</div>
         <div class="said">"Absolutely, I'll take care of that for you."
           <div class="ann"><span class="ann-h">VA-03 — Fail · the most expensive four words in the file</span>
-            The agent affirms and writes nothing. No suppression record, no scope tag ("marketing only"), no
-            propagation to the CRM the campaign list is built from. Revocation is valid in any reasonable manner
-            and must be honored within ten business days — the clock started here, the record says the shop heard
-            it, and nothing downstream knows. Ten of eleven revocations in the sample follow this exact shape.</div>
+            The agent affirms and writes nothing — no suppression record, no scope tag, no propagation to the
+            CRM the campaign list comes from. The ten-business-day clock started here and nothing downstream
+            knows. Ten of eleven sampled revocations look exactly like this.</div>
         </div>
       </div>
 
@@ -840,19 +756,15 @@ pre .good{color:var(--pass)}
         <div class="who sys"><b>System</b>2026-07-06 20:12</div>
         <div class="said">Outbound AI voice call placed to +1 602 ••• 0147 — flow: <span class="mono">reactivation_offer</span>
           <div class="ann"><span class="ann-h">CTRL-04 · VA-01 · VA-04 — Fail, three ways, one dial</span>
-            The number was added to the National DNC Registry eight days earlier and carries a live revocation
-            from June 17. The list came from a CRM query — last service &gt; 180 days — with no registry scrub, no
-            suppression join and no local-time check. The call is placed by an artificial voice that doesn't say
-            so, into a state that requires it to. This single dial is the fact pattern a demand letter is built on,
-            and it was generated by a scheduler doing precisely what it was configured to do.</div>
+            Registry-listed eight days earlier, carrying a live revocation from June 17, dialed by an
+            undisclosed artificial voice into a state that requires disclosure. One dial, three breaches — from a
+            scheduler doing exactly what it was configured to do.</div>
         </div>
       </div>
     </div>
 
-    <p class="mono" style="font-size:.78rem;color:var(--ink-faint);margin-top:1rem">
-      Composite transcript. Phrasing modeled on published HVAC AI-receptionist behavior; timestamps, numbers and
-      job IDs are illustrative.
-    </p>
+    <p class="mono" style="font-size:.78rem;color:var(--ink-faint);margin-top:1rem">Composite transcript —
+      timestamps, numbers and job IDs illustrative.</p>
   </div></section>
 
   <!-- ================= CONTROLS ================= -->
@@ -860,9 +772,9 @@ pre .good{color:var(--pass)}
     <div class="sec-head">
       <span class="eyebrow">The framework</span>
       <h2>Sixteen controls, plus four that only exist because the receptionist is a model.</h2>
-      <p>The 16 are Grandeza's standing framework for HVAC intake. The four <span class="mono" style="color:var(--partner)">VA-</span>
-        controls are the voice-AI overlay — written for deployments where the agent speaks, listens, records and
-        dials on its own. They're the ones that fail hardest, and they're the ones no CRM checklist covers.</p>
+      <p>The 16 are the standing framework. The four <span class="mono" style="color:var(--partner)">VA-</span>controls
+        are the voice-AI overlay — for deployments where the agent speaks, listens, records and dials on its own.
+        They fail hardest, and no CRM checklist covers them.</p>
     </div>
 
     <div class="chart-card" style="margin-bottom:1.2rem">
@@ -906,9 +818,8 @@ pre .good{color:var(--pass)}
     <div class="sec-head">
       <span class="eyebrow">Exposure model</span>
       <h2>What the gaps are worth, with the arithmetic showing.</h2>
-      <p>Statutory exposure, not a loss prediction. These are the numbers a plaintiff's demand letter computes
-        from the shop's own logs — shown here with every input visible so you can argue with them.
-        Volumes are modeled on a 22-tech, two-market operator.</p>
+      <p>What a demand letter computes from the shop's own logs, every input visible. Modeled on a
+        22-tech, two-market operator.</p>
     </div>
 
     <div class="chart-card" style="margin-bottom:1.2rem">
@@ -926,8 +837,7 @@ pre .good{color:var(--pass)}
       <div class="card reveal">
         <span class="chip f">CTRL-04 · CTRL-05</span>
         <h3>Reactivation campaign — DNC &amp; consent</h3>
-        <p>6,200 contacts dialed and texted per quarter, built from a CRM query with no registry scrub.
-          Modeled 4.8% carrying a registry listing or expired EBR, each receiving one AI voice call and one text.</p>
+        <p>6,200 contacts a quarter from an unscrubbed CRM query; 4.8% modeled as listed or expired-EBR.</p>
         <span class="money f tnum">$298,000<small>statutory, per quarter, at $500 × 596 violations</small></span>
         <div class="mathline">6,200 × 4.8% = 298 contacts<br>298 × 2 touches = 596 violations<br>
           × $500 = $298,000 · × $1,500 willful = $894,000</div>
@@ -936,8 +846,7 @@ pre .good{color:var(--pass)}
       <div class="card reveal">
         <span class="chip f">VA-03</span>
         <h3>Contact after revocation</h3>
-        <p>11 spoken revocations in a 500-call sample, none suppressed. Extrapolated across ~4,100 monthly
-          conversations, then multiplied by the touches each one keeps receiving for the rest of the quarter.</p>
+        <p>11 spoken revocations per 500 calls, none suppressed, extrapolated across 4,100 conversations a month.</p>
         <span class="money f tnum">$135,000<small>statutory, per quarter, at $500 × 270 violations</small></span>
         <div class="mathline">11 ÷ 500 = 2.2% revocation rate<br>4,100/mo × 3 × 2.2% ≈ 271 revocations<br>
           ≈ 1 continued touch each = 270 violations × $500</div>
@@ -946,8 +855,7 @@ pre .good{color:var(--pass)}
       <div class="card reveal">
         <span class="chip f">VA-02</span>
         <h3>Undisclosed recording, all-party states</h3>
-        <p>Calls originating in or received from all-party-consent states, recorded and transcribed with no
-          notice. Modeled at 6% of inbound volume for a Phoenix/Las Vegas operator taking seasonal-resident calls.</p>
+        <p>Recorded with no notice in all-party-consent states; 6% of inbound for a Phoenix/Las Vegas operator.</p>
         <span class="money f tnum">$1,230,000<small>statutory ceiling, per quarter, at $5,000 × 246 calls</small></span>
         <div class="mathline">4,100/mo × 3 = 12,300 calls<br>× 6% all-party exposure ≈ 738<br>
           conservative 1-in-3 actionable = 246 × $5,000</div>
@@ -956,8 +864,8 @@ pre .good{color:var(--pass)}
       <div class="card reveal">
         <span class="chip w">CTRL-02 · CTRL-15 · CTRL-16</span>
         <h3>The evidence discount</h3>
-        <p>Not a violation — a multiplier. Two shops with identical facts settle very differently depending on
-          whether the consent record is producible in an afternoon or reconstructed under deadline.</p>
+        <p>Not a violation — a multiplier. Identical facts settle differently depending on whether the record
+          is producible in an afternoon.</p>
         <span class="money tnum" style="color:var(--warn)">2× – 6×<small>observed spread between a documented and an undocumented file</small></span>
         <div class="mathline">documented: early single-plaintiff resolution<br>undocumented: class posture, four-year lookback,
           spoliation argument</div>
@@ -979,10 +887,7 @@ pre .good{color:var(--pass)}
       </div>
     </div>
 
-    <p class="mono" style="font-size:.78rem;color:var(--ink-faint);margin-top:1.1rem">
-      Ceilings are what the statute permits, not what a case settles for. Presented this way on purpose — the
-      gap between the two columns is the entire argument for fixing it before anyone is counting.
-    </p>
+
   </div></section>
 
   <!-- ================= FIX ================= -->
@@ -990,9 +895,8 @@ pre .good{color:var(--pass)}
     <div class="sec-head">
       <span class="eyebrow">Remediation</span>
       <h2>The fix is a gate in front of the send, not a new stack.</h2>
-      <p>Nothing below replaces the agent, the CRM or the carrier. One call before each outbound touch returns
-        allow/deny plus the disclosures that touch requires, and writes the decision to an append-only record.
-        Deny costs a contact. It also costs $500 less than the alternative.</p>
+      <p>Nothing here replaces the agent, the CRM or the carrier. One call before each outbound touch returns
+        allow/deny plus the required disclosures, and writes the decision to an append-only record.</p>
     </div>
 
     <div class="code2">
@@ -1113,21 +1017,17 @@ on schedule(<b>"quarterly_reactivation"</b>):
     </div>
     <div class="expo">
       <div class="card reveal"><h3>The defect replicates</h3>
-        <p>Every finding here lives in the template, not in the tenant. A greeting without a disclosure ships to
-          each new shop in three minutes — that's the product's best feature working exactly as designed.
-          One template fix inoculates the installed base; one tenant fix inoculates one shop.</p></div>
+        <p>Every finding lives in the template, not the tenant. A greeting without a disclosure ships to each
+          new shop in three minutes. One template fix inoculates the installed base.</p></div>
       <div class="card reveal"><h3>Tenants can't fix it themselves</h3>
-        <p>An HVAC owner cannot add revocation capture to a shared flow, and shouldn't have to know it's missing.
-          The compliance surface is created at the platform layer, so it has to be closed there — or every
-          tenant reinvents it badly.</p></div>
+        <p>An owner can't add revocation capture to a shared flow, and shouldn't have to know it's missing.
+          The surface is created at the platform layer, so it closes there.</p></div>
       <div class="card reveal"><h3>Liability doesn't stop at the tenant</h3>
-        <p>TCPA plaintiffs routinely name every party in the calling chain and litigate the platform's role.
-          Whatever the eventual allocation, the discovery, the fees and the news coverage land on the name in
-          the caller ID and the name on the technology.</p></div>
+        <p>TCPA plaintiffs name every party in the calling chain. Whatever the allocation, the discovery and
+          the fees land on both names.</p></div>
       <div class="card reveal"><h3>It's a reason to buy, not a warning label</h3>
-        <p>"Books your jobs at 2am" is table stakes now. "Books your jobs at 2am, with a consent record your
-          insurer accepts" is a line no competitor can copy in a sprint — and it's the answer when an
-          enterprise franchise group's counsel asks the one question that stalls the deal.</p></div>
+        <p>"Books your jobs at 2am" is table stakes. "…with a consent record your insurer accepts" is the
+          answer when a franchise group's counsel asks the question that stalls the deal.</p></div>
     </div>
   </div></section>
 
@@ -1136,40 +1036,32 @@ on schedule(<b>"quarterly_reactivation"</b>):
     <div class="sec-head">
       <span class="eyebrow">Regulatory basis</span>
       <h2>What each finding rests on.</h2>
-      <p>Current as of July 2026 and stated plainly. Compliance engineering, not legal advice — confirm the
-        live status of anything under waiver with your counsel before relying on it.</p>
+      <p>Current as of July 2026. Compliance engineering, not legal advice.</p>
     </div>
     <div class="refs-list">
       <div class="ref"><div class="src">FCC Declaratory Ruling 24-17<span>February 8, 2024</span></div>
-        <div class="means">An AI-generated voice is an "artificial voice" under the TCPA. Outbound AI voice calls
-          sit in the consent-required column — prior express consent, and prior express <em>written</em> consent
-          where the purpose is marketing.</div></div>
+        <div class="means">An AI-generated voice is an "artificial voice." Outbound calls need prior express
+          consent — written, where the purpose is marketing.</div></div>
       <div class="ref"><div class="src">47 C.F.R. §64.1200(a)(9)–(10)<span>revocation rules · eff. April 11, 2025</span></div>
-        <div class="means">Consumers may revoke in any reasonable manner; revocation must be honored within ten
-          business days; one confirmatory message is permitted. Parts of the cross-business-unit "revoke-all"
-          element have been subject to limited FCC waivers — check current status.</div></div>
+        <div class="means">Revocation in any reasonable manner, honored within ten business days; one
+          confirmatory message allowed. The "revoke-all" element has been under limited waivers — check status.</div></div>
       <div class="ref"><div class="src">Insurance Marketing Coalition v. FCC<span>11th Cir., January 24, 2025</span></div>
-        <div class="means">Vacated the one-to-one consent rule before it took effect. Consent for AI/prerecorded
-          marketing calls reverts to the prior written-consent standard — a lower bar than the vacated rule, and
-          still a bar Cardinal doesn't clear.</div></div>
+        <div class="means">Vacated the one-to-one consent rule. Consent reverts to the prior written standard —
+          a lower bar, and still one this deployment doesn't clear.</div></div>
       <div class="ref"><div class="src">Cal. Pub. Util. Code §2874 (AB 2905)<span>eff. January 1, 2025</span></div>
-        <div class="means">A call using an AI-generated or AI-altered voice must disclose that at the beginning
-          of the call. Enforced by the CPUC; no private right of action, which is not the same as no consequence.</div></div>
+        <div class="means">An AI-generated voice must be disclosed at the start of the call. CPUC-enforced.</div></div>
       <div class="ref"><div class="src">Cal. Penal Code §§632.7, 637.2 · Nev. Rev. Stat. §200.620<span>all-party recording consent</span></div>
-        <div class="means">Recording a call without all-party consent in these states is actionable, with $5,000
-          statutory damages per violation and a private right of action in California — currently a heavily
-          litigated theory against conversational-AI vendors.</div></div>
+        <div class="means">Recording without all-party consent is actionable — $5,000 per violation and a
+          private right of action in California.</div></div>
       <div class="ref"><div class="src">47 C.F.R. §64.1200(c), (d), (f)(5)<span>windows · internal DNC · EBR</span></div>
-        <div class="means">No solicitation before 8am or after 9pm in the called party's local time; internal
-          do-not-call requests honored for five years; established business relationship runs 18 months from a
-          transaction, 3 months from an inquiry — which is what expires under a 180-day reactivation query.</div></div>
+        <div class="means">No solicitation before 8am or after 9pm in the recipient's local time; internal DNC
+          honored five years; EBR runs 18 months from a transaction, 3 from an inquiry.</div></div>
       <div class="ref"><div class="src">28 U.S.C. §1658 · 47 U.S.C. §227(b)(3)<span>limitations &amp; damages</span></div>
-        <div class="means">Four-year limitations period; $500 per violation, up to $1,500 where the violation is
-          willful or knowing. The four years is why retention and producibility are controls, not paperwork.</div></div>
+        <div class="means">Four-year limitations period; $500 per violation, $1,500 if willful. Which is why
+          retention is a control, not paperwork.</div></div>
       <div class="ref"><div class="src">State AI disclosure statutes<span>UT, CO, TX and others · 2025–2026</span></div>
-        <div class="means">A widening patchwork of disclosure and high-risk-use obligations for AI systems that
-          interact with consumers. The practical implication for a multi-state deployment: disclosure behavior
-          has to be state-aware at the flow level, not a global toggle.</div></div>
+        <div class="means">A widening patchwork. The implication: disclosure has to be state-aware at the flow
+          level, not a global toggle.</div></div>
     </div>
   </div></section>
 
@@ -1178,32 +1070,28 @@ on schedule(<b>"quarterly_reactivation"</b>):
     <div class="sec-head">
       <span class="eyebrow">The ask</span>
       <h2>Three ways this becomes real, smallest first.</h2>
-      <p>Every one of them starts by putting this document in front of one shop and watching what happens.</p>
+      <p>Each starts by putting this in front of one shop.</p>
     </div>
     <div class="ask">
       <div class="card reveal"><span class="kicker">Option A · this week</span>
         <h3>Readout as a sales asset</h3>
-        <p>Co-branded readouts generated for named prospects in Newo's HVAC pipeline. Newo brings the deployment
-          detail; Grandeza scores it and signs it. It's a differentiator in the deck and a reason for the
-          compliance-blocked deals to unstick. No engineering on either side.</p></div>
+        <p>Co-branded readouts for named prospects in Newo's pipeline. Newo brings the deployment detail;
+          Grandeza scores and signs it. No engineering either side.</p></div>
       <div class="card reveal"><span class="kicker">Option B · one sprint</span>
         <h3>The gate, as an integration</h3>
         <p><span class="mono">grandeza.check()</span> in front of every outbound touch, plus revocation capture
-          and state-aware disclosures in the flow template. Ships once; every tenant inherits it. Grandeza runs
-          the registry, suppression and evidence store — Newo keeps the conversation.</p></div>
+          and state-aware disclosures in the template. Ships once; every tenant inherits it.</p></div>
       <div class="card reveal"><span class="kicker">Option C · the version worth doing</span>
         <h3>Certified tenants</h3>
-        <p>Every Newo HVAC tenant gets a live score and a badge their customers can see. Compliance becomes a
-          retention surface instead of a support ticket — and "Grandeza Certified" on a shop's own site is a
-          growth loop for both names.</p></div>
+        <p>Every tenant gets a live score and a badge their customers can see. Compliance becomes a retention
+          surface instead of a support ticket.</p></div>
     </div>
 
     <div class="cta-band" style="margin-top:1.6rem">
       <span class="eyebrow" style="justify-content:center">Next step</span>
       <h2>Pick one shop. We'll score it for free in three minutes.</h2>
-      <p>Give us a single live Newo HVAC deployment and access to 500 transcripts, and the modeled numbers on
-        this page become measured ones — same format, same seal, a named tenant on the cover.
-        That's the version worth sending into the channel.</p>
+      <p>One live deployment and 500 transcripts turns every modeled number on this page into a measured
+        one — same format, same seal, a named tenant on the cover.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="/scan">Run the 3-minute scan <span aria-hidden="true">→</span></a>
         <a class="btn btn-ghost" href="/product/hardening">What hardening covers</a>
@@ -1220,15 +1108,13 @@ on schedule(<b>"quarterly_reactivation"</b>):
         <svg class="seal" viewBox="0 0 40 40" aria-hidden="true"><path fill="url(#sg)" d="M20 1.5l4.6 3.3 5.6-.5 2.1 5.2 4.6 3.3-1.6 5.4 1.6 5.4-4.6 3.3-2.1 5.2-5.6-.5L20 38.5l-4.6-3.3-5.6.5-2.1-5.2-4.6-3.3L4.7 21.7 3.1 16.3l4.6-3.3 2.1-5.2 5.6.5z"/><path fill="none" stroke="#20180a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M13.5 20.2l4.4 4.3 8.6-9"/></svg>
         <span class="gz">Grandeza</span>
       </a>
-      <p>Compliance-first hardening for the AI, SMS and voice intake HVAC &amp; plumbing shops run every day.
-        We turn invisible risk into a seal you can hand your insurer.</p>
+      <p>We turn invisible risk into a seal you can hand your insurer.</p>
     </div>
     <div>
-      <p style="margin-top:0"><b style="color:var(--ink-soft)">About this document.</b> Prepared by Grandeza for a
-        partnership conversation with Newo.ai. Newo.ai is a third party; this readout is not authored, reviewed or
-        endorsed by them, and "Cardinal Heating &amp; Air" is a composite operator. Scores are modeled from
-        published product behavior and Grandeza's HVAC engagement patterns — they are not measurements of any
-        live customer environment. Regulatory summaries are current as of the issue date.</p>
+      <p style="margin-top:0"><b style="color:var(--ink-soft)">About this document.</b> Prepared by Grandeza for
+        a partnership conversation with Newo.ai, a third party who did not author, review or endorse it.
+        "Cardinal Heating &amp; Air" is a composite; scores are modeled, not measurements of a live customer
+        environment. Regulatory summaries current as of the issue date.</p>
     </div>
   </div>
   <div class="foot-bottom">
