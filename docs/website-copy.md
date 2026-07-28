@@ -12,7 +12,7 @@ Conversion goal throughout: **start the free scan.**
 ## 0. Global microcopy
 
 **Nav:** How it works · The 16 Controls · Pricing · Guardian · [Free scan]
-**Announcement bar:** `Now onboarding Q3 2026 — 8 new shops this cohort. Free 12-minute scan, no code access.`
+**Announcement bar:** `Now onboarding Q3 2026 — 8 new shops this cohort. Free 3-minute scan, no code access.`
 **Footer tagline:** Compliance-first hardening for the AI, SMS and voice intake HVAC & plumbing shops run every day.
 **Footer legal:** © 2026 Grandeza.io — Compliance engineering, not legal advice.
 
@@ -25,7 +25,7 @@ Conversion goal throughout: **start the free scan.**
 | Sticky/mobile | Get my free score → | Call (855) 555-0142 |
 | Final | Find out what your intake would score → | See what's included |
 
-**Button microcopy (under CTA):** `No code access · 12-minute scan · No card, no obligation`
+**Button microcopy (under CTA):** `No code access · 3-minute scan · No card, no obligation`
 
 ---
 
@@ -66,7 +66,7 @@ Conversion goal throughout: **start the free scan.**
 **Headline:** Scan. Score. Harden. Prove.
 **Intro:** You keep the tools you already use — Twilio, your CRM, your intake bot. We make them defensible.
 
-1. **The 12-minute scan** — We walk your live SMS, call and web intake and grade all 16 controls PASS / PARTIAL / FAIL. No code access, no rip-and-replace.
+1. **The 3-minute scan** — We walk your live SMS, call and web intake and grade all 16 controls PASS / PARTIAL / FAIL. No code access, no rip-and-replace.
 2. **Your Grandeza Score** — One 0–100 number and a risk band, mapped control by control — so you see exactly where the exposure lives and what a fix is worth.
 3. **Consent, audit trail, DNC** — We implement signed consent, an immutable audit log, rate limits and Do-Not-Call screening on your stack in a 4-week engagement.
 4. **The compliance binder** — A printable 16-control attestation with evidence — the document your E&O carrier wants and your lawyer reaches for first.
@@ -94,7 +94,7 @@ Conversion goal throughout: **start the free scan.**
 ### Final CTA
 **Eyebrow:** No commitment
 **Headline:** Find out what your intake would score.
-**Body:** Twelve minutes. Sixteen controls. One number that tells you exactly where you stand — free.
+**Body:** Three minutes. Sixteen controls. One number that tells you exactly where you stand — free.
 **CTA:** `Get my free Grandeza Score →`
 
 ---
@@ -200,7 +200,7 @@ Conversion goal throughout: **start the free scan.**
 No. Hardening works with what you already run — Twilio, your CRM, your existing intake bot. We add the compliance layer around it. If you'd rather hand the whole intake off, Protected Intake is our turnkey option, but most shops start by hardening.
 
 **How much of my team's time does this take?**
-The scan is 12 minutes with one person who knows your workflow. The 4-week hardening needs a few short check-ins — we do the engineering. No code freeze, no downtime for your dispatchers.
+The scan is 3 minutes with one person who knows your workflow. The 4-week hardening needs a few short check-ins — we do the engineering. No code freeze, no downtime for your dispatchers.
 
 **Is Grandeza a law firm?**
 No — Grandeza is compliance engineering. We build the controls, the audit trail and the documentation that demonstrate you did the work. We don't provide legal advice, and nothing here is a substitute for your attorney. Many clients hand our binder straight to theirs.
@@ -218,7 +218,7 @@ Our Clean-Score Guarantee: if a hardening engagement doesn't move every control 
 We specialize in HVAC and plumbing, and we work with the mainstream stack — Twilio, common CRMs and dispatch tools, web intake forms and AI phone agents. If you send automated texts or calls, we can score it.
 
 **How is the free scan different from just an audit?**
-The scan is a real diagnostic: 12 minutes, 16 controls, an instant 0–100 score, your top three exposures ranked by what they'd cost, and a fixed hardening quote. You get value whether or not you buy.
+The scan is a real diagnostic: 3 minutes, 16 controls, an instant 0–100 score, your top three exposures ranked by what they'd cost, and a fixed hardening quote. You get value whether or not you buy.
 
 **What exactly is in the compliance binder?**
 A 16-control attestation with per-control evidence, your signed consent records, and the tamper-evident audit trail — exported as a PDF you can hand to an insurer, an auditor or an attorney.
@@ -237,7 +237,7 @@ Solve: *A free scan, a fixed 4-week hardening, and a binder that proves you're c
 
 **Anchor:** Always state the $50,000 exposure before the price — it reframes $3,288/yr as trivial.
 **Risk reversal:** Free scan (no card) · fixed-scope quote · Clean-Score Guarantee.
-**Friction removers (repeat near every CTA):** No code access · 12 minutes · No obligation.
+**Friction removers (repeat near every CTA):** No code access · 3 minutes · No obligation.
 **Honest scarcity:** "8 shops per cohort" — a real capacity limit, not a fake timer.
 
 **Objection → reframe**
@@ -245,7 +245,7 @@ Solve: *A free scan, a fixed 4-week hardening, and a binder that proves you're c
 - "We're probably fine." → *Probably isn't a defense. The scan is free — let's replace 'probably' with a number.*
 - "Don't want another rebuild." → *There isn't one. We harden the exact stack you run today.*
 - "Our lawyer says we're okay." → *Great — hand them the binder. We make their job provable.*
-- "No time." → *Twelve minutes for the scan. We do the engineering from there.*
+- "No time." → *Three minutes for the scan. We do the engineering from there.*
 
 ---
 
@@ -257,7 +257,7 @@ Solve: *A free scan, a fixed 4-week hardening, and a binder that proves you're c
 | Hardening | Hardening — TCPA-proof your existing intake — Grandeza | Keep your tools; we make them defensible. 4-week hardening of all 16 controls, signed audit trail, insurance-ready binder. |
 | Protected Intake | Protected Intake — turnkey compliant intake — Grandeza | Our Maya agent answers calls, SMS & web with consent and DNC enforced at the source. Live in 2–4 weeks. |
 | Guardian | Guardian — always-on TCPA monitoring — Grandeza | Stay at a clean score automatically. Guardian watches every send and flags a breach before it becomes a claim. |
-| Free scan | Free TCPA Compliance Check (12 min) — Grandeza Score | 8 questions, one number. See your TCPA exposure across all 16 controls in 12 minutes. Free, no code access, no card. |
+| Free scan | Free TCPA Compliance Check (3 min) — Grandeza Score | 8 questions, one number. See your TCPA exposure across all 16 controls in 3 minutes. Free, no code access, no card. |
 
 ---
 

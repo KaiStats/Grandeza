@@ -160,7 +160,7 @@ concentrate PageRank, which internal links funnel to the conversion page.
 - Pillar: `TCPA Compliance for HVAC & Plumbing (2026 Guide) — Grandeza`
 - Cluster: `{Primary Keyword}: {Benefit/Angle} — Grandeza`
 - Vertical: `TCPA Compliance for HVAC Contractors — Grandeza`
-- Tool: `Free TCPA Compliance Check (12 min) — Grandeza Score`
+- Tool: `Free TCPA Compliance Check (3 min) — Grandeza Score`
 
 ---
 

@@ -42,7 +42,7 @@ what the product literally produces: a seal of compliance.
 
 ### 1.4 Voice & copy principles
 - **Name the fear the buyer already has, in their words:** *"Your intake bot is talking to customers. Can you prove it's legal?"*
-- **Specificity is trust:** "$500–$1,500 per message", "12-minute scan", "16 controls" — concrete beats adjectives.
+- **Specificity is trust:** "$500–$1,500 per message", "3-minute scan", "16 controls" — concrete beats adjectives.
 - **Active, outcome-first CTAs:** "Get your free Grandeza Score", not "Learn more".
 - **Never imply legal advice.** Grandeza is compliance *engineering*. This is a legal
   requirement and a positioning asset — see the disclaimer in §9.
@@ -59,7 +59,7 @@ grandeza.io
 │     → 16 Controls → Guardian → Final CTA → Footer sitemap
 │
 ├── /scan ……………………………… Free Grandeza Score  ★ primary conversion
-│     Multi-step form (12-min self-assessment) → instant score → book review
+│     Multi-step form (3-min self-assessment) → instant score → book review
 │
 ├── /how-it-works ………………… The 4-stage engagement (Scan·Score·Harden·Prove)
 │
