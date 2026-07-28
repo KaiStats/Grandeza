@@ -70,10 +70,14 @@
   --img-cover:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260728_180524_4f7c1da5-2ac4-45de-aaa2-be3047b6f495.png");
   --img-strata:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260728_180530_59c8f303-a0a2-4941-86f6-a6ea83cf3af6.png");
   --img-seal:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260728_180527_f20181a0-e2fc-4ec3-b48f-a15c7b36da0d.png");
-  --img-tech:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_154736_22a16854-9d83-4216-826b-3fe610a46a47.png");
-  --img-dispatch:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_155705_7b6c3688-524e-4e8c-ab92-24c2bb6da4d3.png");
-  --img-homeowner:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_155707_83e897cd-2825-4e4a-9c4e-de918eb3bf5a.png");
-  --img-plumber:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_154737_468934e6-06de-490f-ba99-0738a3554f6a.png");
+  /* The Grandeza Scan characters — the six-portrait set. Order here is the order
+     they appear down the page; swap two URLs to re-cast a section. */
+  --img-c1:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035628_c97a8f61-fdf0-4f52-b912-71214dbe5676.png");
+  --img-c2:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035111_c663336e-2d2e-4ed1-a8af-1c4b6aac6345.png");
+  --img-c3:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035640_3116aa99-a434-48ce-a51a-34b25a5bfb33.png");
+  --img-c4:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035637_d26fdf64-1846-4439-8bd6-b3b47350fe24.png");
+  --img-c5:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035634_1d6c1e2b-f2a8-4d4f-af59-def9621a99f2.png");
+  --img-c6:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_035632_247f5ac5-3940-41f1-95ff-8d89905c260f.png");
 }
 .plate{position:relative;isolation:isolate;overflow:hidden}
 .plate::before{content:"";position:absolute;inset:0;z-index:-1;
@@ -86,12 +90,27 @@
 .figure-img{border-radius:var(--radius);overflow:hidden;background-color:var(--panel-dark);
   background-size:cover;background-position:center;min-height:220px;border:1px solid var(--line);
   display:flex;align-items:flex-end;padding:1.1rem}
-.figure-img.tech{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.15)),var(--img-tech)}
-.figure-img.dispatch{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.15)),var(--img-dispatch)}
-.figure-img.homeowner{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.15)),var(--img-homeowner)}
-.figure-img.plumber{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.15)),var(--img-plumber)}
+.figure-img.c1{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c1)}
+.figure-img.c2{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c2)}
+.figure-img.c3{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c3)}
+.figure-img.c4{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c4)}
+.figure-img.c5{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c5)}
+.figure-img.c6{background-image:linear-gradient(0deg,rgba(11,21,23,.9),rgba(11,21,23,.12)),var(--img-c6)}
 .figure-img .cap{color:#e9efec;font-family:var(--font-mono);font-size:.74rem;letter-spacing:.1em;
   text-transform:uppercase;text-shadow:0 1px 12px rgba(0,0,0,.9)}
+/* the six-up character strip */
+.cast{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem}
+@media (max-width:900px){.cast{grid-template-columns:repeat(3,1fr)}}
+.cast figure{margin:0}
+.cast .port{aspect-ratio:3/4;border-radius:var(--radius-sm);border:1px solid var(--line);
+  background-color:var(--panel-dark);background-size:cover;background-position:center top;
+  transition:transform .2s var(--ease),border-color .2s}
+.cast figure:hover .port{transform:translateY(-3px);border-color:var(--accent)}
+.cast .port.c1{background-image:var(--img-c1)}.cast .port.c2{background-image:var(--img-c2)}
+.cast .port.c3{background-image:var(--img-c3)}.cast .port.c4{background-image:var(--img-c4)}
+.cast .port.c5{background-image:var(--img-c5)}.cast .port.c6{background-image:var(--img-c6)}
+.cast figcaption{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-faint);margin-top:.45rem;text-align:center;line-height:1.35}
 .plate .eyebrow{color:var(--seal-2)}
 .plate h1,.plate h2,.plate p,.plate dt,.plate dd{color:#e9efec}
 .plate .docmeta{background:rgba(233,239,236,.045);border-color:rgba(198,161,91,.28)}
@@ -400,9 +419,46 @@ pre .good{color:var(--pass)}
   section{padding-block:.9rem;break-inside:auto}
   .sample-banner{border:1.5pt solid #999}
   .transcript.hide-ann .ann{display:block!important}
+  /* The control table must FIT the page — on screen it scrolls inside its box,
+     on paper there is nowhere to scroll, so the last column was being cut off
+     at the margin. Fixed layout + percentage columns, and the inline min-widths
+     that size the on-screen table are overridden. */
   .tablewrap{overflow:visible;border:1px solid #bbb}
-  table.controls{min-width:0;font-size:8.6pt}
+  table.controls{min-width:0;font-size:7.6pt;table-layout:fixed;width:100%}
   table.controls th{position:static}
+  table.controls td,table.controls th{min-width:0!important;padding:.42rem .4rem;
+    vertical-align:top;line-height:1.35}
+  /* only the prose columns may break inside a word — letting the status and
+     score cells wrap turns "PARTIAL" into "PARTIA/L" on top of the number */
+  table.controls td:nth-child(5),table.controls td:nth-child(6){overflow-wrap:anywhere}
+  table.controls th:nth-child(1),table.controls td:nth-child(1){width:14%}
+  table.controls th:nth-child(2),table.controls td:nth-child(2){width:11%}
+  table.controls th:nth-child(3),table.controls td:nth-child(3){width:12%}
+  table.controls th:nth-child(4),table.controls td:nth-child(4){width:14%}
+  table.controls th:nth-child(5),table.controls td:nth-child(5){width:27%}
+  table.controls th:nth-child(6),table.controls td:nth-child(6){width:22%}
+  table.controls th{white-space:normal;font-size:6.4pt;line-height:1.25}
+  .bar{min-width:34px}
+  .cname{white-space:normal}
+  /* print width trips the mobile breakpoints and stacks everything one-up,
+     which is what left half-empty pages — restore the designed grids */
+  .expo{grid-template-columns:1fr 1fr!important}
+  .weeks{grid-template-columns:repeat(4,1fr)!important}
+  .ask{grid-template-columns:repeat(3,1fr)!important}
+  .cgrid{grid-template-columns:repeat(10,1fr)!important}
+  .cast{grid-template-columns:repeat(6,1fr)!important;break-inside:avoid}
+  .docmeta{grid-template-columns:repeat(4,1fr)!important}
+  .docmeta div{border-bottom:1px solid #ccc!important}
+  pre{font-size:7pt}
+  section{padding-block:.7rem}
+  /* SVG text is in user units, so a wide viewBox scaled into a page column
+     shrinks the labels below legibility. Bump per chart by its scale factor —
+     the timeline's viewBox is narrow and already prints larger, so leave it. */
+  #wfChart .axlab,#expChart .axlab{font-size:14px}
+  #wfChart .marklab,#expChart .marklab{font-size:15px}
+  #wfChart .markname,#expChart .markname{font-size:16px}
+  #slopeChart .axlab{font-size:12px}
+  #slopeChart .marklab{font-size:13px}
   tr,.finding,.card,.week,.turn,.chart-card,.cell{break-inside:avoid}
   h2,h3{break-after:avoid}
   /* keep the cover legible on white paper; drop the decorative bands */
@@ -488,7 +544,21 @@ pre .good{color:var(--pass)}
           <a class="btn btn-primary" href="/scan">Run a free Scan <span aria-hidden="true">→</span></a>
         </div>
       </div>
-      <div class="figure-img plumber" aria-hidden="true"><span class="cap">Three minutes · no integration</span></div>
+      <div class="figure-img c2" aria-hidden="true"><span class="cap">Three minutes · no integration</span></div>
+    </div>
+
+    <div style="margin-top:clamp(1.8rem,4vw,2.6rem)">
+      <p class="kicker" style="margin-bottom:.9rem">Who the Scan is for</p>
+      <div class="cast">
+        <figure><div class="port c1"></div><figcaption>Owner</figcaption></figure>
+        <figure><div class="port c2"></div><figcaption>Dispatch</figcaption></figure>
+        <figure><div class="port c3"></div><figcaption>Field tech</figcaption></figure>
+        <figure><div class="port c4"></div><figcaption>Office manager</figcaption></figure>
+        <figure><div class="port c5"></div><figcaption>Marketing</figcaption></figure>
+        <figure><div class="port c6"></div><figcaption>Counsel</figcaption></figure>
+      </div>
+      <p class="chart-note" style="border:0;padding-top:.7rem">One person who knows the workflow can finish
+        it. Everyone else just needs the number it returns.</p>
     </div>
   </div></section>
   <div class="plate-strata" aria-hidden="true"></div>
@@ -655,7 +725,7 @@ pre .good{color:var(--pass)}
         <div class="tip" id="tlTip"></div>
         <div class="legend tl-legend" id="tlLegend"></div>
       </div>
-      <div class="figure-img tech" aria-hidden="true"><span class="cap">9:48pm · 41° in the house · nobody awake but the agent</span></div>
+      <div class="figure-img c1" aria-hidden="true"><span class="cap">9:48pm · 41° in the house · nobody awake but the agent</span></div>
     </div>
 
     <div class="call-meta">
@@ -819,7 +889,7 @@ pre .good{color:var(--pass)}
         <thead>
           <tr>
             <th scope="col">Control</th><th scope="col">Status</th><th scope="col">Score → target</th>
-            <th scope="col">Where it lives in this stack</th><th scope="col">Finding</th><th scope="col">Fix</th>
+            <th scope="col">Where it lives</th><th scope="col">Finding</th><th scope="col">Fix</th>
           </tr>
         </thead>
         <tbody id="ctrlBody"></tbody>
@@ -1632,6 +1702,11 @@ on schedule(<b>"quarterly_reactivation"</b>):
       es.forEach(function(e){ if(e.isIntersecting){ runGauges(); sio.disconnect(); } });
     },{threshold:0,rootMargin:"0px 0px -12% 0px"});
     sio.observe(document.getElementById("score"));
+    /* The score band sits below the fold, so on a print or a save-to-PDF the
+       observer may never fire and the headline gauges would render 0 — the one
+       number the document exists for. Draw them anyway shortly after load;
+       a reader who scrolls down within the second still gets the sweep. */
+    setTimeout(runGauges,1200);
     /* if the band is already on screen at load, IO fires immediately; if the
        reader never scrolls there, nothing is missed. Belt-and-braces for print. */
   }else{
