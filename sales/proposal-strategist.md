@@ -38,7 +38,7 @@
 ```
 Grandeza
 Kai Cogmon, Founder
-kai@grandeza.io
+Kai@grandeza.io
 grandeza.io
 
 ---
@@ -281,7 +281,7 @@ To move forward:
 4. Kickoff call scheduled for [Date +3 days]
 
 Questions?
-- Kai: kai@grandeza.io | [Phone]
+- Kai: Kai@grandeza.io | [Phone]
 - Technical deep-dive: [Security Architect email]
 - Compliance concerns: Same as above (Kai is your point)
 
@@ -293,7 +293,7 @@ Signed digitally on [Date]
 Kai Cogmon
 Founder, Grandeza
 CNH Consulting Services, LLC
-kai@grandeza.io
+Kai@grandeza.io
 ```
 
 ---
@@ -378,7 +378,7 @@ instructions: |
   
   SIGNATURE:
   - Always from "Kai Cogmon, Founder, Grandeza"
-  - Always include kai@grandeza.io + phone
+  - Always include Kai@grandeza.io + phone
   - Always include "CNH Consulting Services, LLC"
 ```
 

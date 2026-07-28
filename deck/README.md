@@ -13,10 +13,19 @@ Open `index.html` in a browser to edit; the on-screen view is the same 16:9 canv
 
 ## Copy is frozen
 
-Every word is carried over verbatim from the previous revision of the deck. The rebuild changed
+Every word is carried over from the previous revision of the deck; the rebuild changed
 presentation only. This is enforced by a check that pulls all 173 text fragments out of the old
-PDF and asserts each one appears, character for character, in the new one — run it before shipping
-any edit that touches prose.
+PDF and asserts each one still appears in the new one — run it before shipping any edit that
+touches prose.
+
+Two things the check deliberately tolerates, both worth knowing before you trust it:
+
+- **It is case-insensitive.** Ten labels render in a different case than the source because the
+  CSS sets `text-transform: uppercase` on eyebrows, kickers and chart furniture — the words are
+  identical, the styling is not. A case-sensitive run flags those ten as false positives.
+- **One intentional word-level change:** the founder's address is `Kai@grandeza.io`, capitalised,
+  where the previous revision wrote it lowercase. This is the only place the rebuilt deck's text
+  differs from the original by anything other than case-from-styling.
 
 The only text this deck adds is chart furniture: axis ticks, legends, series labels and stage
 markers. Every number in that furniture is one already stated in the body copy or in the deck's
