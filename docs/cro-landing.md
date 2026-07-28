@@ -13,9 +13,9 @@ the same `#scan` action. Nothing competes with it.
 |---|---|---|
 | 0 | **Announcement bar** — "8 slots this cohort · Free scan" | *Scarcity* + free-value framing, above everything |
 | 1 | **Hero** (photo + headline + dual CTA + rating) | *Clarity in 5s* (who/what/why/CTA); directional cue (technician faces copy); *loss aversion* in the headline |
-| 1a | **Hero micro-copy** — "No code access · 12 min · No card" | *Friction reduction* — kills the three biggest objections at the point of action |
+| 1a | **Hero micro-copy** — "No code access · 3 min · No card" | *Friction reduction* — kills the three biggest objections at the point of action |
 | 2 | **Trust bar** (TCPA/GDPR, 16-control, binder, timeline) | *Authority / credibility* signals immediately after the hook |
-| 3 | **Stat row** ($1,500/text, 12 min, 16× ROI, 0 code) | *Anchoring* (the big damage number) + *specificity = trust* |
+| 3 | **Stat row** ($1,500/text, 3 min, 16× ROI, 0 code) | *Anchoring* (the big damage number) + *specificity = trust* |
 | 4 | **Problem/Agitate** (dark band, 3 pains) | *Problem-agitate-solve* — name the buyer's exact situation before selling |
 | 5 | **Solution/How** (plumber photo + 4 steps + "88 Protected" badge) | *Effort transparency* (finite, knowable) + *visual proof* of outcome |
 | 6 | **Benefits** (6 outcome-first cards) | *Outcome framing* — "peace of mind you hand your insurer," not features |

@@ -37,9 +37,9 @@
 **Letterhead:**
 ```
 Grandeza
-Kai Roberts, Founder
-Kai@getgrandeza.com
-getgrandeza.com
+Kai Cogmon, Founder
+Kai@grandeza.io
+grandeza.io
 
 ---
 
@@ -281,7 +281,7 @@ To move forward:
 4. Kickoff call scheduled for [Date +3 days]
 
 Questions?
-- Kai: Kai@getgrandeza.com | [Phone]
+- Kai: Kai@grandeza.io | [Phone]
 - Technical deep-dive: [Security Architect email]
 - Compliance concerns: Same as above (Kai is your point)
 
@@ -290,10 +290,10 @@ This proposal expires [Date +14 days]. We're committed to your success. Let's lo
 ---
 
 Signed digitally on [Date]
-Kai Roberts
+Kai Cogmon
 Founder, Grandeza
 CNH Consulting Services, LLC
-Kai@getgrandeza.com
+Kai@grandeza.io
 ```
 
 ---
@@ -377,8 +377,8 @@ instructions: |
   - Top 3 CRITICAL findings called out in P1 (not p2)
   
   SIGNATURE:
-  - Always from "Kai Roberts, Founder, Grandeza"
-  - Always include Kai@getgrandeza.com + phone
+  - Always from "Kai Cogmon, Founder, Grandeza"
+  - Always include Kai@grandeza.io + phone
   - Always include "CNH Consulting Services, LLC"
 ```
 

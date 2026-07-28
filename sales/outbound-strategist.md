@@ -87,7 +87,7 @@ Here's the problem I see: chatbots without a compliance layer (consent tracking,
 
 I work with HVAC/plumbing shops to harden their chatbots and AI intake against exactly this. We've built a compliance framework (Grandeza) that acts as a governance layer, tracking every bot decision, logging consent, and flagging when a bot should escalate to a human.
 
-Curious if this resonates? I'm Kai from Grandeza (grandeza.com). Happy to do a 20-min call this week if you want to see how this would work for Bob's 24-Hour.
+Curious if this resonates? I'm Kai from Grandeza (grandeza.io). Happy to do a 20-min call this week if you want to see how this would work for Bob's 24-Hour.
 
 Best,
 Kai
@@ -104,9 +104,9 @@ Quick context: I just finished a compliance audit for a Las Vegas HVAC shop (sim
 
 After implementing Grandeza's Scan (free tool), they found 3 controls they were missing. Fixed them in under a week.
 
-If you want to run the same scan on Bob's 24-Hour, it's free, takes 5 minutes, gives you a compliance score and shows where your chatbot could create problems.
+If you want to run the same scan on Bob's 24-Hour, it's free, takes 3 minutes, gives you a compliance score and shows where your chatbot could create problems.
 
-Grandeza Scan: grandeza.com/scan
+Grandeza Scan: grandeza.io/scan
 
 No pressure, just wanted you to know the tool exists.
 
