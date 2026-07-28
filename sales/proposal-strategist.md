@@ -37,7 +37,7 @@
 **Letterhead:**
 ```
 Grandeza
-Kai Roberts, Founder
+Kai Cogmon, Founder
 kai@grandeza.io
 grandeza.io
 
@@ -290,7 +290,7 @@ This proposal expires [Date +14 days]. We're committed to your success. Let's lo
 ---
 
 Signed digitally on [Date]
-Kai Roberts
+Kai Cogmon
 Founder, Grandeza
 CNH Consulting Services, LLC
 kai@grandeza.io
@@ -377,7 +377,7 @@ instructions: |
   - Top 3 CRITICAL findings called out in P1 (not p2)
   
   SIGNATURE:
-  - Always from "Kai Roberts, Founder, Grandeza"
+  - Always from "Kai Cogmon, Founder, Grandeza"
   - Always include kai@grandeza.io + phone
   - Always include "CNH Consulting Services, LLC"
 ```
