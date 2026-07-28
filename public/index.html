@@ -62,7 +62,7 @@
     --panel-dark:#0b1517;
 
     /* Photography (Higgsfield · Nano Banana 2) */
-    --img-hero:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_154736_22a16854-9d83-4216-826b-3fe610a46a47.png");
+    --img-hero:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260727_202534_3cf8af05-90da-4c4a-bee5-7432796f3848.png");
     --img-plumber:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_154737_468934e6-06de-490f-ba99-0738a3554f6a.png");
     --img-dispatch:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_155705_7b6c3688-524e-4e8c-ab92-24c2bb6da4d3.png");
     --img-homeowner:url("https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260719_155707_83e897cd-2825-4e4a-9c4e-de918eb3bf5a.png");
@@ -166,6 +166,20 @@
   .sec-head h2{font-size:var(--step-3);margin-top:.8rem}
   .sec-head p{color:var(--ink-soft);font-size:var(--step-1);margin-top:.9rem}
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  /* ---- Founder (homepage, theme-aware) ---- */
+  .founder-home{background:var(--surface)}
+  .founder-home .fgrid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(1.6rem,4vw,3rem);align-items:center}
+  @media(max-width:820px){.founder-home .fgrid{grid-template-columns:1fr}}
+  .founder-portrait{position:relative;aspect-ratio:4/5;width:100%;max-width:400px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line-strong);box-shadow:var(--shadow-lift);background:#0d191b center/cover no-repeat}
+  .founder-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%}
+  .founder-portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(11,21,23,.5))}
+  .founder-tag{position:absolute;left:14px;bottom:12px;z-index:1;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#f3efe6;background:rgba(11,21,23,.55);border:1px solid rgba(255,255,255,.18);padding:6px 11px;border-radius:8px;backdrop-filter:blur(4px)}
+  .founder-home h2{font-size:var(--step-3);margin-top:.7rem}
+  .founder-home .fbody{color:var(--ink-soft);font-size:var(--step-1);margin:.9rem 0 .8rem;max-width:54ch}
+  .founder-home .fbody b{color:var(--ink)}
+  .founder-creds{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0 1.7rem;padding:0}
+  .founder-creds li{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-soft);border:1px solid var(--line);border-radius:8px;padding:.4rem .72rem}
+  .founder-creds li b{color:var(--accent)}
   .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
 
@@ -649,6 +663,31 @@
   </section>
 
   <!-- ============ FINAL CTA ============ -->
+  <!-- ============ FOUNDER ============ -->
+  <section class="founder-home" id="founder">
+    <div class="wrap">
+      <div class="fgrid">
+        <div class="founder-portrait reveal" style="background-image:url('https://d8j0ntlcm91z4.cloudfront.net/user_3F5ssCqR5J7p1iLhp9GPzJjUxk5/hf_20260727_194114_f0a04cc7-dd8a-4f54-8fba-67edeec4906f.png')">
+          <img src="/kai.jpg" alt="Kai Cogmon, founder of Grandeza" loading="lazy" width="400" height="500">
+          <span class="founder-tag">Kai Cogmon &middot; Founder, Grandeza</span>
+        </div>
+        <div class="reveal">
+          <span class="eyebrow">Who's behind the score</span>
+          <h2>15 years enforcing the rules &mdash; now he audits your AI</h2>
+          <p class="fbody"><b>Kai Cogmon</b> spent 15 years in compliance and law enforcement: a Clark County investigator, then compliance management at Whirlpool, Nevada Homes for Youth, and Nevada State Behavioral Health &mdash; across PCI DSS, HIPAA, OSHA, and TCPA.</p>
+          <p class="fbody">He founded Grandeza to audit the AI that service businesses use to talk to customers: <b>16 controls, a 0&ndash;100 score, and exactly where you're exposed.</b></p>
+          <ul class="founder-creds">
+            <li><b>Clark County</b> Investigator</li>
+            <li>Compliance &middot; <b>Whirlpool</b></li>
+            <li><b>Nevada State</b> Behavioral Health</li>
+            <li>PCI DSS &middot; HIPAA &middot; OSHA &middot; TCPA</li>
+          </ul>
+          <a class="btn btn-primary" href="/scan" onclick="gtag('event','scan_start');">Get your free Grandeza Score</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="final">
     <div class="wrap">
       <span class="eyebrow" style="color:var(--brass-bright);justify-content:center">3 minutes · Free · No obligation</span>
