@@ -38,8 +38,8 @@
 ```
 Grandeza
 Kai Roberts, Founder
-Kai@getgrandeza.com
-getgrandeza.com
+kai@grandeza.io
+grandeza.io
 
 ---
 
@@ -281,7 +281,7 @@ To move forward:
 4. Kickoff call scheduled for [Date +3 days]
 
 Questions?
-- Kai: Kai@getgrandeza.com | [Phone]
+- Kai: kai@grandeza.io | [Phone]
 - Technical deep-dive: [Security Architect email]
 - Compliance concerns: Same as above (Kai is your point)
 
@@ -293,7 +293,7 @@ Signed digitally on [Date]
 Kai Roberts
 Founder, Grandeza
 CNH Consulting Services, LLC
-Kai@getgrandeza.com
+kai@grandeza.io
 ```
 
 ---
@@ -378,7 +378,7 @@ instructions: |
   
   SIGNATURE:
   - Always from "Kai Roberts, Founder, Grandeza"
-  - Always include Kai@getgrandeza.com + phone
+  - Always include kai@grandeza.io + phone
   - Always include "CNH Consulting Services, LLC"
 ```
 
