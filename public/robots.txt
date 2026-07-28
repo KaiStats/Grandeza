@@ -6,6 +6,9 @@ Allow: /
 # Internal design deliverables / demos (not part of the public site)
 Disallow: /design/
 
+# Partner readouts — shareable by link, deliberately not indexed
+Disallow: /readout/
+
 # Post-conversion + app surfaces (no SEO value, avoid thin/duplicate)
 Disallow: /scan/result
 Disallow: /thank-you
