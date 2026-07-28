@@ -233,6 +233,15 @@ em, .it { font-style: italic; }
    so every slide's footer lands on the same baseline */
 .fill { flex: 1; min-height: 0; }
 
+/* Slides whose copy runs short for a 16:9 frame. Rather than letting the cards
+   stretch around a void, the type carries more weight so the words fill the box
+   they are in. Words are unchanged — only the scale is. */
+.slide.roomy p            { font-size: 13.5px; line-height: 1.64; }
+.slide.roomy h2           { font-size: 20px; }
+.slide.roomy .card        { padding: 22px 24px 23px; }
+.slide.roomy .kicker      { font-size: 9px; }
+.slide.roomy .srcnote     { font-size: 8.5px; }
+
 /* ---------- stat tile ---------- */
 
 .stat .figure {
