@@ -1,5 +1,4 @@
 # SPA routing for /scan application
-/scan          /scan/index.html   200
-/scan/         /scan/index.html   200
-/scan/start    /scan/index.html   200
-/scan/*        /scan/index.html   200
+/scan       /scan/index.html   200
+/scan/      /scan/index.html   200
+/scan/start /scan/index.html   200
