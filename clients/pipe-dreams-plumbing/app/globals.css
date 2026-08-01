@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/*
+  Pipe Dreams Plumbing — design tokens.
+
+  Palette rationale: most valley plumbers land on the same primary blue, so the
+  base here is a deeper, colder navy (reads as water and as competence) lifted
+  by a copper accent pulled straight from the trade. Copper is reserved for
+  actions and emphasis only — if everything is copper, nothing is.
+*/
+
+@theme {
+  /* Brand — navy */
+  --color-navy-50: #eef4fb;
+  --color-navy-100: #d7e5f5;
+  --color-navy-200: #b0c9e9;
+  --color-navy-300: #7ea5d8;
+  --color-navy-400: #4e7cc0;
+  --color-navy-500: #305ea3;
+  --color-navy-600: #234a85;
+  --color-navy-700: #1c3b6b;
+  --color-navy-800: #17304f;
+  --color-navy-900: #122438;
+  --color-navy-950: #0b1725;
+
+  /* Brand — copper accent */
+  --color-copper-50: #fdf5ef;
+  --color-copper-100: #fae6d5;
+  --color-copper-200: #f3c9a8;
+  --color-copper-300: #eaa676;
+  --color-copper-400: #e08349;
+  --color-copper-500: #d2662c;
+  --color-copper-600: #b84f21;
+  --color-copper-700: #963d1e;
+  --color-copper-800: #78331f;
+  --color-copper-900: #612c1d;
+
+  /* Emergency / urgency */
+  --color-alert-500: #d62828;
+  --color-alert-600: #b31f1f;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 0.875rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Sticky header offset so anchor links don't hide behind it. */
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Visible, consistent focus ring for keyboard users across the whole site. */
+:focus-visible {
+  outline: 3px solid var(--color-copper-400);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Subtle brushed-metal sheen used behind the hero. */
+.hero-sheen {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% 0%, rgba(224, 131, 73, 0.18), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 10% 20%, rgba(78, 124, 192, 0.22), transparent 65%);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+.rise-in {
+  animation: rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Respect users who have asked the OS to reduce motion. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
