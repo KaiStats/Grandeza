@@ -48,30 +48,56 @@ npm run build        # production build
 npm run lint
 ```
 
-## The AI intake widget
+## The AI receptionist
 
-The chat bubble bottom-right runs a Claude-powered intake flow that collects
-name, phone, address, service type, and urgency, then calls a `submit_lead`
-tool. It's ported from the `KaiStats/HVAC` repo and retargeted to plumbing
-triage.
+The chat bubble bottom-right is a Claude-powered receptionist that covers the
+calls Chance can't take. It does two jobs:
+
+**Answers questions.** Its knowledge base is generated at request time from
+`lib/business.ts` — the service list, the service-area cities, the hours, and
+the FAQs. Correcting a fact on the website corrects what the receptionist says,
+with no hand-written duplicate to drift out of sync. It is explicitly forbidden
+from stating prices, arrival times, warranty terms, or ratings, and is told to
+give out the phone number rather than guess.
+
+**Takes messages.** It collects name, phone, address, service type, and urgency
+one question at a time, reads them back, then calls a `submit_lead` tool.
+
+It knows whether the shop is currently open (`isOpenNow()` in `lib/notify.ts`,
+Las Vegas local time) and adjusts what it promises accordingly. Active flooding,
+burst pipes, sewage backups, and no-water calls short-circuit the whole script
+and get pushed to the phone immediately.
+
+### Configuration
 
 ```bash
-cp .env.local.example .env.local   # add ANTHROPIC_API_KEY
+cp .env.local.example .env.local
 ```
 
-Without a key, `/api/intake` returns 503 and the widget falls back to a
-"call us" button. That's intentional — the site is fully usable with the
-widget unconfigured, so it can ship before the key is provisioned.
+| Variable | Purpose |
+|---|---|
+| `ANTHROPIC_API_KEY` | Required. Without it `/api/intake` returns 503 and the widget falls back to a "call us" button |
+| `TWILIO_*` + `LEAD_SMS_TO` | Texts each lead to the owner's phone |
+| `RESEND_API_KEY` + `LEAD_EMAIL_*` | Emails each lead to the office |
 
-**`lib/bookings.ts` is an in-memory store.** It resets on deploy and is not
-shared across serverless instances. Before launch, forward leads somewhere the
-owner will actually see them — SMS via Twilio or email via Resend is simpler and
-more appropriate here than a database. A lead that only lives in server memory
-is a lead nobody reads.
+**Configure at least one delivery channel.** `lib/notify.ts` pushes every
+captured lead out by SMS and/or email the moment it arrives. If neither is
+configured, the receptionist does *not* claim a message got through — it tells
+the customer to call instead, because a false "he'll call you back" is worse
+than no chat at all. `lib/bookings.ts` is an in-memory debugging aid, not
+storage; it resets on deploy.
 
-The system prompt instructs the assistant to redirect true emergencies
-(flooding, sewage backup, no water) straight to the phone rather than working
-through the intake questions.
+### Not built: answering the actual phone
+
+This answers the *website*. It reaches someone who is already on the site and
+clicks the bubble. A caller who dials (702) 768-0428 while Chance is under a
+sink still gets voicemail.
+
+Closing that gap is a separate build — a Twilio voice number that streams the
+call to a speech-to-text → Claude → text-to-speech loop, reusing the exact
+system prompt and `submit_lead` tool already in `app/api/intake/route.ts`. The
+cheaper interim step is missed-call-to-text: Twilio catches the unanswered call
+and immediately texts the caller a link to this chat.
 
 ## Deploying
 

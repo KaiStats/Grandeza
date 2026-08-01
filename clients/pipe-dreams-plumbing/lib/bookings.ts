@@ -21,15 +21,13 @@ export interface Booking extends BookingInput {
 }
 
 /**
- * ⚠️  In-memory store — resets on every deploy and is NOT shared between
- * serverless instances. It exists so the intake flow is testable end to end.
+ * In-memory record of leads seen by this server instance. Resets on deploy and
+ * is not shared between serverless instances, so treat it as a debugging aid
+ * only — it is deliberately NOT the delivery mechanism.
  *
- * Before launch, replace `saveBooking` with something durable. The cheapest
- * option that actually works for a shop this size is to skip the database
- * entirely and forward each lead straight to the owner:
- *   - SMS via Twilio to business.phone, or
- *   - email via Resend to the office inbox.
- * A lead that only lives in server memory is a lead nobody ever sees.
+ * Delivery is lib/notify.ts, which pushes each lead out by SMS and/or email the
+ * moment it is captured. A lead that only lives in server memory is a lead
+ * nobody ever sees.
  */
 const bookings: Booking[] = [];
 

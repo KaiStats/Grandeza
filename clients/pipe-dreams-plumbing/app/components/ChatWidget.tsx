@@ -8,14 +8,15 @@ type Role = "user" | "assistant";
 type Message = { role: Role; content: string };
 
 const GREETING =
-  `Hi — this is the ${business.shortName} intake desk. Tell me what's going on with your plumbing and I'll get the details over to ${business.owner}. ` +
-  `If it's an emergency, call ${business.phone} instead — that's faster.`;
+  `Hi — ${business.owner} is usually out on a job, so I pick up for him. ` +
+  `Ask me anything about what we do, or tell me what's going on and I'll take a message so he can call you back. ` +
+  `If it's an emergency, call ${business.phone} right now instead.`;
 
 const QUICK_REPLIES = [
   "No hot water",
   "I have a leak",
-  "Drain is backed up",
-  "Need a quote",
+  "Do you serve my area?",
+  "Leave a message",
 ];
 
 export default function ChatWidget() {
@@ -125,7 +126,7 @@ export default function ChatWidget() {
             </span>
             <div className="min-w-0 flex-1">
               <p className="font-display text-base font-bold uppercase tracking-wide text-white">
-                {business.shortName} Intake
+                Ask {business.shortName}
               </p>
               <p className="flex items-center gap-1.5 text-[11px] text-navy-300">
                 <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-green-400" />

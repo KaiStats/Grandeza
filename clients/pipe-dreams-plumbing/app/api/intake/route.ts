@@ -1,30 +1,84 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { saveBooking, BookingInput } from "@/lib/bookings";
-import { business } from "@/lib/business";
+import { deliverLead, isOpenNow } from "@/lib/notify";
+import { business, services, faqs } from "@/lib/business";
 
-const SYSTEM_PROMPT = `You are the front-desk intake assistant for ${business.name}, a licensed, family-owned plumbing company in Las Vegas, NV (${business.licenseLabel}). The owner is ${business.owner}, who has over ${business.yearsExperience} years in the trade.
+/**
+ * The assistant's knowledge base is generated from lib/business.ts rather than
+ * written out by hand, so correcting a service or an FAQ on the website also
+ * corrects what the receptionist tells people. Hand-written duplicates drift.
+ */
+function knowledgeBase(): string {
+  const serviceList = services
+    .map((s) => `- ${s.title}: ${s.blurb} (${s.points.join(", ")})`)
+    .join("\n");
 
-Collect these five things from the customer, ONE question at a time:
-1. service_type — what they need (water heater, leak, drain, toilet, fixture, repipe, or other)
-2. urgency — how bad it is right now (actively flooding, no hot water, can wait a few days)
-3. customer_name — their name
-4. phone — a callback number
-5. address — the service address in the Las Vegas valley
+  const faqList = faqs.map((f) => `Q: ${f.q}\nA: ${f.a}`).join("\n\n");
 
-Rules:
-- Greet them warmly in your first message.
-- Ask only ONE question per reply. Never stack questions.
-- Keep replies short and plain-spoken, like a real dispatcher on the phone. No corporate filler.
-- If they describe an active emergency — burst pipe, flooding, sewage backup, no water at all — tell them immediately to hang up and call ${business.phone}, and keep the rest brief.
-- Business hours are Mon–Fri 8am–5pm, Sat 9am–4pm, closed Sunday. Do not promise a specific arrival time or a price. Say the office will confirm.
-- Never invent details. Only use what the customer told you.
-- Once you have all five pieces, confirm them back in one short summary and call the submit_lead tool.`;
+  const hours = business.hours.map((h) => `${h.days}: ${h.time}`).join("; ");
+
+  return `## What ${business.name} does
+${serviceList}
+
+If someone asks about work not on this list, say it's likely something we handle but they should call ${business.phone} to confirm — do not guess yes or no.
+
+## Service area
+${business.serviceArea.join(", ")}. Based in Summerlin. If someone names a place not on this list, tell them to call and ask rather than guessing.
+
+## Hours
+${hours}.
+
+## Common questions
+${faqList}
+
+## Facts you may state
+- Licensed and insured, ${business.licenseLabel}
+- Owner is ${business.owner}, a Las Vegas native with ${business.yearsExperience}+ years in the trade
+- Family owned
+
+## Never state
+- Specific prices, price ranges, or "free estimate" — pricing is quoted by ${business.owner} only
+- A specific arrival time or appointment slot — the office confirms scheduling
+- Warranty terms, guarantees, review counts, or ratings
+- Anything about the business not listed above. If you do not know, say so and give the phone number.`;
+}
+
+function systemPrompt(): string {
+  const open = isOpenNow();
+
+  return `You are the after-hours receptionist for ${business.name}, a licensed family-owned plumbing company in Las Vegas, NV.
+
+${business.owner} is usually on a job and can't get to the phone, which is why you exist. Your job is to do what a good receptionist does: answer what you can, and take a complete message so he can call back.
+
+The shop is currently ${open ? "OPEN" : "CLOSED"}.
+
+# How to behave
+- Greet them warmly, once, in your first message.
+- Answer questions directly from the knowledge base below. That is a real part of this job — don't rush someone into the intake questions when they asked something simple.
+- When they need work done, collect these five things, ONE question per reply, never stacked:
+  1. what's wrong (water heater, leak, drain, toilet, fixture, repipe, or other)
+  2. how urgent it is right now
+  3. their name
+  4. a callback number
+  5. the service address
+- Keep replies short and plain-spoken, the way a person actually talks on the phone. No corporate filler, no bullet lists at the customer.
+- If they've already told you something, don't ask again.
+- Once you have all five, read them back in one short summary and call the submit_lead tool.
+
+# Emergencies override everything
+If they describe active flooding, a burst pipe, sewage backing up, or no water at all, stop the intake immediately and tell them to call ${business.phone} right now. ${open ? "Someone can pick up." : "It rings through to the on-call line."} Take a message only if they say they'd rather not call.
+
+# Honesty
+Never invent a price, a time, or a fact. If you don't know, say you don't know and give them ${business.phone}. Guessing wrong costs this business a customer.
+
+${knowledgeBase()}`;
+}
 
 const SUBMIT_LEAD_TOOL: Anthropic.Tool = {
   name: "submit_lead",
   description:
-    "Submit the customer's service request once all required details have been collected and confirmed.",
+    "Submit the customer's service request once all required details have been collected and read back to them.",
   input_schema: {
     type: "object" as const,
     properties: {
@@ -50,8 +104,6 @@ const SUBMIT_LEAD_TOOL: Anthropic.Tool = {
 };
 
 export async function POST(req: NextRequest) {
-  // Fail loudly but usefully when the key is missing — the widget falls back
-  // to the phone number when it sees a non-200.
   if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json(
       { error: "Intake is not configured", detail: "ANTHROPIC_API_KEY is not set" },
@@ -75,7 +127,7 @@ export async function POST(req: NextRequest) {
     const response = await anthropic.messages.create({
       model: "claude-sonnet-5",
       max_tokens: 1024,
-      system: SYSTEM_PROMPT,
+      system: systemPrompt(),
       tools: [SUBMIT_LEAD_TOOL],
       messages,
     });
@@ -90,10 +142,20 @@ export async function POST(req: NextRequest) {
 
     if (toolUseBlock?.name === "submit_lead") {
       const lead = await saveBooking(toolUseBlock.input as BookingInput);
-      const reply =
-        textBlock?.text ??
-        `Got it — I've passed this along. Someone will call you back shortly. If it can't wait, call ${business.phone}.`;
-      return NextResponse.json({ reply, lead });
+      const delivery = await deliverLead(lead);
+
+      // Never tell someone their message got through when it didn't — that is
+      // strictly worse than telling them to call, because they stop trying.
+      const reply = delivery.delivered
+        ? textBlock?.text ??
+          `Got it — I've sent this over to ${business.owner} and he'll call you back.`
+        : `I have your details, but I can't confirm the message reached ${business.owner}. Please call ${business.phone} to be safe.`;
+
+      return NextResponse.json({
+        reply,
+        delivered: delivery.delivered,
+        lead: { id: lead.id },
+      });
     }
 
     if (!textBlock) {
