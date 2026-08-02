@@ -19,8 +19,69 @@ Disallow: /api/
 # Every page carries a correct self-referencing canonical, so letting Google
 # crawl ?utm_/?ref= URLs is what folds them into the clean page.
 
-# Let ad/marketing bots read landing pages
+# Let ad/marketing bots read landing pages.
+# AdsBot-Google ignores "User-agent: *" by design and must be named explicitly.
 User-agent: AdsBot-Google
 Allow: /
+
+# ── AI crawlers ─────────────────────────────────────────────────────────────
+# Deliberately ALLOWED. These power AI answer engines that cite sources and
+# send traffic back. Being the shop an assistant names when someone asks
+# "what are TCPA penalties for HVAC" is distribution worth having, and the
+# guides are public content either way.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Google-Extended governs Gemini and AI Overviews ONLY. It has no effect on
+# normal Google Search ranking. Allowed, for the same reason as above.
+User-agent: Google-Extended
+Allow: /
+
+# ── Bulk scrapers ───────────────────────────────────────────────────────────
+# Blocked. These take the content wholesale and return no traffic or citation.
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+# NOTE: SemrushBot and AhrefsBot are intentionally NOT blocked — you run site
+# audits through Semrush, and blocking its crawler breaks your own reporting.
 
 Sitemap: https://grandeza.io/sitemap.xml
