@@ -1,0 +1,5 @@
+Contact: mailto:security@grandeza.io
+Policy: https://grandeza.io/security
+Preferred-Languages: en
+Canonical: https://grandeza.io/.well-known/security.txt
+Expires: 2027-08-02T00:00:00.000Z

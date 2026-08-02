@@ -27,6 +27,9 @@
   <!-- Company / About -->
   <url><loc>https://grandeza.io/about</loc><lastmod>2026-07-30</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
 
+  <!-- Trust / Security — buyers and insurers land here during diligence -->
+  <url><loc>https://grandeza.io/security</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
   <!-- Legal pages (required for compliance, helps with indexing) -->
   <url><loc>https://grandeza.io/privacy</loc><lastmod>2026-07-30</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://grandeza.io/terms</loc><lastmod>2026-07-30</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
