@@ -11,8 +11,13 @@ Disallow: /scan/result
 Disallow: /thank-you
 Disallow: /app/
 Disallow: /api/
-Disallow: /*?*utm_
-Disallow: /*?*ref=
+
+# NOTE: do NOT add "Disallow: /*?*utm_" or "/*?*ref=" here.
+# Blocking a parameter URL stops Googlebot fetching it, so it never reads the
+# page's rel=canonical. The URL can still be indexed from an inbound link —
+# but bare, with no title or snippet, and its link equity never consolidates.
+# Every page carries a correct self-referencing canonical, so letting Google
+# crawl ?utm_/?ref= URLs is what folds them into the clean page.
 
 # Let ad/marketing bots read landing pages
 User-agent: AdsBot-Google
