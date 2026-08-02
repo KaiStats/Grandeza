@@ -6,32 +6,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Money / conversion (home variations + free scan + pricing) -->
-  <url><loc>https://grandeza.io/</loc><lastmod>2026-07-30</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://grandeza.io/landing</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://grandeza.io/</loc><lastmod>2026-08-02</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://grandeza.io/landing</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://grandeza.io/scan</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://grandeza.io/pricing</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://grandeza.io/pricing</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- Product pages -->
-  <url><loc>https://grandeza.io/product/hardening</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://grandeza.io/product/protected-intake</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://grandeza.io/product/guardian</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://grandeza.io/product/hardening</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://grandeza.io/product/protected-intake</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://grandeza.io/product/guardian</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- SEO pillars + cluster guides -->
-  <url><loc>https://grandeza.io/tcpa-compliance-hvac-plumbing</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://grandeza.io/tcpa-penalties</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://grandeza.io/tcpa-sms-consent</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://grandeza.io/a2p-10dlc-registration</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://grandeza.io/dnc-compliance-contractors</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://grandeza.io/appointment-reminder-compliance</loc><lastmod>2026-07-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://grandeza.io/tcpa-compliance-hvac-plumbing</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://grandeza.io/tcpa-penalties</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://grandeza.io/tcpa-sms-consent</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://grandeza.io/a2p-10dlc-registration</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://grandeza.io/dnc-compliance-contractors</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://grandeza.io/appointment-reminder-compliance</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Company / About -->
-  <url><loc>https://grandeza.io/about</loc><lastmod>2026-07-30</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://grandeza.io/about</loc><lastmod>2026-08-02</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
 
   <!-- Trust / Security — buyers and insurers land here during diligence -->
   <url><loc>https://grandeza.io/security</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Legal pages (required for compliance, helps with indexing) -->
-  <url><loc>https://grandeza.io/privacy</loc><lastmod>2026-07-30</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://grandeza.io/terms</loc><lastmod>2026-07-30</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://grandeza.io/privacy</loc><lastmod>2026-08-02</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://grandeza.io/terms</loc><lastmod>2026-08-02</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 
 </urlset>
