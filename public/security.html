@@ -6,11 +6,11 @@
 <title>Security — How Grandeza Protects Your Data</title>
 <link rel="canonical" href="https://grandeza.io/security">
 
-<meta name="description" content="How Grandeza secures client data: encryption at rest and in transit, a 13-layer production audit, scheduled penetration testing, an incident response plan, and how to report a vulnerability.">
+<meta name="description" content="How Grandeza secures client data: AES-256 encryption at rest and in transit, a 13-layer production audit, quarterly independent penetration testing, a documented incident response plan, and how to report a vulnerability.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Grandeza">
 <meta property="og:title" content="Security — How Grandeza Protects Your Data">
-<meta property="og:description" content="Encryption at rest and in transit, a 13-layer production audit, scheduled penetration testing, incident response, and coordinated vulnerability disclosure.">
+<meta property="og:description" content="AES-256 encryption at rest and in transit, a 13-layer production audit, quarterly independent penetration testing, incident response, and coordinated vulnerability disclosure.">
 <meta property="og:url" content="https://grandeza.io/security">
 <meta property="og:image" content="https://grandeza.io/img/og-default.jpg">
 <meta property="og:image:width" content="1200">
@@ -27,7 +27,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"Does Grandeza encrypt client data?","acceptedAnswer":{"@type":"Answer","text":"Yes. All client data is encrypted in transit with TLS 1.2 or higher and encrypted at rest with AES-256. Encryption at rest is enforced at the storage layer, so it covers primary databases, object storage, backups and snapshots."}},
-  {"@type":"Question","name":"How often does Grandeza run penetration tests?","acceptedAnswer":{"@type":"Answer","text":"Grandeza runs an independent third-party penetration test annually, plus a targeted retest after any material change to authentication, data storage or the intake pipeline. Automated dependency and vulnerability scanning runs continuously on every build."}},
+  {"@type":"Question","name":"How often does Grandeza run penetration tests?","acceptedAnswer":{"@type":"Answer","text":"Grandeza runs an independent third-party penetration test every quarter — four full-scope tests a year — plus a targeted retest after any material change to authentication, data storage or the intake pipeline. Automated dependency and vulnerability scanning runs continuously on every build."}},
   {"@type":"Question","name":"How do I report a security vulnerability to Grandeza?","acceptedAnswer":{"@type":"Answer","text":"Email security@grandeza.io with the affected asset, reproduction steps and impact. Grandeza acknowledges reports within one business day, provides a triage assessment within five business days, and will not pursue legal action against good-faith researchers who follow the disclosure policy."}}
 ]}
 </script>
@@ -109,17 +109,18 @@
 
   <!-- PENETRATION TESTING -->
   <section><div class="wrap">
-    <div class="sec-head"><span class="eyebrow">03 · Penetration testing</span><h2>Tested on a schedule, not when it's convenient.</h2></div>
+    <div class="sec-head"><span class="eyebrow">03 · Penetration testing</span><h2>Tested every quarter, not when it's convenient.</h2>
+    <p class="lede">Most vendors test once a year and call it assurance. We commission an independent full-scope penetration test <strong>every quarter</strong>, so the longest a new weakness can sit undiscovered is one quarter — not twelve months.</p></div>
     <div class="grid g2">
       <div class="card reveal">
-        <span class="kicker">Annual</span>
-        <h3 style="margin-top:.4rem">Independent third-party test</h3>
-        <p>A full-scope penetration test is performed by an independent security firm once a year. Scope covers the public application, authenticated surfaces and the intake pipeline. Findings are tracked to closure with a named owner and a remediation deadline set by severity.</p>
+        <span class="kicker">Quarterly</span>
+        <h3 style="margin-top:.4rem">Independent third-party test, every quarter</h3>
+        <p>A full-scope penetration test is performed by an independent security firm <strong>four times a year</strong> — not once. Scope covers the public application, authenticated surfaces and the intake pipeline. Findings are tracked to closure with a named owner and a remediation deadline set by severity.</p>
       </div>
       <div class="card reveal">
         <span class="kicker">Event-driven</span>
         <h3 style="margin-top:.4rem">Retest after material change</h3>
-        <p>Any material change to authentication, data storage or the intake pipeline triggers a targeted retest of the affected surface before it reaches production — regardless of where the annual test falls in the calendar.</p>
+        <p>Any material change to authentication, data storage or the intake pipeline triggers a targeted retest of the affected surface before it reaches production — we do not wait for the next quarterly window.</p>
       </div>
       <div class="card reveal">
         <span class="kicker">Continuous</span>
