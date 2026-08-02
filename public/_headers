@@ -32,7 +32,10 @@
 # ── Content-Security-Policy (starter — currently permissive) ────────────────
 # The pages use inline <style>/<script> and one remote image host, so a strict
 # CSP would break them as-is. Ship the line below once you've (a) self-hosted
-# images and (b) moved inline CSS/JS to /assets with nonces or hashes:
+# images and (b) moved inline CSS/JS to /assets with nonces or hashes.
+#
+# IMPORTANT: the google/cloudflare origins below are what analytics needs. Omit
+# them and GA4 is blocked silently — the page looks fine and no data arrives.
 #
 # /*
-#   Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
+#   Content-Security-Policy: default-src 'self'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; style-src 'self'; script-src 'self' https://www.googletagmanager.com https://static.cloudflareinsights.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://cloudflareinsights.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'

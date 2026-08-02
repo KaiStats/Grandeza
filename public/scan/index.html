@@ -865,6 +865,7 @@
     ];
 
     function startQuiz() {
+      if (window.gzTrack) window.gzTrack("scan_start");
       document.getElementById("welcomeScreen").style.display = "none";
       document.getElementById("questionScreen").style.display = "block";
       currentQuestion = 0;
@@ -1002,6 +1003,14 @@
       document.getElementById("resultExposure").textContent = "$" + totalExposure.toLocaleString();
       document.getElementById("resultGrade").textContent = grade;
       document.getElementById("resultMessage").textContent = message;
+
+      // Conversion event. Aggregate only — no answers, no identifiers.
+      if (window.gzTrack) window.gzTrack("scan_complete", {
+        grade: grade,
+        defensibility: defensibility,
+        threat_count: threatCount,
+        exposure: totalExposure
+      });
     }
 
     function downloadReport() {
@@ -1031,5 +1040,6 @@
       `)).catch(() => {});
     }
   </script>
+  <script src="/assets/consent.js" defer></script>
 </body>
 </html>

@@ -7,17 +7,42 @@
 (function () {
   "use strict";
 
-  /* ===== CONFIG — set your analytics, then it loads only after consent ===== */
+  /* ===== CONFIG — set your analytics, then it loads only after consent =====
+     ┌────────────────────────────────────────────────────────────────────┐
+     │  TO TURN ON GOOGLE ANALYTICS: paste your GA4 Measurement ID below. │
+     │  Find it at analytics.google.com → Admin → Data streams → your     │
+     │  web stream. It looks like  G-ABC1234XYZ                           │
+     │  That is the ONLY edit required. Everything else is already wired. │
+     └────────────────────────────────────────────────────────────────────┘ */
   var ANALYTICS = {
-    // Cloudflare Web Analytics (cookieless, fits Cloudflare Pages). Paste the
-    // token from dash → Analytics → Web Analytics to enable. Empty = disabled.
-    cloudflareToken: "",
-    // GA4 (optional): set to your "G-XXXXXXX" id to enable instead/as well.
-    ga4Id: ""
+    // GA4 Measurement ID, e.g. "G-ABC1234XYZ". Empty = Google Analytics off.
+    ga4Id: "",
+    // Cloudflare Web Analytics (cookieless, no consent needed in most regions).
+    // Token from dash → Analytics → Web Analytics. Empty = disabled.
+    cloudflareToken: ""
   };
 
   var KEY = "gz-consent";
   var loaded = false;
+  var queued = [];   // events fired before consent; replayed on grant
+
+  /* --- Google Consent Mode v2 -------------------------------------------
+     Declared BEFORE any Google tag loads. Without this, GA4 traffic from the
+     EEA/UK is dropped outright. We default every storage type to "denied",
+     then flip only what the visitor grants. Queued on dataLayer so it applies
+     even though gtag.js has not been fetched yet. */
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = window.gtag || gtag;
+  gtag("consent", "default", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "denied",
+    functionality_storage: "granted",
+    security_storage: "granted",
+    wait_for_update: 500
+  });
 
   function loadAnalytics() {
     if (loaded) return; loaded = true;
@@ -29,16 +54,30 @@
       document.head.appendChild(cf);
     }
     if (ANALYTICS.ga4Id) {
+      gtag("consent", "update", { analytics_storage: "granted" });
       var ga = document.createElement("script");
       ga.async = true;
       ga.src = "https://www.googletagmanager.com/gtag/js?id=" + ANALYTICS.ga4Id;
       document.head.appendChild(ga);
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      window.gtag("js", new Date());
-      window.gtag("config", ANALYTICS.ga4Id, { anonymize_ip: true });
+      gtag("js", new Date());
+      gtag("config", ANALYTICS.ga4Id, { anonymize_ip: true });
+      // Replay any events fired before consent was granted.
+      for (var i = 0; i < queued.length; i++) gtag("event", queued[i][0], queued[i][1]);
+      queued.length = 0;
     }
   }
+
+  /* --- gzTrack: fire a conversion event from anywhere --------------------
+     Usage:  window.gzTrack("scan_complete", { grade: "C" });
+     Safe to call at any time — before consent, before gtag.js loads, or with
+     analytics switched off entirely. Never throws, never blocks the UI. */
+  window.gzTrack = function (name, params) {
+    try {
+      if (!name) return;
+      if (loaded && ANALYTICS.ga4Id) gtag("event", name, params || {});
+      else if (queued.length < 25) queued.push([name, params || {}]);
+    } catch (e) { /* analytics must never break the page */ }
+  };
 
   var bar = null;
   function hide() { if (bar) { bar.remove(); bar = null; } }
