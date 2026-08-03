@@ -11,8 +11,50 @@
   # NOTE: add "; preload" above and submit to hstspreload.org only when you're
   # certain every subdomain will always be HTTPS — it's hard to undo.
 
-# HTML: always revalidate so content updates ship immediately
+# HTML: always revalidate so content updates ship immediately.
+#
+# NOTE: the /*.html pattern matches the REQUEST PATH, not the file on disk.
+# Pages serves every page extensionless (/pricing, /scan/start), so /*.html
+# matches almost nothing in practice. The explicit routes below are what
+# actually carry the header. Add a line here whenever a page is added.
 /*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/scan
+  Cache-Control: public, max-age=0, must-revalidate
+/scan/start
+  Cache-Control: public, max-age=0, must-revalidate
+/landing
+  Cache-Control: public, max-age=0, must-revalidate
+/pricing
+  Cache-Control: public, max-age=0, must-revalidate
+/about
+  Cache-Control: public, max-age=0, must-revalidate
+/security
+  Cache-Control: public, max-age=0, must-revalidate
+/privacy
+  Cache-Control: public, max-age=0, must-revalidate
+/terms
+  Cache-Control: public, max-age=0, must-revalidate
+/product/hardening
+  Cache-Control: public, max-age=0, must-revalidate
+/product/protected-intake
+  Cache-Control: public, max-age=0, must-revalidate
+/product/guardian
+  Cache-Control: public, max-age=0, must-revalidate
+/tcpa-compliance-hvac-plumbing
+  Cache-Control: public, max-age=0, must-revalidate
+/tcpa-penalties
+  Cache-Control: public, max-age=0, must-revalidate
+/tcpa-sms-consent
+  Cache-Control: public, max-age=0, must-revalidate
+/a2p-10dlc-registration
+  Cache-Control: public, max-age=0, must-revalidate
+/dnc-compliance-contractors
+  Cache-Control: public, max-age=0, must-revalidate
+/appointment-reminder-compliance
   Cache-Control: public, max-age=0, must-revalidate
 
 # Fingerprinted static assets: cache hard (rename the file to bust)
