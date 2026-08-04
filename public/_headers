@@ -6,10 +6,26 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
-  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin
+  X-Permitted-Cross-Domain-Policies: none
   # NOTE: add "; preload" above and submit to hstspreload.org only when you're
   # certain every subdomain will always be HTTPS — it's hard to undo.
+  #
+  # ── Content-Security-Policy ──────────────────────────────────────────────
+  # The site is fully static: no backend, no forms, no fetch(). The realistic
+  # threat is a third-party script turning hostile — gtag.js cannot carry an
+  # SRI hash because Google rotates it, so the origin allow-list below is the
+  # control that contains it.
+  #
+  # 'unsafe-inline' is required today: 107 style="" attributes, 5 inline
+  # on* handlers, and 4 pages with inline <script>. Removing it needs nonces
+  # or hashes on every one of those. Everything else is locked to the minimum.
+  #
+  # Every allowed origin was enumerated from the codebase — there are exactly
+  # three. object/frame/media are 'none' because the site has zero embeds.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://d8j0ntlcm91z4.cloudfront.net https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://static.cloudflareinsights.com https://cloudflareinsights.com; font-src 'self'; object-src 'none'; frame-src 'none'; media-src 'none'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
 
 # HTML: always revalidate so content updates ship immediately.
 #
