@@ -73,8 +73,8 @@
       </div>
       <div class="card reveal">
         <span class="kicker">In transit</span>
-        <h3 style="margin-top:.4rem">TLS 1.2+ everywhere, HSTS preloaded</h3>
-        <p>All traffic to and from Grandeza is served over TLS 1.2 or higher. HTTP is redirected, never served. HSTS is set with <span class="mono">includeSubDomains</span> and <span class="mono">preload</span>, so browsers refuse an unencrypted connection before one is ever attempted.</p>
+        <h3 style="margin-top:.4rem">TLS 1.2+ everywhere, HSTS enforced</h3>
+        <p>All traffic to and from Grandeza is served over TLS 1.2 or higher. HTTP is redirected, never served. HSTS is set with <span class="mono">max-age=31536000</span> and <span class="mono">includeSubDomains</span>, so once a browser has seen this site it refuses an unencrypted connection for a year. We have not submitted to the browser preload list; that is a one-way door and we will not claim it until it is done.</p>
       </div>
       <div class="card reveal">
         <span class="kicker">Key management</span>
