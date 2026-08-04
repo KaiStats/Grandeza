@@ -1,5 +1,46 @@
 .DS_Store
 node_modules/
-.env
-.env.local
 *.log
+
+# --- Secrets -----------------------------------------------------------------
+# The previous list named only .env and .env.local, so .env.production,
+# .env.staging and friends were all committable. Ignore the whole family and
+# re-admit the placeholder templates explicitly.
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_ed25519
+*.ppk
+
+# Cloud and tooling credentials
+.wrangler/
+.dev.vars
+.dev.vars.*
+credentials
+*credentials*.json
+*service-account*.json
+*serviceaccount*.json
+*.credentials
+.netrc
+.npmrc
+.aws/
+.cloudflare/
+
+# Build and tooling noise
+dist/
+build/
+.cache/
+.parcel-cache/
+coverage/
+.vscode/
+.idea/

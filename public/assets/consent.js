@@ -26,6 +26,44 @@
   var loaded = false;
   var queued = [];   // events fired before consent; replayed on grant
 
+  /* --- Consent retention -------------------------------------------------
+     Consent is not permanent. Storing a grant forever means a visitor who
+     clicked "Accept" once is tracked indefinitely with no chance to revisit
+     the decision — which contradicts the retention discipline our own
+     privacy policy commits to, and sits badly with CNIL/ICO guidance that
+     cookie consent be refreshed periodically. 180 days matches the CNIL
+     recommendation. After that the banner reappears and the visitor
+     re-decides. */
+  var TTL_DAYS = 180;
+  var TTL_MS = TTL_DAYS * 24 * 60 * 60 * 1000;
+
+  /* Read the stored decision, honouring expiry.
+     Returns "granted" | "denied" | null (never asked / expired).
+     Tolerates the legacy bare-string format written before expiry existed:
+     those are treated as expired so the visitor is asked once more. */
+  function readConsent() {
+    var raw = null;
+    try { raw = localStorage.getItem(KEY); } catch (e) { return null; }
+    if (!raw) return null;
+    if (raw === "granted" || raw === "denied") {
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      return null;                       // legacy value, undated — re-ask
+    }
+    try {
+      var rec = JSON.parse(raw);
+      if (!rec || !rec.v || !rec.t) return null;
+      if (Date.now() - rec.t > TTL_MS) { // expired
+        try { localStorage.removeItem(KEY); } catch (e) {}
+        return null;
+      }
+      return rec.v;
+    } catch (e) { return null; }
+  }
+
+  function writeConsent(v) {
+    try { localStorage.setItem(KEY, JSON.stringify({ v: v, t: Date.now() })); } catch (e) {}
+  }
+
   /* --- Google Consent Mode v2 -------------------------------------------
      Declared BEFORE any Google tag loads. Without this, GA4 traffic from the
      EEA/UK is dropped outright. We default every storage type to "denied",
@@ -81,7 +119,7 @@
 
   var bar = null;
   function hide() { if (bar) { bar.remove(); bar = null; } }
-  function decide(v) { try { localStorage.setItem(KEY, v); } catch (e) {} if (v === "granted") loadAnalytics(); hide(); }
+  function decide(v) { writeConsent(v); if (v === "granted") loadAnalytics(); hide(); }
 
   function show() {
     if (bar) return;
@@ -122,7 +160,7 @@
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 
   // Init from stored choice
-  var v = null; try { v = localStorage.getItem(KEY); } catch (e) {}
+  var v = readConsent();
   if (v === "granted") loadAnalytics();
   else if (v !== "denied") {
     if (document.readyState !== "loading") show();
