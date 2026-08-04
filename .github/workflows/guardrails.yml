@@ -27,6 +27,14 @@ on:
 permissions:
   contents: read          # least privilege — this workflow only reads the tree
 
+# Rapid pushes to the same branch queue a full run each. Only the newest commit
+# matters, so cancel the ones it supersedes. 32 pushes in one session would
+# otherwise have burned ~32 runs to tell us about 32 states, 31 of which were
+# already stale. Pull requests are never cancelled mid-flight.
+concurrency:
+  group: guardrails-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'pull_request' }}
+
 jobs:
   guardrails:
     runs-on: ubuntu-latest
@@ -186,3 +194,15 @@ jobs:
         # /assets/* is cached immutable for a year with stable filenames, so a
         # stale ?v= means returning visitors keep the old file indefinitely.
         run: python3 scripts/stamp-assets.py --check
+
+      - name: No page loads analytics outside the consent gate
+        # /scan and /scan/start once had gtag.js hardcoded: no banner, no
+        # consent check, on the pages that are the product. consent.js is the
+        # only thing allowed to construct that URL, and only after a grant.
+        run: |
+          if grep -rlE '<script[^>]+src="https://www\.googletagmanager\.com/gtag/js' --include='*.html' public/ | grep -q .; then
+            grep -rlE '<script[^>]+src="https://www\.googletagmanager\.com/gtag/js' --include='*.html' public/ \
+              | while read -r f; do echo "::error file=$f::analytics loaded outside the consent gate"; done
+            exit 1
+          fi
+          echo "OK — analytics only loads via consent.js"
