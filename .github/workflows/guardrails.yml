@@ -1,8 +1,20 @@
 name: Guardrails
 
 # Every check here exists because something actually broke in production.
-# This is the deployment gate: it runs on pull requests and on pushes to the
-# deploy branch, and a failure blocks the merge.
+#
+# WHAT THIS DOES AND DOES NOT DO — read before trusting it.
+#
+# Cloudflare Pages deploys on push to the production branch. This workflow also
+# runs on push. They are independent triggers, so a failure here CANNOT stop a
+# deploy that is already under way. On a direct push this is a smoke alarm, not
+# a gate: it tells you the site is broken, it does not prevent it.
+#
+# It becomes a real gate only when both of these are true:
+#   1. Cloudflare's production branch is `main`
+#   2. `main` has branch protection requiring a PR and this check to pass
+#
+# Until then, treat a red run as "production is broken right now, go look",
+# and do not mistake it for a control that held anything back.
 
 on:
   pull_request:
