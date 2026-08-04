@@ -1,0 +1,171 @@
+name: Guardrails
+
+# Every check here exists because something actually broke in production.
+# This is the deployment gate: it runs on pull requests and on pushes to the
+# deploy branch, and a failure blocks the merge.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'claude/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read          # least privilege — this workflow only reads the tree
+
+jobs:
+  guardrails:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: _redirects has no infinite-loop rule
+        # A wildcard rewriting into its own match space took the whole site
+        # down once. Cloudflare rejects it at deploy time, after the fact.
+        run: |
+          f=public/_redirects
+          [ -f "$f" ] || exit 0
+          bad=0
+          while read -r from to code _; do
+            case "$from" in ''|'#'*) continue;; esac
+            [ "$code" = "200" ] || continue
+            case "$from" in
+              *'*') pre="${from%\*}"; case "$to" in "$pre"*) echo "::error file=$f::'$from -> $to 200' rewrites into its own match space"; bad=1;; esac;;
+            esac
+          done < "$f"
+          [ "$bad" = "0" ] && echo "OK — no self-referential rewrites"
+          exit $bad
+
+      - name: DOCTYPE is the first thing in every page
+        # A tag injected above <!DOCTYPE html> forces quirks mode and mangles
+        # the layout. Happened on /scan.
+        run: |
+          bad=0
+          while IFS= read -r f; do
+            head -c 15 "$f" | grep -qi '<!DOCTYPE' || { echo "::error file=$f::content before <!DOCTYPE html> — forces quirks mode"; bad=1; }
+          done < <(find public -name '*.html')
+          [ "$bad" = "0" ] && echo "OK — DOCTYPE first on every page"
+          exit $bad
+
+      - name: Scan engine is intact
+        # The scan was once replaced wholesale by a rebuild. These are its
+        # fingerprints: 16 threats, 4 auto-fails, Guardo, the inlined art.
+        run: |
+          python3 - <<'PY'
+          import re, sys
+          p = 'public/scan/start/index.html'
+          h = open(p, encoding='utf-8').read()
+          m = re.search(r'var THREATS = \[(.*?)\n\s*\];', h, re.S)
+          if not m:
+              print(f"::error file={p}::THREATS array missing — scan engine gone"); sys.exit(1)
+          body = m.group(1)
+          checks = {
+              'THREATS entries':  (len(re.findall(r'code:', body)), 16),
+              'auto-fail flags':  (len(re.findall(r'autoFail:\s*true', body)), 4),
+              'inlined PNGs':     (len(re.findall(r'data:image/png;base64', h)), 6),
+              'inlined MP4s':     (len(re.findall(r'data:video/mp4;base64', h)), 7),
+          }
+          bad = False
+          for name, (got, want) in checks.items():
+              ok = got == want
+              bad |= not ok
+              print(f"  {name}: {got} (expected {want}) {'OK' if ok else '<-- CHANGED'}")
+          if 'Guardo' not in h:
+              print(f"::error file={p}::Guardo missing from the scan"); bad = True
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: Every external resource is allowed by the CSP
+        # A new third-party origin that CSP does not list is invisible in
+        # review and dead in production.
+        run: |
+          python3 - <<'PY'
+          import re, sys, fnmatch
+          from pathlib import Path
+          hdr = Path('public/_headers').read_text()
+          line = [l for l in hdr.splitlines() if l.strip().startswith('Content-Security-Policy:')]
+          if not line:
+              print("::error file=public/_headers::CSP missing"); sys.exit(1)
+          pol = {}
+          for d in line[0].split('Content-Security-Policy:',1)[1].strip().split(';'):
+              parts = d.strip().split()
+              if parts: pol[parts[0]] = parts[1:]
+          def ok(host, directive):
+              for s in pol.get(directive, pol.get('default-src', [])):
+                  if s.startswith("'") or s == 'data:': continue
+                  if fnmatch.fnmatch(host, s.replace('https://','')): return True
+              return False
+          bad = False
+          for p in Path('public').rglob('*.html'):
+              s = p.read_text(encoding='utf-8')
+              for m in re.finditer(r'<script[^>]*src="https?://([^/"]+)', s):
+                  if not ok(m.group(1), 'script-src'):
+                      print(f"::error file={p}::script origin not in CSP: {m.group(1)}"); bad = True
+              for m in re.finditer(r'(?:<img[^>]*src="|url\(")https?://([^/"\')]+)', s):
+                  h = m.group(1)
+                  if 'grandeza.io' in h: continue
+                  if not ok(h, 'img-src'):
+                      print(f"::error file={p}::image origin not in CSP: {h}"); bad = True
+          print("OK — every external origin is allowed" if not bad else "")
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: Scan videos can still autoplay
+        # Permissions-Policy autoplay=() would silently stop Guardo.
+        run: |
+          grep -q 'autoplay=(self)' public/_headers \
+            && echo "OK — autoplay=(self)" \
+            || { echo "::error file=public/_headers::autoplay must be (self) or the scan videos stop playing"; exit 1; }
+
+      - name: No broken internal links
+        run: |
+          python3 - <<'PY'
+          import re, sys
+          from pathlib import Path
+          root = Path('public'); bad = False
+          for p in root.rglob('*.html'):
+              if 'design' in p.parts: continue
+              for u in set(re.findall(r'href="(/[^"#?]*)"', p.read_text(encoding='utf-8'))):
+                  t = (root/'index.html') if u == '/' else \
+                      (root/u.lstrip('/')/'index.html') if u.endswith('/') else \
+                      (root/u.lstrip('/')) if '.' in u.rsplit('/',1)[-1] else \
+                      (root/(u.lstrip('/')+'.html'))
+                  if not t.exists() and not (root/u.lstrip('/')/'index.html').exists():
+                      print(f"::error file={p}::broken link {u}"); bad = True
+          print("OK — no broken internal links" if not bad else "")
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: No secrets or private keys staged
+        run: |
+          bad=0
+          if grep -rEIl 'BEGIN [A-Z ]*PRIVATE KEY|sk_live_[A-Za-z0-9]{16}|ghp_[A-Za-z0-9]{36}|xox[baprs]-[A-Za-z0-9-]{10}' \
+               --exclude-dir=.git . 2>/dev/null | grep -q .; then
+            echo "::error::credential-shaped string found in the tree"; bad=1
+          fi
+          while IFS= read -r f; do
+            case "$f" in *.example) continue;; esac
+            echo "::error file=$f::env file committed"; bad=1
+          done < <(git ls-files | grep -E '(^|/)\.env' || true)
+          [ "$bad" = "0" ] && echo "OK — no secrets staged"
+          exit $bad
+
+      - name: Sitemap is valid and every URL resolves
+        run: |
+          python3 - <<'PY'
+          import re, sys, xml.dom.minidom
+          from pathlib import Path
+          root = Path('public')
+          xml.dom.minidom.parse(str(root/'sitemap.xml'))
+          bad = False
+          for loc in re.findall(r'<loc>https://grandeza\.io(/[^<]*)</loc>', (root/'sitemap.xml').read_text()):
+              t = (root/'index.html') if loc == '/' else (root/(loc.lstrip('/')+'.html'))
+              if not t.exists() and not (root/loc.lstrip('/')/'index.html').exists():
+                  print(f"::error::sitemap lists {loc} but no file serves it"); bad = True
+          print("OK — sitemap valid, all URLs resolve" if not bad else "")
+          sys.exit(1 if bad else 0)
+          PY

@@ -1,0 +1,12 @@
+# Every change needs the owner's review before it can reach production.
+# GitHub enforces this once "Require review from Code Owners" is enabled
+# in branch protection — the file alone does nothing.
+
+*                       @KaiStats
+
+# Highest-blast-radius paths, called out so they are never skimmed:
+/public/scan/           @KaiStats   # the scan app — has been lost once
+/public/_headers        @KaiStats   # CSP, HSTS, cache — a typo here is sitewide
+/public/_redirects      @KaiStats   # a bad rule took the site down once
+/public/robots.txt      @KaiStats   # controls indexation
+/.github/workflows/     @KaiStats   # the gate itself
