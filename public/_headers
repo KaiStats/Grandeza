@@ -86,6 +86,15 @@
 /img/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Founder photo on /scan — sits outside /img/*, so it had no rule and fell to
+# Cloudflare's default. 322 KB re-fetched more often than it needs to be.
+/scan/kai.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+# security.txt — researchers and scanners read this; keep it fresh-ish.
+/.well-known/security.txt
+  Cache-Control: public, max-age=86400
+
 # robots + sitemap: short cache
 /robots.txt
   Cache-Control: public, max-age=3600

@@ -16,7 +16,7 @@
      └────────────────────────────────────────────────────────────────────┘ */
   var ANALYTICS = {
     // GA4 Measurement ID, e.g. "G-ABC1234XYZ". Empty = Google Analytics off.
-    ga4Id: "",
+    ga4Id: "G-F4KBCCR6WT",
     // Cloudflare Web Analytics (cookieless, no consent needed in most regions).
     // Token from dash → Analytics → Web Analytics. Empty = disabled.
     cloudflareToken: ""

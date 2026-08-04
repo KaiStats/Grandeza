@@ -169,3 +169,8 @@ jobs:
           print("OK — sitemap valid, all URLs resolve" if not bad else "")
           sys.exit(1 if bad else 0)
           PY
+
+      - name: Asset cache-busting stamps are current
+        # /assets/* is cached immutable for a year with stable filenames, so a
+        # stale ?v= means returning visitors keep the old file indefinitely.
+        run: python3 scripts/stamp-assets.py --check
