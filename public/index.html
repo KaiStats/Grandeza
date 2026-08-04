@@ -433,8 +433,15 @@
   .foot-bottom .mono{font-size:.76rem;letter-spacing:.04em}
 
   .disclaimer{color:var(--ink-faint);font-size:.78rem;max-width:70ch;margin-top:1rem;line-height:1.6}
+  /* Skip link (WCAG 2.4.1) — off-screen until focused, never display:none */
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:var(--accent);
+    color:var(--accent-ink,#0c1618);padding:.7em 1.1em;border-radius:0 0 9px 0;
+    font-weight:600;font-size:.95rem;text-decoration:none}
+  .skip-link:focus{left:0}
+  .skip-link:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 </style>
 
+<a class="skip-link" href="#top">Skip to content</a>
 <header id="header">
   <nav class="nav">
     <a class="brand" href="#top" aria-label="Grandeza home">

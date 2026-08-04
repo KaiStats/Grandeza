@@ -352,9 +352,14 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
   }
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#c6a15b;color:#0c1618;
+    padding:.7em 1.1em;border-radius:0 0 9px 0;font-weight:600;font-size:.95rem;text-decoration:none}
+  .skip-link:focus{left:0}
+  .skip-link:focus-visible{outline:3px solid currentColor;outline-offset:2px}
 </style>
 
-<div class="wrap">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap" id="main" role="main" tabindex="-1">
   <div class="brand">
     <div class="word">GRANDEZA<b>.</b></div>
     <div class="brand-actions">

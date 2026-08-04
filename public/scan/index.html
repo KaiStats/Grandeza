@@ -449,10 +449,15 @@
     .scanbar{display:none}
     .reveal{opacity:1;transform:none}
   }
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#c6a15b;color:#0c1618;
+    padding:.7em 1.1em;border-radius:0 0 9px 0;font-weight:600;font-size:.95rem;text-decoration:none}
+  .skip-link:focus{left:0}
+  .skip-link:focus-visible{outline:3px solid currentColor;outline-offset:2px}
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="site">
   <div class="wrap nav">
     <a class="brandlock" href="https://grandeza.io" aria-label="Grandeza home">
@@ -464,6 +469,7 @@
     </div>
   </div>
 </header>
+<main id="main" tabindex="-1">
 
 <!-- Reusable seal symbol (16-point heraldic seal, built by JS into #gseal) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -663,6 +669,7 @@
   </div>
 </section>
 
+</main>
 <footer class="site">
   <div class="wrap">
     <p class="row1"><svg class="mark" width="22" height="22" viewBox="0 0 100 100" aria-hidden="true"><use href="#gseal"/></svg> <span>&copy; 2026 Grandeza &middot; TCPA compliance for HVAC &amp; plumbing contractors &middot; <a href="https://grandeza.io">grandeza.io</a></span></p>

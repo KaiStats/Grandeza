@@ -341,10 +341,17 @@
   .foot-links a{color:var(--ink-soft);font-size:.88rem}
   .disclaimer{color:var(--ink-faint);font-size:.78rem;max-width:78ch;margin-top:1.6rem;line-height:1.6;
     border-top:1px solid var(--line);padding-top:1.2rem}
+  /* Skip link (WCAG 2.4.1) — off-screen until focused, never display:none */
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:var(--accent);
+    color:var(--accent-ink,#0c1618);padding:.7em 1.1em;border-radius:0 0 9px 0;
+    font-weight:600;font-size:.95rem;text-decoration:none}
+  .skip-link:focus{left:0}
+  .skip-link:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 </style>
 
 <div class="topbar">Now onboarding <b>Q3 2026</b> — limited to <b>8 new shops</b> this cohort · <b>Free</b> risk scan, no code access</div>
 
+<a class="skip-link" href="#top">Skip to content</a>
 <header id="header">
   <nav class="nav">
     <a class="brand" href="#top" aria-label="Grandeza home">

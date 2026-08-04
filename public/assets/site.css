@@ -209,3 +209,15 @@ details .a{padding:0 1.3rem 1.2rem;color:var(--ink-soft);font-size:.96rem;line-h
   display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;color:var(--ink-faint);font-size:.82rem}
 .foot-bottom .mono{font-size:.76rem;letter-spacing:.04em}
 .disclaimer{color:var(--ink-faint);font-size:.78rem;max-width:70ch;margin-top:1rem;line-height:1.6}
+
+/* ---------- Skip link (WCAG 2.4.1 Bypass Blocks) ----------
+   Off-screen until focused, then pinned top-left so keyboard and
+   screen-reader users can jump the nav instead of tabbing it on
+   every page. Never use display:none — that removes it from the
+   focus order entirely, which defeats the purpose. */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;
+  background:var(--accent);color:var(--accent-ink,#0c1618);
+  padding:.7em 1.1em;border-radius:0 0 var(--radius-sm,9px) 0;
+  font-weight:600;font-size:.95rem;text-decoration:none}
+.skip-link:focus{left:0}
+.skip-link:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
