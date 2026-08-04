@@ -117,6 +117,60 @@
     } catch (e) { /* analytics must never break the page */ }
   };
 
+  /* --- Error reporting ---------------------------------------------------
+     The scan is the product and it runs entirely in the visitor's browser.
+     If it throws on question 7 the page freezes, the visitor leaves, and
+     nothing anywhere records that it happened — uptime checks stay green
+     because the HTML still returns 200.
+
+     This routes uncaught errors through the SAME consent-gated channel as
+     everything else. No new third party, no new origin for the CSP, and no
+     report before the visitor has agreed to analytics. GA4 treats
+     "exception" as a reserved event, so these land in its built-in reporting.
+
+     Deliberately conservative:
+       - at most 5 reports per page, so a render loop cannot flood
+       - message truncated, query strings and hashes stripped from filenames
+         (a URL can carry identifiers; a stack location does not need them)
+       - the handler never throws, and never reports its own failures */
+  var MAX_REPORTS = 5;
+  var reported = 0;
+
+  function scrub(url) {
+    if (!url) return "";
+    return String(url).split("?")[0].split("#")[0].slice(-120);
+  }
+
+  function report(kind, message, source, line) {
+    try {
+      if (reported >= MAX_REPORTS) return;
+      reported++;
+      window.gzTrack("exception", {
+        description: (kind + ": " + (message || "unknown")).slice(0, 240),
+        source: scrub(source),
+        line: line || 0,
+        page: scrub(location.pathname),
+        fatal: false
+      });
+    } catch (e) { /* never let reporting break the page */ }
+  }
+
+  addEventListener("error", function (e) {
+    // Resource load failures (img/video/script) surface here with no message.
+    // Those are useful too: a 404 on the hero art is exactly the silent
+    // failure we cannot otherwise see.
+    if (e && e.target && e.target !== window && e.target.src) {
+      report("resource", "failed to load " + (e.target.tagName || "?"), e.target.src, 0);
+      return;
+    }
+    if (e) report("error", e.message, e.filename, e.lineno);
+  }, true);
+
+  addEventListener("unhandledrejection", function (e) {
+    var r = e && e.reason;
+    report("unhandledrejection", (r && (r.message || r)) || "unknown", "", 0);
+  });
+
   var bar = null;
   function hide() { if (bar) { bar.remove(); bar = null; } }
   function decide(v) { writeConsent(v); if (v === "granted") loadAnalytics(); hide(); }

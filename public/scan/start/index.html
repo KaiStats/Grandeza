@@ -1047,4 +1047,4 @@
 <script>
 (function(){var fired=false,obs;function fire(){if(fired)return;var t=((document.body&&document.body.innerText)||"").toLowerCase();if(t.indexOf("audit complete")!==-1){fired=true;if(typeof gtag==="function"){gtag("event","scan_complete");}if(obs)obs.disconnect();}}function start(){if(document.body){obs=new MutationObserver(fire);obs.observe(document.body,{childList:true,subtree:true,characterData:true});fire();}else{setTimeout(start,200);}}start();})();
 </script>
-<script src="/assets/consent.js?v=649c8e0d" defer></script>
+<script src="/assets/consent.js?v=ec718df9" defer></script>
