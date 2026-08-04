@@ -206,3 +206,31 @@ jobs:
             exit 1
           fi
           echo "OK — analytics only loads via consent.js"
+
+      - name: Every deployed file has an explicit cache rule
+        # /scan/kai.jpg (322 KB) and /.well-known/security.txt matched no rule
+        # and silently fell to the platform default. A new page or asset added
+        # without a _headers entry does the same thing, invisibly.
+        run: |
+          python3 - <<'PY'
+          import fnmatch, sys
+          from pathlib import Path
+          rules = []
+          for line in Path('public/_headers').read_text().splitlines():
+              if line.startswith('/'):
+                  rules.append([line.strip(), {}])
+              elif line.startswith('  ') and ':' in line and not line.strip().startswith('#') and rules:
+                  k, v = line.strip().split(':', 1); rules[-1][1][k.strip()] = v.strip()
+          bad = []
+          for f in sorted(Path('public').rglob('*')):
+              if not f.is_file() or f.name in ('_headers', '_redirects'): continue
+              rel = '/' + str(f.relative_to('public'))
+              url = rel.replace('/index.html', '') or '/'
+              if not any('Cache-Control' in h and (fnmatch.fnmatch(url, pat) or fnmatch.fnmatch(rel, pat))
+                         for pat, h in rules):
+                  bad.append(rel)
+          for b in bad:
+              print(f"::error file=public/_headers::{b} has no Cache-Control rule - falls to the platform default")
+          print(f"OK - all {len(list(Path('public').rglob('*')))} deployed paths carry a cache rule" if not bad else "")
+          sys.exit(1 if bad else 0)
+          PY
