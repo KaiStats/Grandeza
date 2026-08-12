@@ -11,7 +11,7 @@
 </script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="description" content="The 16-control Grandeza Scan as a 3-minute survival game. Sixteen threats. One question each. Can your AI intake stay Defensible?" />
+<meta name="description" content="The 18-control Grandeza Scan as a 3-minute survival game. Eighteen threats. One question each. Can your AI intake stay Defensible?" />
 
 <style>
   /* ============================================================
@@ -363,7 +363,7 @@
   <div class="hud hide" id="hud" aria-hidden="true">
     <div class="hud-cell hud-threat">
       <div class="k">Threat</div>
-      <div class="v"><span id="hThreat">01</span> / 16</div>
+      <div class="v"><span id="hThreat">01</span> / 18</div>
     </div>
     <div class="hud-cell meter-cell">
       <div class="top">
@@ -675,7 +675,29 @@
       ],
       pass:"Coverage where you’re most exposed.",
       partial:"“Probably covered” is a sentence insurers love and you’ll regret.",
-      fail:"Most policies predate AI agents and carve these claims out. If you haven’t asked your broker directly, assume the answer is no." }
+      fail:"Most policies predate AI agents and carve these claims out. If you haven’t asked your broker directly, assume the answer is no." },
+
+    { code:"17", name:"DNC Suppression", pillar:"Outbound", weight:8, autoFail:true, exposure:220000,
+      scene:"You pull every customer who hasn’t called in two years and text them a spring tune-up offer.",
+      prompt:"That list was scrubbed against…",
+      opts:[
+        {t:"pass", label:"The federal DNC registry and your own written internal do-not-contact list."},
+        {t:"fail", label:"People who texted STOP — that’s the only list you keep."},
+        {t:"fail", label:"Nothing. The list is the list."}
+      ],
+      pass:"That’s the full scrub — federal registry and your own written policy, both checked.",
+      fail:"Texting a registry-listed number with no consent of record draws FCC enforcement and state do-not-call claims (47 C.F.R. § 64.1200(c)–(d)) — and honoring “STOP” is not enough: a written internal do-not-call policy is required on top of it." },
+
+    { code:"18", name:"Contact Timing", pillar:"Outbound", weight:5, autoFail:false, exposure:42000,
+      scene:"Your appointment reminder fires at 8:15 p.m. The customer moved to Florida last year and never told you.",
+      prompt:"That send window is computed…",
+      opts:[
+        {t:"pass", label:"In the customer’s local time, against the strictest hours that apply to them."},
+        {t:"fail", label:"In your shop’s local time — 8:15 here is 8:15 everywhere."},
+        {t:"fail", label:"Whenever the system happens to fire."}
+      ],
+      pass:"That’s timing that survives a complaint — computed where the customer actually is.",
+      fail:"Federal calling hours run 8 a.m.–9 p.m. by the called party’s location (47 C.F.R. § 64.1200(c)(1)); Florida cuts that to 8 p.m. (Fla. Stat. § 501.616(6)). Computing off your own clock gets both wrong the moment a customer crosses a time zone or state line." }
   ];
 
   var PILLARS = ["Disclosure","Outbound","Privacy","Guardrails","Governance"];
@@ -701,7 +723,7 @@
     name: "Guardo"
   };
   /* CAST — one entry per control code (progressive enhancement).
-     The four auto-fail controls have a named rogue (own still + Seedance
+     The five auto-fail controls have a named rogue (own still + Seedance
      "attack" clip) that gets you on the red-flag screen. The other twelve are
      "minion" slots: they currently fall back to Guardo (the guide). To give a
      control its own lighter minion, generate the art (Higgsfield
@@ -725,7 +747,9 @@
     "13": null,                                                                                   // Bias & fairness review
     "14": { img: "the-shredder.png", video: "the-shredder-attack.mp4", name: "The Shredder" },   // Audit trail       (auto-fail)
     "15": null,                                                                                   // Annual compliance review
-    "16": null                                                                                    // Insurance (E&O / GL)
+    "16": null,  // Insurance (E&O / GL)
+    "17": { img: "blaster.png",  video: "blaster-attack.mp4",  name: "The Blaster" },            // DNC Suppression   (auto-fail)
+    "18": null                                                                                    // Contact Timing
   };
   var VILLAINS = CAST; // back-compat alias
   function charFor(code) { return CAST[code] || GUARDO; }
@@ -758,7 +782,7 @@
   /* -------- state -------- */
   var idx = 0, earned = 0, liability = 0, answered = false;
   var results = []; // {code,name,pillar,weight,autoFail,tier}
-  var MAX = THREATS.reduce(function (s, t) { return s + t.weight; }, 0); // 100
+  var MAX = THREATS.reduce(function (s, t) { return s + t.weight; }, 0); // 113
 
   var stage = document.getElementById("stage");
   var hud = document.getElementById("hud");
@@ -787,10 +811,9 @@
         '<div class="hero-char" id="heroChar"></div>' +
         '<div class="eyebrow">The Grandeza Scan · 3 minutes</div>' +
         '<h1>Your AI is answering the phones.<br><span class="u">Can it survive an audit?</span></h1>' +
-        '<p class="lede">Meet <b>Guardo</b>, your guide. Sixteen threats are about to walk through the door — a subpoena, a “STOP” text, a gas-leak call. One question each. Answer how your shop <em>actually</em> runs today, not how you wish it did.</p>' +
+        '<p class="lede">Meet <b>Guardo</b>, your guide. Eighteen threats are about to walk through the door — a subpoena, a “STOP” text, a gas-leak call. One question each. Answer how your shop <em>actually</em> runs today, not how you wish it did.</p>' +
         '<div class="facts">' +
-          '<span class="fact">Most first-timers score <b>31–58</b></span>' +
-          '<span class="fact"><b>4</b> threats are instant red flags</span>' +
+          '<span class="fact"><b>5</b> threats are instant red flags</span>' +
           '<span class="fact">Real fines, real statutes</span>' +
         '</div>' +
         '<div class="cta-row">' +
@@ -1011,7 +1034,7 @@
           '<a class="btn btn-primary" href="mailto:Kai@grandeza.io?subject=' + encodeURIComponent("My Grandeza Scan report") + '">Get your report →</a>' +
           '<button class="btn btn-ghost" id="againBtn" type="button">Play again</button>' +
         '</div>' +
-        '<p class="disclaimer">This is an educational self-assessment, not legal advice. Statutory figures shown (TCPA $500–$1,500/text; NRS 200.620 / 193.130 recording penalties; NRS 603A breach duties; FTC § 5) are real and verifiable; the running “exposure” total is an illustrative dramatization of what these gaps can cost, not a quote. Get a one-time attorney review before you rely on any of it. The real 16-control scan lives at <a href="https://grandeza.io/scan" target="_blank" rel="noopener">grandeza.io/scan</a>.</p>' +
+        '<p class="disclaimer">This is an educational self-assessment, not legal advice. Statutory figures shown (TCPA $500–$1,500/text; NRS 200.620 / 193.130 recording penalties; NRS 603A breach duties; FTC § 5) are real and verifiable; the running “exposure” total is an illustrative dramatization of what these gaps can cost, not a quote. Get a one-time attorney review before you rely on any of it. The real 18-control scan lives at <a href="https://grandeza.io/scan" target="_blank" rel="noopener">grandeza.io/scan</a>.</p>' +
       '</div>';
 
     document.getElementById("againBtn").addEventListener("click", intro);
