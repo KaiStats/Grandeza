@@ -6,11 +6,11 @@
 <title>Security — How Grandeza Protects Your Data</title>
 <link rel="canonical" href="https://grandeza.io/security">
 
-<meta name="description" content="How Grandeza secures client data: AES-256 encryption at rest and in transit, a 13-layer production audit, semi-annual independent penetration testing, a documented incident response plan, and how to report a vulnerability.">
+<meta name="description" content="How Grandeza secures client data: AES-256 encryption at rest and in transit, an internal 13-layer production review, and a straight account of where our security program stands today — including what's not built yet.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Grandeza">
 <meta property="og:title" content="Security — How Grandeza Protects Your Data">
-<meta property="og:description" content="AES-256 encryption at rest and in transit, a 13-layer production audit, semi-annual independent penetration testing, incident response, and coordinated vulnerability disclosure.">
+<meta property="og:description" content="AES-256 encryption at rest and in transit, an internal 13-layer production review, and a direct account of what's in place today versus what's on the roadmap.">
 <meta property="og:url" content="https://grandeza.io/security">
 <meta property="og:image" content="https://grandeza.io/img/og-default.jpg">
 <meta property="og:image:width" content="1200">
@@ -27,7 +27,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"Does Grandeza encrypt client data?","acceptedAnswer":{"@type":"Answer","text":"Yes. All client data is encrypted in transit with TLS 1.2 or higher and encrypted at rest with AES-256. Encryption at rest is enforced at the storage layer, so it covers primary databases, object storage, backups and snapshots."}},
-  {"@type":"Question","name":"How often does Grandeza run penetration tests?","acceptedAnswer":{"@type":"Answer","text":"Grandeza commissions an independent third-party full-scope penetration test twice a year, above the annual baseline expected by SOC 2 and ISO 27001. In addition, any material change to authentication, data storage or the intake pipeline triggers a targeted retest of the affected surface before it reaches production, and automated dependency and vulnerability scanning runs continuously on every build."}},
+  {"@type":"Question","name":"How often does Grandeza run penetration tests?","acceptedAnswer":{"@type":"Answer","text":"Not yet, and we want to be direct about that. Grandeza has not commissioned an independent third-party penetration test to date. Establishing a recurring, independent testing program is on our security roadmap as we scale. In the meantime, new code that touches authentication, data storage or the intake pipeline is reviewed by the team before it ships."}},
   {"@type":"Question","name":"How do I report a security vulnerability to Grandeza?","acceptedAnswer":{"@type":"Answer","text":"Email security@grandeza.io with the affected asset, reproduction steps and impact. Grandeza acknowledges reports within one business day, provides a triage assessment within five business days, and will not pursue legal action against good-faith researchers who follow the disclosure policy."}}
 ]}
 </script>
@@ -55,7 +55,7 @@
     <p class="crumbs"><a href="/">Home</a><span>/</span>Security</p>
     <span class="eyebrow">Security</span>
     <h1>We hold ourselves to the standard we sell.</h1>
-    <p class="lede">Grandeza handles consent records, call and message logs, and the audit trail our clients rely on in a dispute. That data is evidence. This page documents how we protect it — encryption, audit cadence, penetration testing, incident response, and how to tell us if we've got something wrong.</p>
+    <p class="lede">Grandeza handles consent records, call and message logs, and the audit trail our clients rely on in a dispute. That data is evidence. This page documents how we protect it — encryption, our internal review process, where our security program stands today, and how to tell us if we've got something wrong. We'd rather be accurate here than impressive.</p>
     <p class="updated mono" style="margin-top:.9rem;color:var(--ink-faint)">Last updated: August 2026 · Reviewed quarterly</p>
   </div></section>
 
@@ -80,73 +80,73 @@
       </div>
       <div class="card reveal">
         <span class="kicker">Access</span>
-        <h3 style="margin-top:.4rem">Least privilege, MFA, logged</h3>
-        <p>Production access is role-based and granted on the principle of least privilege. Multi-factor authentication is mandatory for every account with production reach. Access is time-bound, reviewed quarterly, and every session is logged to an append-only audit trail.</p>
+        <h3 style="margin-top:.4rem">Least privilege, MFA required, logged</h3>
+        <p>Production access is role-based and granted on the principle of least privilege. Multi-factor authentication is required policy for every account with production reach, and we're in the process of confirming full enforcement across every system as we formalize this program. Access is time-bound and every session is logged to an append-only audit trail.</p>
       </div>
     </div>
   </div></section>
 
   <!-- 13-LAYER AUDIT -->
   <section style="background:var(--surface)"><div class="wrap">
-    <div class="sec-head"><span class="eyebrow">02 · Production audit</span><h2>Thirteen layers, audited on every release.</h2>
-    <p class="lede">We run the same discipline against our own production stack that we run against a client's intake. Thirteen layers, each with a defined pass condition. A release does not ship with a failing layer.</p></div>
+    <div class="sec-head"><span class="eyebrow">02 · Production review</span><h2>Thirteen layers we check ourselves against.</h2>
+    <p class="lede">We hold our own stack to the same standard we sell — thirteen layers, each with a defined pass condition. Today this review is manual before major releases; we're building it into an automated CI gate so a failing layer blocks a release as a matter of process, not memory.</p></div>
     <div class="grid g3">
       <div class="feature reveal"><div class="ic mono">01</div><div><h3>Network perimeter</h3><p>Edge firewall rules, DDoS mitigation and rate limiting reviewed against the current threat profile.</p></div></div>
       <div class="feature reveal"><div class="ic mono">02</div><div><h3>Transport security</h3><p>TLS configuration, cipher suites, certificate validity and HSTS enforcement verified end to end.</p></div></div>
-      <div class="feature reveal"><div class="ic mono">03</div><div><h3>Authentication</h3><p>Credential handling, MFA enforcement, session lifetime and lockout behaviour tested against bypass attempts.</p></div></div>
+      <div class="feature reveal"><div class="ic mono">03</div><div><h3>Authentication</h3><p>Credential handling, MFA enforcement, session lifetime and lockout behaviour reviewed for bypass risk.</p></div></div>
       <div class="feature reveal"><div class="ic mono">04</div><div><h3>Authorization</h3><p>Role boundaries and object-level permissions checked for horizontal and vertical privilege escalation.</p></div></div>
-      <div class="feature reveal"><div class="ic mono">05</div><div><h3>Input handling</h3><p>Injection, deserialization and traversal surfaces exercised across every request path that accepts user input.</p></div></div>
-      <div class="feature reveal"><div class="ic mono">06</div><div><h3>Output encoding</h3><p>Cross-site scripting and content-injection vectors validated, with Content Security Policy enforced in report-and-block mode.</p></div></div>
+      <div class="feature reveal"><div class="ic mono">05</div><div><h3>Input handling</h3><p>Injection, deserialization and traversal surfaces reviewed across request paths that accept user input.</p></div></div>
+      <div class="feature reveal"><div class="ic mono">06</div><div><h3>Output encoding</h3><p>Cross-site scripting and content-injection vectors checked, with a Content Security Policy in place.</p></div></div>
       <div class="feature reveal"><div class="ic mono">07</div><div><h3>Data at rest</h3><p>Encryption coverage confirmed across primary stores, replicas, backups and snapshots — no unencrypted copies.</p></div></div>
-      <div class="feature reveal"><div class="ic mono">08</div><div><h3>Secrets management</h3><p>Repositories, images and configuration scanned for committed credentials, tokens and private keys.</p></div></div>
-      <div class="feature reveal"><div class="ic mono">09</div><div><h3>Dependencies</h3><p>Full dependency tree resolved against known-vulnerability databases, with a defined remediation window by severity.</p></div></div>
-      <div class="feature reveal"><div class="ic mono">10</div><div><h3>Logging &amp; audit trail</h3><p>Security-relevant events confirmed to be captured, tamper-evident, and retained for the contracted period.</p></div></div>
-      <div class="feature reveal"><div class="ic mono">11</div><div><h3>Backup &amp; recovery</h3><p>Restores tested from real backups — not assumed. Recovery time and recovery point measured against target.</p></div></div>
+      <div class="feature reveal"><div class="ic mono">08</div><div><h3>Secrets management</h3><p>Repositories, images and configuration checked for committed credentials, tokens and private keys.</p></div></div>
+      <div class="feature reveal"><div class="ic mono">09</div><div><h3>Dependencies</h3><p>Dependency tree reviewed against known-vulnerability databases; automated scanning is on our near-term roadmap.</p></div></div>
+      <div class="feature reveal"><div class="ic mono">10</div><div><h3>Logging &amp; audit trail</h3><p>Security-relevant events captured and written to a tamper-evident, append-only log.</p></div></div>
+      <div class="feature reveal"><div class="ic mono">11</div><div><h3>Backup &amp; recovery</h3><p>Backup coverage confirmed across primary data stores as part of our review process.</p></div></div>
       <div class="feature reveal"><div class="ic mono">12</div><div><h3>Third-party surface</h3><p>Every sub-processor and integration reviewed for the data it receives and the access it holds.</p></div></div>
-      <div class="feature reveal"><div class="ic mono">13</div><div><h3>Configuration drift</h3><p>Running production compared against declared infrastructure state; any unreviewed divergence is treated as a finding.</p></div></div>
+      <div class="feature reveal"><div class="ic mono">13</div><div><h3>Configuration drift</h3><p>Running production checked against declared infrastructure state as part of our review process.</p></div></div>
     </div>
   </div></section>
 
   <!-- PENETRATION TESTING -->
   <section><div class="wrap">
-    <div class="sec-head"><span class="eyebrow">03 · Penetration testing</span><h2>Twice a year on the calendar — and again every time we change something that matters.</h2>
-    <p class="lede">A once-a-year test tells you the system was sound on one day twelve months ago. We commission an independent full-scope penetration test <strong>twice a year</strong>, and we don't wait for the next window: any material change to authentication, data storage or the intake pipeline is retested before it ships.</p></div>
+    <div class="sec-head"><span class="eyebrow">03 · Penetration testing</span><h2>Not yet on the calendar — here's where we actually are.</h2>
+    <p class="lede">We haven't commissioned an independent penetration test yet. Rather than let this page get ahead of the actual program, here's what's actually in place today and what's committed next.</p></div>
     <div class="grid g2">
       <div class="card reveal">
-        <span class="kicker">Semi-annual</span>
-        <h3 style="margin-top:.4rem">Independent third-party test, twice a year</h3>
-        <p>A full-scope penetration test is performed by an independent security firm <strong>twice a year</strong> — above the annual baseline SOC 2 and ISO 27001 expect. Scope covers the public application, authenticated surfaces and the intake pipeline. Findings are tracked to closure with a named owner and a remediation deadline set by severity.</p>
+        <span class="kicker">Planned</span>
+        <h3 style="margin-top:.4rem">Independent third-party test — not yet run</h3>
+        <p>We have not yet commissioned an independent penetration test. As Grandeza takes on more client data, a full-scope test by an independent security firm is a committed near-term milestone — not a completed one. We'll update this page the day it happens.</p>
       </div>
       <div class="card reveal">
-        <span class="kicker">Event-driven</span>
-        <h3 style="margin-top:.4rem">Retest after material change</h3>
-        <p>Any material change to authentication, data storage or the intake pipeline triggers a targeted retest of the affected surface <strong>before it reaches production</strong> — we do not wait for the next scheduled window. In practice this is what catches new weakness first, because new weakness arrives with new code, not with the calendar.</p>
+        <span class="kicker">Today</span>
+        <h3 style="margin-top:.4rem">Manual review before material changes</h3>
+        <p>Until a formal testing program is in place, material changes to authentication, data storage or the intake pipeline get a manual security review by the team before shipping — not an independent retest, but not nothing either.</p>
       </div>
       <div class="card reveal">
-        <span class="kicker">Continuous</span>
-        <h3 style="margin-top:.4rem">Automated scanning on every build</h3>
-        <p>Static analysis, dependency scanning and secret detection run on every commit. A build that introduces a high or critical finding does not merge. This runs continuously between scheduled tests, not as a substitute for them.</p>
+        <span class="kicker">Building now</span>
+        <h3 style="margin-top:.4rem">Automated scanning — on the roadmap</h3>
+        <p>Automated dependency and secret scanning is on our near-term roadmap, tied to the CI gate we're actively building. Today, dependency updates and code changes are reviewed manually before merge.</p>
       </div>
       <div class="card reveal">
-        <span class="kicker">Remediation windows</span>
-        <h3 style="margin-top:.4rem">Fixed by severity, not by mood</h3>
-        <p>Critical findings are remediated within 7 days, high within 30, medium within 90. Anything that cannot be fixed in window is escalated with a documented compensating control and an accepted-risk record.</p>
+        <span class="kicker">Our target</span>
+        <h3 style="margin-top:.4rem">Remediation windows — not yet formally tracked</h3>
+        <p>We don't yet have automatically enforced remediation SLAs. Our working target, once formal vulnerability tracking is in place: critical findings within 7 days, high within 30, medium within 90. Today, findings are fixed as they're found rather than tracked against a formal clock.</p>
       </div>
     </div>
-    <p class="disclaimer" style="margin-top:1.4rem">Clients under an active engagement may request a summary letter of the most recent penetration test under NDA. We do not publish raw findings, as they describe live systems.</p>
+    <p class="disclaimer" style="margin-top:1.4rem">Clients under an active engagement can request our current security roadmap and target dates under NDA.</p>
   </div></section>
 
   <!-- INCIDENT RESPONSE -->
   <section style="background:var(--surface)"><div class="wrap">
-    <div class="sec-head"><span class="eyebrow">04 · Incident response</span><h2>We maintain a written incident response plan.</h2>
-    <p class="lede">The plan is documented, assigns named roles, and is rehearsed — so the first time we run it is not during a real incident.</p></div>
+    <div class="sec-head"><span class="eyebrow">04 · Incident response</span><h2>We're formalizing a written incident response plan.</h2>
+    <p class="lede">A documented, rehearsed plan is the goal — we're not there yet. Here are the principles we commit to following if something goes wrong today, while we finish writing the formal version.</p></div>
     <div class="grid g3">
-      <div class="card reveal"><span class="kicker">Step 01</span><h3 style="margin-top:.4rem">Detect &amp; declare</h3><p>Monitoring and alerting escalate to an on-call responder. Any responder can declare an incident; nobody has to seek permission first.</p></div>
-      <div class="card reveal"><span class="kicker">Step 02</span><h3 style="margin-top:.4rem">Contain</h3><p>Containment takes priority over root cause. Credentials are rotated, affected access revoked, and the blast radius bounded before investigation continues.</p></div>
-      <div class="card reveal"><span class="kicker">Step 03</span><h3 style="margin-top:.4rem">Assess &amp; notify</h3><p>Scope and data exposure are established. Affected clients are notified without undue delay, with regulatory notification timelines treated as a ceiling, not a target.</p></div>
-      <div class="card reveal"><span class="kicker">Step 04</span><h3 style="margin-top:.4rem">Eradicate &amp; recover</h3><p>Root cause is removed and service restored from a known-good state, with integrity verified before traffic returns.</p></div>
-      <div class="card reveal"><span class="kicker">Step 05</span><h3 style="margin-top:.4rem">Post-incident review</h3><p>A blameless review is completed within 10 business days, producing corrective actions with named owners and due dates.</p></div>
-      <div class="card reveal"><span class="kicker">Ongoing</span><h3 style="margin-top:.4rem">Tabletop exercise</h3><p>The plan is rehearsed and the contact tree verified on a recurring basis. Gaps found in rehearsal are tracked like production findings.</p></div>
+      <div class="card reveal"><span class="kicker">Step 01</span><h3 style="margin-top:.4rem">Detect &amp; declare</h3><p>Anyone on the team can and will raise a suspected incident immediately; nobody has to seek permission first.</p></div>
+      <div class="card reveal"><span class="kicker">Step 02</span><h3 style="margin-top:.4rem">Contain</h3><p>Containment takes priority over root cause. Credentials get rotated, affected access revoked, and the blast radius bounded before investigation continues.</p></div>
+      <div class="card reveal"><span class="kicker">Step 03</span><h3 style="margin-top:.4rem">Assess &amp; notify</h3><p>Scope and data exposure get established. Affected clients are notified without undue delay, with regulatory notification timelines treated as a ceiling, not a target.</p></div>
+      <div class="card reveal"><span class="kicker">Step 04</span><h3 style="margin-top:.4rem">Eradicate &amp; recover</h3><p>Root cause gets removed and service restored from a known-good state, with integrity verified before traffic returns.</p></div>
+      <div class="card reveal"><span class="kicker">Step 05</span><h3 style="margin-top:.4rem">Post-incident review</h3><p>A blameless review follows, producing corrective actions with named owners and due dates.</p></div>
+      <div class="card reveal"><span class="kicker">Not started yet</span><h3 style="margin-top:.4rem">Tabletop exercise</h3><p>Once the written plan exists, we'll rehearse it on a recurring basis and track gaps like production findings. That rehearsal hasn't started yet.</p></div>
     </div>
   </div></section>
 
