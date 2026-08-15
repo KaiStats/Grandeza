@@ -166,7 +166,18 @@ function sanitize(raw) {
 
 /* ── handler ─────────────────────────────────────────────────────────────── */
 
-export async function onRequestPost({ request, env }) {
+/* Any uncaught throw in a Worker becomes a bare Cloudflare 502 that the widget
+   can't parse and the visitor can't act on. Nothing escapes this wrapper. */
+export async function onRequestPost(ctx) {
+  try {
+    return await handlePost(ctx);
+  } catch (err) {
+    console.error("maya/chat:", err && err.stack ? err.stack : err);
+    return json({ error: "Maya hit an unexpected error. Try again, or start the free scan at /scan." }, 500);
+  }
+}
+
+async function handlePost({ request, env }) {
   if (!env.ANTHROPIC_API_KEY) {
     return json({ error: "Maya isn't configured yet." }, 503);
   }
@@ -257,8 +268,9 @@ export async function onRequestPost({ request, env }) {
   return new Response(stream, {
     headers: {
       "content-type": "text/event-stream; charset=utf-8",
+      // No `Connection` header: it is a forbidden header in Workers and setting
+      // it throws, which surfaces to the visitor as a bare edge 502.
       "cache-control": "no-store, no-transform",
-      connection: "keep-alive",
       "x-content-type-options": "nosniff",
     },
   });
