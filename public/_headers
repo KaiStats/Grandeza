@@ -61,6 +61,11 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Maya's endpoint: never cached, never framed, never sniffed.
+/api/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex
+
 # Self-hosted images (once moved off the Higgsfield CDN — see deploy guide)
 /img/*
   Cache-Control: public, max-age=31536000, immutable
