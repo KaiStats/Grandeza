@@ -228,52 +228,59 @@ async function handlePost({ request, env }) {
   }
 
   if (!upstream.ok || !upstream.body) {
+    let detail = "";
+    try { detail = (await upstream.text()).slice(0, 300); } catch {}
+    console.error("maya/chat upstream", upstream.status, detail);
     return json({ error: "Maya is having trouble right now. Try again in a moment, or start the free scan at /scan." }, 502);
   }
 
-  // Re-emit only text deltas as clean SSE — never proxy raw upstream frames.
+  /* Re-emit only text deltas as clean SSE — never proxy raw upstream frames.
+     Uses TransformStream rather than a ReadableStream with an async start():
+     start() is expected to settle promptly, so looping there for the whole
+     response stalls the stream and the edge answers a bare 502. Here the
+     readable is returned immediately and the pump fills it in the background. */
   const enc = new TextEncoder();
   const dec = new TextDecoder();
-  const send = (o) => enc.encode(`data: ${JSON.stringify(o)}\n\n`);
+  const { readable, writable } = new TransformStream();
+  const writer = writable.getWriter();
+  const send = (o) => writer.write(enc.encode(`data: ${JSON.stringify(o)}\n\n`));
 
-  const stream = new ReadableStream({
-    async start(controller) {
-      const reader = upstream.body.getReader();
-      let buf = "";
-      try {
-        for (;;) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buf += dec.decode(value, { stream: true });
-          const lines = buf.split("\n");
-          buf = lines.pop() ?? "";
-          for (const line of lines) {
-            if (!line.startsWith("data:")) continue;
-            const payload = line.slice(5).trim();
-            if (!payload || payload === "[DONE]") continue;
-            let ev;
-            try { ev = JSON.parse(payload); } catch { continue; }
-            if (ev.type === "content_block_delta" && ev.delta?.type === "text_delta") {
-              controller.enqueue(send({ t: ev.delta.text }));
-            } else if (ev.type === "error") {
-              controller.enqueue(send({ error: "Maya stopped mid-answer. Try again." }));
-            }
+  (async () => {
+    const reader = upstream.body.getReader();
+    let buf = "";
+    try {
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        const lines = buf.split("\n");
+        buf = lines.pop() ?? "";
+        for (const line of lines) {
+          if (!line.startsWith("data:")) continue;
+          const payload = line.slice(5).trim();
+          if (!payload || payload === "[DONE]") continue;
+          let ev;
+          try { ev = JSON.parse(payload); } catch { continue; }
+          if (ev.type === "content_block_delta" && ev.delta?.type === "text_delta") {
+            await send({ t: ev.delta.text });
+          } else if (ev.type === "error") {
+            await send({ error: "Maya stopped mid-answer. Try again." });
           }
         }
-      } catch {
-        controller.enqueue(send({ error: "Connection dropped." }));
-      } finally {
-        controller.enqueue(send({ done: true }));
-        controller.close();
       }
-    },
-  });
+    } catch (err) {
+      console.error("maya/chat stream", err && err.stack ? err.stack : err);
+      try { await send({ error: "Connection dropped." }); } catch {}
+    } finally {
+      try { await send({ done: true }); } catch {}
+      try { await writer.close(); } catch {}
+    }
+  })();
 
-  return new Response(stream, {
+  return new Response(readable, {
     headers: {
       "content-type": "text/event-stream; charset=utf-8",
-      // No `Connection` header: it is a forbidden header in Workers and setting
-      // it throws, which surfaces to the visitor as a bare edge 502.
+      // No `Connection` header: it is forbidden in Workers and setting it throws.
       "cache-control": "no-store, no-transform",
       "x-content-type-options": "nosniff",
     },
