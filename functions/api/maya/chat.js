@@ -14,7 +14,11 @@ const MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 700;
 const MAX_TURNS = 24; // user+assistant messages retained
 const MAX_CHARS = 2000; // per user message
-const RATE = { limit: 20, windowSec: 3600 };
+/* Generous on purpose. A real prospect can run 20+ turns in a sitting, and a
+   shop's whole office shares one NAT'd IP — cutting a buying conversation off
+   mid-sentence costs far more than the tokens. This is an abuse ceiling, not a
+   usage budget. */
+const RATE = { limit: 80, windowSec: 3600 };
 
 /* ── Maya ────────────────────────────────────────────────────────────────── */
 
@@ -190,7 +194,7 @@ async function handlePost({ request, env }) {
 
   const ip = request.headers.get("cf-connecting-ip") || "anon";
   if (await rateLimited(env, ip)) {
-    return json({ error: "That's a lot of questions in one hour. Take the free scan at /scan, or email hello@grandeza.io." }, 429);
+    return json({ error: "I've hit my limit for this hour — sorry. The free scan at /scan is the faster path anyway, and it doesn't wait on me." }, 429);
   }
 
   let body;
