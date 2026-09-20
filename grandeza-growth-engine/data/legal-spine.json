@@ -1,0 +1,68 @@
+{
+  "_comment": "Verified law backing every legal claim in the content bank. Every citation below was independently checked against primary/secondary sources on 2026-07-18, not merely copied from a prior draft. Nothing here should be repeated in marketing copy unless it traces back to one of these entries.",
+  "_phantomLawGuardrail": [
+    "There is no 'Nevada SB 149'.",
+    "There is no Nevada 'October 1 deadline' for AI disclosure.",
+    "There is no 'Nevada AI fine' of $5,000 per interaction.",
+    "Nevada's comprehensive AI bill (SB 199) did not pass / died in committee.",
+    "The FCC's 'one-to-one consent' TCPA rule never took effect — do not describe it as live law or as something that 'took effect' in January 2026."
+  ],
+  "spine": [
+    {
+      "topic": "TCPA — outbound texts/calls",
+      "citations": ["47 U.S.C. § 227", "47 U.S.C. § 227(b)(3) (private right of action)", "47 U.S.C. § 227(c)(5) (do-not-call)", "47 C.F.R. § 64.1200 (implementing regulations)", "28 U.S.C. § 1658 (4-year federal statute of limitations)"],
+      "verifiedFacts": [
+        "Statutory damages: $500 per negligent violation, up to $1,500 per willful/knowing violation.",
+        "No cap on aggregate class-action exposure — damages are per-violation.",
+        "The pre-2023 prior-express-written-consent (PEWC) standard governs marketing texts to cell numbers."
+      ]
+    },
+    {
+      "topic": "TCPA — one-to-one consent rule (VACATED, not live law)",
+      "citations": ["Insurance Marketing Coalition Ltd. v. FCC, No. 24-10277 (11th Cir., decided Jan. 24, 2025)"],
+      "verifiedFacts": [
+        "The FCC's 2023 'one-to-one consent' rule (consent to one entity at a time; logically-and-topically-related calls only) was vacated by the Eleventh Circuit on Jan. 24, 2025, three days before its scheduled effective date.",
+        "The rule never took effect. The FCC subsequently deleted the vacated language and reinstated the prior rule text.",
+        "Do not say the rule 'took effect' or describe a 'January 2026' compliance deadline for it.",
+        "What remains live: the older PEWC standard, and the fact that shared/resold 'up to N companies' lead consent is exactly what plaintiffs' attorneys target under that standard.",
+        "10DLC carrier registration for A2P text traffic remains a separate, live requirement enforced by carriers, not the FCC rule above."
+      ]
+    },
+    {
+      "topic": "Nevada — call/communication recording consent",
+      "citations": ["NRS 200.620 (interception/recording of wire communications; all-party consent)", "NRS 200.650 (surreptitious recording of private in-person conversations; one-party consent)", "NRS 193.130 (felony categories and punishment)", "Lane v. Allstate Ins. Co., 969 P.2d 938 (Nev. 1998)", "Sharpe v. State, 350 P.3d 388 (Nev. 2015)"],
+      "verifiedFacts": [
+        "Nevada is a hybrid-consent state: ALL-party consent for phone/wire calls (NRS 200.620); ONE-party consent for in-person conversations where the recorder is a participant (NRS 200.650).",
+        "Lane v. Allstate (1998) established that NRS 200.620 applies to any person recording their own telephone conversation without the other party's consent — no exception for private parties.",
+        "Sharpe v. State (2015) extended NRS 200.620's 'wire communication' to cellular calls and text messages, not just landline calls.",
+        "Violations are a category D felony under NRS 193.130: 1–4 years imprisonment, plus a fine of up to $5,000.",
+        "Do not describe this as a 'physical-location test' — the operative question is consent of all parties to the communication, not where anyone is standing."
+      ]
+    },
+    {
+      "topic": "Nevada — data breach notification",
+      "citations": ["NRS 603A.220"],
+      "verifiedFacts": [
+        "Notice must be made 'in the most expedient time possible and without unreasonable delay,' subject to law-enforcement needs and the time needed to determine scope/restore system integrity.",
+        "There is NO fixed hour or day count (e.g. no '72-hour' rule) in Nevada law. 72 hours is a GDPR (EU) requirement, not Nevada's.",
+        "If notification is required to more than 1,000 persons at once, nationwide consumer reporting agencies must also be notified without unreasonable delay."
+      ]
+    },
+    {
+      "topic": "Nevada — data security / payment card data",
+      "citations": ["NRS 603A.210 (security measures for personal information)", "NRS 603A.215 (payment card data; PCI DSS compliance; encryption)", "NRS 603A.290 (Attorney General enforcement)"],
+      "verifiedFacts": [
+        "A business that accepts payment cards must comply with the current PCI Data Security Standard (PCI DSS) as adopted by the PCI Security Standards Council.",
+        "For personal information not covered by PCI DSS, businesses may not transmit it electronically outside a secure system without encryption meeting recognized standards (e.g. NIST guidance)."
+      ]
+    },
+    {
+      "topic": "FTC — deceptive practices / AI disclosure",
+      "citations": ["15 U.S.C. § 45 (FTC Act, Section 5)"],
+      "verifiedFacts": [
+        "Section 5 prohibits unfair or deceptive acts or practices in commerce, which the FTC has applied to AI systems that misrepresent themselves as human or misrepresent their capabilities.",
+        "This is a live, current federal standard — not a pending or proposed rule."
+      ]
+    }
+  ]
+}
