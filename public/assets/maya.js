@@ -466,6 +466,7 @@
         if (!acc.trim()) return fail();
         log.push({ role: "assistant", content: acc });
         persist();
+        if (PERSONA === "law") handoff(acc);
         busy = false;
         els.send.disabled = false;
         chips();
@@ -473,6 +474,51 @@
       })
       .catch(function (e) {
         fail(e && e.message ? e.message : "");
+      });
+  }
+
+  /* ── intake hand-off (law persona) ─────────────────────────────────────────
+     Maya ends a finished intake with a fixed "Intake summary" block. Parse it,
+     announce it to the page (window "maya:intake" event) and send it to the
+     server, which forwards it to the firm's automation webhook. */
+  var KEYS = {
+    "matter": "matter", "urgency": "urgency", "name": "name", "contact": "contact",
+    "preferred time": "preferredTime", "other parties": "otherParties",
+    "summary": "summary", "language": "language"
+  };
+  var lastIntake = "";
+
+  function parseIntake(text) {
+    var at = text.search(/intake summary/i);
+    if (at < 0) return null;
+    var out = {};
+    text.slice(at).split("\n").slice(1).forEach(function (ln) {
+      var m = ln.replace(/[*_`]/g, "").replace(/^\s*[-•]\s*/, "").match(/^\s*([A-Za-z ]+?)\s*:\s*(.+)$/);
+      if (!m) return;
+      var k = KEYS[m[1].toLowerCase()];
+      if (k && !out[k]) out[k] = m[2].trim();
+    });
+    return out.name && out.contact ? out : null;
+  }
+
+  function handoff(text) {
+    var intake = parseIntake(text);
+    if (!intake) return;
+    var sig = JSON.stringify(intake);
+    if (sig === lastIntake) return;
+    lastIntake = sig;
+    var detail = { intake: intake, status: "sending" };
+    try { dispatchEvent(new CustomEvent("maya:intake", { detail: detail })); } catch (e) {}
+    fetch("/api/maya/intake", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ intake: intake })
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (j) { detail.status = j && j.forwarded ? "forwarded" : j && j.ok ? "saved" : "failed"; })
+      .catch(function () { detail.status = "failed"; })
+      .then(function () {
+        try { dispatchEvent(new CustomEvent("maya:intake-status", { detail: detail })); } catch (e) {}
       });
   }
 

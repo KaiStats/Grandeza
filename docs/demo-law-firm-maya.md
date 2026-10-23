@@ -29,3 +29,26 @@ Prompt: `SYSTEM_LAW` in `functions/api/maya/chat.js`. Widget persona: `<body dat
   invent attorney names, reviews or results.
 - *Cost?* You pay per message to the model API. A typical intake chat costs cents.
 - *Can we change it?* Yes. Edit the prompt, redeploy, and test with the break-it list above.
+
+## Live automation (the "wow" moment)
+
+When Maya finishes an intake she writes a fixed-format **Intake summary**. The widget
+parses it and:
+1. shows it on the page's **Staff view → Intake inbox** (urgent leads in red, with a
+   running count of minutes saved), and
+2. POSTs it to `/api/maya/intake`, which forwards it to `INTAKE_WEBHOOK_URL`.
+
+### Connect Zapier (about 10 minutes, do it tonight)
+1. Zapier → Create Zap → Trigger: **Webhooks by Zapier → Catch Hook**. Copy the URL.
+2. Cloudflare Pages → Settings → Variables → add secret `INTAKE_WEBHOOK_URL` = that URL → redeploy.
+3. Run one chat on `/demo/law-intake` so Zapier receives a sample.
+4. Action: **Google Sheets → Create Spreadsheet Row** (columns: receivedAt, urgency,
+   name, contact, matter, preferredTime, otherParties, summary, language, source).
+5. Add **Filter: urgency = Urgent** → **Gmail → Send Email** to yourself with the subject
+   "URGENT intake: {{name}} — {{matter}}".
+6. Publish. During the demo, keep the Sheet and your inbox open in other tabs. The row
+   and the alert email arrive while they watch.
+
+Without the webhook the inbox still works and shows "Captured (webhook not connected)".
+
+Handout: `/demo/one-pager` (print to PDF, bring copies).

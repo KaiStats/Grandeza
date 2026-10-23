@@ -26,6 +26,28 @@
   .card h3{margin:0 0 .4rem;font-family:Georgia,serif;font-weight:400}
   .card p{margin:0 0 .9rem;color:var(--muted);font-size:.95rem}
   .card button{background:none;border:0;padding:0;color:#8a6a2a;font-weight:600;cursor:pointer;font-size:.95rem}
+  .staff{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.25rem;margin:0 0 3rem}
+  .staff-head{display:flex;flex-wrap:wrap;gap:.75rem;align-items:baseline;justify-content:space-between;margin-bottom:1rem}
+  .staff-head h2{margin:0;font-family:Georgia,serif;font-weight:400;font-size:1.4rem}
+  .tag{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a6a2a;background:#f6eedc;border-radius:4px;padding:.15rem .45rem}
+  .stats{display:flex;gap:1.5rem;font-size:.9rem;color:var(--muted)}
+  .stats b{color:var(--ink);font-size:1.1rem}
+  .empty{color:var(--muted);font-size:.95rem;border:1px dashed var(--line);border-radius:8px;padding:1.25rem;text-align:center}
+  .lead{border:1px solid var(--line);border-left:4px solid #6b8aa3;border-radius:8px;padding:1rem;margin-top:.75rem;animation:in .4s ease}
+  .lead.urgent{border-left-color:#c0392b;background:#fff8f7}
+  .lead-top{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between}
+  .lead-top strong{font-size:1.05rem}
+  .pill{font-size:.75rem;font-weight:700;border-radius:999px;padding:.15rem .6rem;background:#e8eef3;color:#2c4659}
+  .pill.urgent{background:#c0392b;color:#fff}
+  .lead dl{display:grid;grid-template-columns:max-content 1fr;gap:.25rem .9rem;margin:.75rem 0 .5rem;font-size:.92rem}
+  .lead dt{color:var(--muted)}
+  .lead dd{margin:0}
+  .flow{display:flex;flex-wrap:wrap;gap:.4rem;font-size:.8rem;color:var(--muted)}
+  .flow span{border:1px solid var(--line);border-radius:4px;padding:.1rem .45rem}
+  .flow span.ok{border-color:#9cc9a6;color:#256a35;background:#f1f8f2}
+  .flow span.alert{border-color:#e3a39b;color:#9b2c20;background:#fdf1ef}
+  @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.lead{animation:none}}
   footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padding:1.5rem 0 6rem}
 </style>
 </head>
@@ -49,8 +71,57 @@
     <div class="card"><h3>Criminal defense</h3><p>DUI, misdemeanors and felonies. Arrested? Call now.</p><button data-maya-open="My brother was just arrested last night.">Talk to Maya →</button></div>
     <div class="card"><h3>Estate planning</h3><p>Wills, trusts and powers of attorney for Nevada families.</p><button data-maya-open="I want to set up a will and a trust.">Talk to Maya →</button></div>
   </div>
+  <section class="staff" aria-live="polite">
+    <div class="staff-head">
+      <div><span class="tag">Staff view</span> <h2>Intake inbox</h2></div>
+      <div class="stats"><span><b id="nLeads">0</b> new leads</span><span><b id="nUrgent">0</b> urgent</span><span><b id="nMin">0</b> min of staff time saved</span></div>
+    </div>
+    <div id="leads"><div class="empty">Finish a chat with Maya and the lead lands here automatically: sorted, flagged and ready for the conflict check.</div></div>
+  </section>
 </main>
 <footer><div class="wrap">Attorney advertising. Contacting us through this site does not create an attorney-client relationship. Demonstration only.</div></footer>
+<script>
+(function () {
+  // Live staff view: listens for completed intakes from the Maya widget.
+  var MIN_PER_LEAD = 12; // typical manual phone intake + data entry
+  var leads = document.getElementById("leads");
+  var cards = {};
+  var n = 0, urgent = 0;
+  function esc(s) { return String(s || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function flow(d) {
+    var u = /urgent/i.test(d.intake.urgency);
+    var crm = d.status === "forwarded" ? '<span class="ok">✓ Sent to CRM / Sheet</span>'
+      : d.status === "sending" ? "<span>Sending to CRM…</span>"
+      : d.status === "saved" ? "<span>✓ Captured (webhook not connected)</span>"
+      : '<span class="alert">CRM hand-off failed</span>';
+    return '<span class="ok">✓ Practice area sorted</span>' + crm +
+      '<span class="ok">✓ Queued for conflict check</span>' +
+      (u ? '<span class="alert">⚑ Urgent alert to on-call attorney</span>' : "<span>Callback within 1 business day</span>");
+  }
+  addEventListener("maya:intake", function (e) {
+    var d = e.detail, i = d.intake, u = /urgent/i.test(i.urgency);
+    if (!n) leads.innerHTML = "";
+    n++; if (u) urgent++;
+    document.getElementById("nLeads").textContent = n;
+    document.getElementById("nUrgent").textContent = urgent;
+    document.getElementById("nMin").textContent = n * MIN_PER_LEAD;
+    var el = document.createElement("div");
+    el.className = "lead" + (u ? " urgent" : "");
+    el.innerHTML =
+      '<div class="lead-top"><strong>' + esc(i.name) + '</strong><span class="pill' + (u ? " urgent" : "") + '">' + (u ? "URGENT" : "Standard") + "</span></div>" +
+      "<dl><dt>Matter</dt><dd>" + esc(i.matter) + "</dd><dt>Contact</dt><dd>" + esc(i.contact) +
+      "</dd><dt>Best time</dt><dd>" + esc(i.preferredTime) + "</dd><dt>Conflict check</dt><dd>" + esc(i.otherParties) +
+      "</dd><dt>Summary</dt><dd>" + esc(i.summary) + "</dd>" + (i.language ? "<dt>Language</dt><dd>" + esc(i.language) + "</dd>" : "") + "</dl>" +
+      '<div class="flow">' + flow(d) + "</div>";
+    leads.insertBefore(el, leads.firstChild);
+    cards[JSON.stringify(i)] = el;
+  });
+  addEventListener("maya:intake-status", function (e) {
+    var el = cards[JSON.stringify(e.detail.intake)];
+    if (el) el.querySelector(".flow").innerHTML = flow(e.detail);
+  });
+})();
+</script>
 <script src="/assets/maya.js" defer></script>
 </body>
 </html>
