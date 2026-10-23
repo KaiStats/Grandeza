@@ -412,7 +412,9 @@
           els.ta.style.height = Math.min(els.ta.scrollHeight, 120) + "px";
         }
       }
-      bubble("error", msg || P.fallback);
+      // Server messages are written for Grandeza; drop its /scan pointer elsewhere.
+      if (msg && PERSONA !== "grandeza") msg = msg.replace(/[,.]?[^.,—]*\/scan[^.]*\.?/g, ".").replace(/\.\.+/g, ".").replace(/—\s*\./, ".").trim();
+      bubble("error", msg && msg !== "." ? msg : P.fallback);
       busy = false;
       els.send.disabled = false;
       chips();
@@ -427,9 +429,10 @@
     })
       .then(function (res) {
         if (!res.ok || !res.body) {
+          var code = " (error " + res.status + ")";
           return res.json().then(
-            function (j) { throw new Error(j && j.error); },
-            function () { throw new Error(""); }
+            function (j) { throw new Error(j && j.error ? j.error : P.fallback + code); },
+            function () { throw new Error(P.fallback + code); }
           );
         }
         var reader = res.body.getReader();
@@ -463,7 +466,7 @@
       })
       .then(function () {
         clearTimeout(timer);
-        if (!acc.trim()) return fail();
+        if (!acc.trim()) return fail(P.fallback + " (empty reply)");
         log.push({ role: "assistant", content: acc });
         persist();
         if (PERSONA === "law") handoff(acc);
