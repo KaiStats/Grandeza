@@ -5,6 +5,7 @@
    Talks only to /api/maya/chat on this origin. No third-party requests, no
    cookies, no tracking. Transcript lives in sessionStorage and dies with the tab.
    Suppress on any page with:  <body data-maya="off">
+   Switch persona with:        <body data-maya-persona="law">  (demo law-firm intake)
    ============================================================================ */
 (function () {
   "use strict";
@@ -13,21 +14,56 @@
   window.__gzMaya = true;
 
   var ENDPOINT = "/api/maya/chat";
-  var STORE = "gz-maya-log";
   var SEEN = "gz-maya-seen";
   var MAXLEN = 2000;
 
-  var GREETING =
-    "I'm Maya — Grandeza's intake agent. I can tell you what the free scan checks, " +
-    "which door fits your shop, or what the TCPA actually requires of contractors. " +
-    "What answers your phone and web form right now?";
-
-  var CHIPS = [
-    "What does the free scan check?",
-    "What would this cost?",
-    "We already use a bot — what changes?",
-    "What's my TCPA exposure?"
-  ];
+  /* Copy per persona. The server holds the matching system prompt; the
+     browser only says which one it wants. */
+  var PERSONAS = {
+    grandeza: {
+      store: "gz-maya-log",
+      greeting:
+        "I'm Maya — Grandeza's intake agent. I can tell you what the free scan checks, " +
+        "which door fits your shop, or what the TCPA actually requires of contractors. " +
+        "What answers your phone and web form right now?",
+      chips: [
+        "What does the free scan check?",
+        "What would this cost?",
+        "We already use a bot — what changes?",
+        "What's my TCPA exposure?"
+      ],
+      org: "Grandeza's intake agent",
+      sub: "Grandeza intake agent · web &amp; SMS",
+      placeholder: "Ask about your intake…",
+      legal: "Maya is an AI agent, not a lawyer — Grandeza does compliance engineering, not legal advice. " +
+        'Don\'t send customer data. <a href="/privacy">Privacy</a>.',
+      fallback: "Maya couldn't answer just then. Your message is back in the box — try again, or start the free scan at /scan."
+    },
+    law: {
+      store: "gz-maya-law-log",
+      greeting:
+        "Hi, I'm Maya, the intake assistant for Silver Mesa Law Group. I can help you figure out " +
+        "whether we handle your kind of matter and set up a free consultation with an attorney. " +
+        "What's going on that brings you here today?",
+      chips: [
+        "I was hurt in a car accident",
+        "I need help with a divorce",
+        "Do I have a case?",
+        "What does a consultation cost?"
+      ],
+      org: "Silver Mesa Law Group's intake assistant",
+      sub: "Silver Mesa Law Group · client intake",
+      placeholder: "Tell us briefly what happened…",
+      legal: "Maya is an AI assistant, not an attorney. Chatting does not create an attorney-client relationship " +
+        "and is not legal advice. Don't share confidential details here.",
+      fallback: "Maya couldn't answer just then. Your message is back in the box — try again in a moment."
+    }
+  };
+  var PERSONA = document.body && document.body.getAttribute("data-maya-persona") === "law" ? "law" : "grandeza";
+  var P = PERSONAS[PERSONA];
+  var STORE = P.store;
+  var GREETING = P.greeting;
+  var CHIPS = P.chips;
 
   var reduce = false;
   try { reduce = matchMedia("(prefers-reduced-motion:reduce)").matches; } catch (e) {}
@@ -132,7 +168,7 @@
     fab.className = "gz-maya-fab";
     fab.setAttribute("aria-haspopup", "dialog");
     fab.setAttribute("aria-expanded", "false");
-    fab.setAttribute("aria-label", "Ask Maya, Grandeza's intake agent");
+    fab.setAttribute("aria-label", "Ask Maya, " + P.org);
     fab.innerHTML = '<span class="gz-maya-av" aria-hidden="true">M</span><span>Ask Maya</span>';
     var seen = false;
     try { seen = sessionStorage.getItem(SEEN) === "1"; } catch (e) {}
@@ -148,23 +184,22 @@
     panel.className = "gz-maya-panel";
     panel.setAttribute("role", "dialog");
     panel.setAttribute("aria-modal", "false");
-    panel.setAttribute("aria-label", "Chat with Maya, Grandeza's intake agent");
+    panel.setAttribute("aria-label", "Chat with Maya, " + P.org);
     panel.hidden = true;
     panel.innerHTML =
       '<div class="gz-maya-head">' +
         '<span class="gz-maya-av" aria-hidden="true">M</span>' +
-        '<div><h2>Maya</h2><p>Grandeza intake agent · web &amp; SMS</p></div>' +
+        '<div><h2>Maya</h2><p>' + P.sub + '</p></div>' +
         '<button type="button" class="gz-maya-x" aria-label="Close chat">' + icon('<path d="M18 6L6 18M6 6l12 12"/>', 17) + "</button>" +
       "</div>" +
       '<div class="gz-maya-body" role="log" aria-live="polite" aria-relevant="additions text"></div>' +
       '<div class="gz-maya-chips"></div>' +
       '<div class="gz-maya-foot">' +
         '<div class="gz-maya-row">' +
-          '<textarea rows="1" placeholder="Ask about your intake…" aria-label="Message Maya" maxlength="' + MAXLEN + '"></textarea>' +
+          '<textarea rows="1" placeholder="' + P.placeholder + '" aria-label="Message Maya" maxlength="' + MAXLEN + '"></textarea>' +
           '<button type="button" class="gz-maya-send" aria-label="Send">' + icon('<path d="M4 12h15M13 6l6 6-6 6"/>', 17) + "</button>" +
         "</div>" +
-        '<p class="gz-maya-legal">Maya is an AI agent, not a lawyer — Grandeza does compliance engineering, not legal advice. ' +
-          'Don\'t send customer data. <a href="/privacy">Privacy</a>.</p>' +
+        '<p class="gz-maya-legal">' + P.legal + '</p>' +
       "</div>";
     document.body.appendChild(panel);
 
@@ -377,7 +412,7 @@
           els.ta.style.height = Math.min(els.ta.scrollHeight, 120) + "px";
         }
       }
-      bubble("error", msg || "Maya couldn't answer just then. Your message is back in the box — try again, or start the free scan at /scan.");
+      bubble("error", msg || P.fallback);
       busy = false;
       els.send.disabled = false;
       chips();
@@ -388,7 +423,7 @@
       method: "POST",
       headers: { "content-type": "application/json" },
       signal: ctl ? ctl.signal : undefined,
-      body: JSON.stringify({ messages: log.slice(-24), page: location.pathname })
+      body: JSON.stringify({ messages: log.slice(-24), page: location.pathname, persona: PERSONA })
     })
       .then(function (res) {
         if (!res.ok || !res.body) {
