@@ -10,7 +10,7 @@
  * The API key is never exposed: the browser talks only to this origin.
  */
 
-const MODEL = "claude-sonnet-4-6";
+export const MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 700;
 const MAX_TURNS = 24; // user+assistant messages retained
 const MAX_CHARS = 2000; // per user message
